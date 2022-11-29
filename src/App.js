@@ -4,7 +4,7 @@ import Base from './components/Base/Base';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Base></Base>
     </div>
   );
