@@ -30,10 +30,18 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(10px);
   }
+
   100% {
     transform: translateY(0px);
   }
+}
+
+.active {
+  background-color: #ee3c4d;
+  color: white;
+  border-radius: 20px;
 }

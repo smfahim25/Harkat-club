@@ -8,7 +8,7 @@ const Home = () => {
             .then(res => res.json())
             .then(data => setClub(data))
     }, []);
-    console.log(club?.club_id?.club_name);
+    // console.log(club?.club_id?.club_name);
     return (
         <div className={style.backroundHome}>
             <section>

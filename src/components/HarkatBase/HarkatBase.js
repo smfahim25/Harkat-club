@@ -1,21 +1,17 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import LeftSidebar from '../LeftSidebar/LeftSidebar';
-import Navbar from '../Navbar/Navbar';
-import NewsFeed from '../NewsFeed/NewsFeed';
 import RightSidebar from '../RightSidebar/RightSidebar';
-import Home from './Home';
 
-const Base = () => {
+const HarkatBase = () => {
     return (
         <div>
-            <Home></Home>
-            <Navbar></Navbar>
             <div className='grid grid-cols-11 gap-5 lg:justify-items-stretch 2xl:justify-items-center'>
                 <div className='col-span-3'>
                     <LeftSidebar></LeftSidebar>
                 </div>
                 <div className='col-span-5'>
-                    <NewsFeed></NewsFeed>
+                    <Outlet></Outlet>
                 </div>
                 <div className='col-span-3'>
                     <RightSidebar></RightSidebar>
@@ -25,4 +21,4 @@ const Base = () => {
     );
 };
 
-export default Base;
+export default HarkatBase;
