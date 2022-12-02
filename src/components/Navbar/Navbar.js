@@ -1,33 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { AiOutlineHome } from 'react-icons/ai';
+import { BiNews } from 'react-icons/bi';
+import { MdOutlinePhotoSizeSelectActual } from 'react-icons/md';
+import { BsListCheck } from 'react-icons/bs';
+import { CgProfile } from 'react-icons/cg';
+import { FiSettings } from 'react-icons/fi';
 const Navbar = () => {
+    const [navbar, setNavbar] = useState(false);
+    const navbarSticky = () => {
+        if (window.scrollY >= 480) {
+            setNavbar(true);
+        }
+        else {
+            setNavbar(false);
+        }
+    }
+    window.addEventListener('scroll', navbarSticky);
     return (
         <div>
-            <header className="p-4 dark:bg-gray-800 dark:text-gray-100">
-                <div className="container flex justify-between h-10 mx-auto sm:justify-center sm:space-x-10 lg:justify-center lg:space-x-20">
-                    <ul className="items-stretch hidden md:space-x-1 lg:space-x-16 md:flex text-center">
-                        <li className="flex bg-primary w-40 rounded-full hover:bg-secondary hover:text-white">
-                            <NavLink to='/' className="w-40 pt-2">HOME</NavLink>
+            <nav className={navbar ? 'fixed top-0 ml-0 bg-white z-30 w-full p-4' : 'p-4'}>
+                <div className="container flex justify-between h-10 mx-auto sm:justify-center sm:space-x-20 lg:justify-center lg:space-x-20">
+                    <ul className="items-stretch hidden sm:space-x-16 md:space-x-20 lg:space-x-24 md:flex text-center">
+                        <li className="flex justify-center pt-2 hover:text-netutral">
+                            <NavLink to='/' className="text-3xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Home"><AiOutlineHome /></NavLink>
                         </li>
-                        <li className="flex bg-primary w-40 rounded-full hover:bg-secondary hover:text-white">
-                            <NavLink to='/newsfeed' className="w-40 pt-2">FEED</NavLink>
+                        <li className="flex justify-center pt-2 hover:text-netutral">
+                            <NavLink to='/newsfeed' className="text-3xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Feed"><BiNews /></NavLink>
                         </li>
-                        <li className="flex bg-primary w-40 rounded-full hover:bg-secondary hover:text-white">
-                            <NavLink to='/gallery' className="w-40 pt-2">GALLERY</NavLink>
+                        <li className="flex justify-center pt-2 hover:text-netutral">
+                            <NavLink to='/gallery' className="text-3xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Gallery"><MdOutlinePhotoSizeSelectActual /></NavLink>
                         </li>
-                        <li className="flex bg-primary w-40 rounded-full hover:bg-secondary hover:text-white">
-                            <NavLink to='/activities' className="w-40 pt-2">ACTIVITIES</NavLink>
+                        <li className="flex justify-center pt-2 hover:text-netutral">
+                            <NavLink to='/activities' className="text-3xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Activities"><BsListCheck /></NavLink>
                         </li>
-                        <li className="flex bg-primary w-40 rounded-full hover:bg-secondary hover:text-white">
-                            <NavLink to='/myprofile' className="w-40 pt-2">MY PROFILE</NavLink>
+                        <li className="flex justify-center pt-2 hover:text-netutral">
+                            <NavLink to='/myprofile' className="text-3xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Profile"><CgProfile /></NavLink>
                         </li>
-                        <li className="flex bg-primary w-40 rounded-full hover:bg-secondary hover:text-white">
-                            <NavLink to='/settings' className="w-40 pt-2">SETTINGS</NavLink>
+                        <li className="flex justify-center pt-2 hover:text-netutral">
+                            <NavLink to='/settings' className="text-3xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Settings"><FiSettings /></NavLink>
                         </li>
                     </ul>
                 </div>
-            </header>
+            </nav>
         </div>
     );
 };

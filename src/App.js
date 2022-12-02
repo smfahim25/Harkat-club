@@ -31,17 +31,17 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<HarkatBase />}>
-          <Route path='/' element={<NewsFeed />}></Route>
+          <Route path='/:id' element={<NewsFeed />}></Route>
           <Route path='/newsfeed' element={<NewsFeed />}></Route>
           <Route path='/clubdetails' element={<ClubDetails />}></Route>
           <Route path='/acchomplishment' element={<Acchomplishment />}></Route>
-          <Route path='/contactgoveringbody' element={<ContactGoveringBody />}></Route>
+          <Route path='/contactgoverningbody' element={<ContactGoveringBody />}></Route>
           <Route path='/messagebox' element={<MessageBox />}></Route>
           <Route path='/membersrequest' element={<MembersRequest />}></Route>
           <Route path='/members' element={<Members />}></Route>
           <Route path='/skillavailable' element={<SkillsAvailable />}></Route>
           <Route path='/skillfor' element={<SkillsLookingFor />}></Route>
-          <Route path='/postactivities' element={<PostActivities />}></Route>
+          <Route path='/pastactivities' element={<PostActivities />}></Route>
           <Route path='/currentactivities' element={<CurrentActivities />}></Route>
           <Route path='/futureactivity' element={<FutureActivity />}></Route>
           <Route path='/proposeactivity' element={<ProposeActivity />}></Route>

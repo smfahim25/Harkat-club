@@ -41,7 +41,7 @@
 }
 
 .active {
-  background-color: #ee3c4d;
-  color: white;
-  border-radius: 20px;
+  background-color: #ee3c4d !important;
+  color: white !important;
+  font-weight: bold !important;
 }

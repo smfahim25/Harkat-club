@@ -7,10 +7,8 @@ module.exports = {
     themes: [
       {
         mnftheme: {
-          primary: "#ffe2e5",
-          secondary: "#ee3c4d",
-          accent: "#3A4256",
-          neutral: "#3d4451",
+          accent: "#ffe2e5",
+          neutral: "#ee3c4d",
           "base-100": "#ffffff",
         },
       },
