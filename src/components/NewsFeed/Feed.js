@@ -10,7 +10,6 @@ const Feed = (props) => {
                         <img src="https://images.ctfassets.net/hrltx12pl8hq/4ekcWeXQuA7uD5C1fcnlNJ/b22f0c5de296d041904bc00f441af9cc/thumb_july22_15.jpg?fit=fill&w=480&h=270" alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
                             <h2 className="text-sm font-semibold leading-none">{title}</h2>
-                            <span className="inline-block text-xs leading-none">somewhere</span>
                         </div>
                     </div>
                     <button title="Open options" type="button" className='cursor-pointer'>
