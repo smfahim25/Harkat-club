@@ -28,27 +28,26 @@ function App() {
     <div>
       <Routes>
         <Route path='/' element={<MyClubs />}></Route>
-        <Route path='/club' element={<HarkatBase />}>
-          <Route path='/club/:id' element={<NewsFeed />}></Route>
-          <Route path='/club/newsfeed' element={<NewsFeed />}></Route>
-          <Route path='/club/clubdetails' element={<ClubDetails />}></Route>
-          <Route path='/club/acchomplishment' element={<Acchomplishment />}></Route>
-          <Route path='/club/contactgoverningbody' element={<ContactGoveringBody />}></Route>
-          <Route path='/club/messagebox' element={<MessageBox />}></Route>
-          <Route path='/club/membersrequest' element={<MembersRequest />}></Route>
-          <Route path='/club/members' element={<Members />}></Route>
-          <Route path='/club/skillavailable' element={<SkillsAvailable />}></Route>
-          <Route path='/club/skillfor' element={<SkillsLookingFor />}></Route>
-          <Route path='/club/pastactivities' element={<PostActivities />}></Route>
-          <Route path='/club/currentactivities' element={<CurrentActivities />}></Route>
-          <Route path='/club/futureactivity' element={<FutureActivity />}></Route>
-          <Route path='/club/proposeactivity' element={<ProposeActivity />}></Route>
-          <Route path='/club/gallery' element={<Pictures />}></Route>
-          <Route path='/club/videos' element={<Videos />}></Route>
-          <Route path='/club/announcement' element={<Announcements />}></Route>
-          <Route path='/club/news' element={<News />}></Route>
-          <Route path='/club/promoteclub' element={<PromoteClub />}></Route>
-          <Route path='/club/uploadpost' element={<UploadPost />}></Route>
+        <Route path='/:id' element={<HarkatBase />}>
+          <Route path='newsfeed' element={<NewsFeed />}></Route>
+          <Route path='clubdetails' element={<ClubDetails />}></Route>
+          <Route path='acchomplishment' element={<Acchomplishment />}></Route>
+          <Route path='contactgoverningbody' element={<ContactGoveringBody />}></Route>
+          <Route path='messagebox' element={<MessageBox />}></Route>
+          <Route path='membersrequest' element={<MembersRequest />}></Route>
+          <Route path='members' element={<Members />}></Route>
+          <Route path='skillavailable' element={<SkillsAvailable />}></Route>
+          <Route path='skillfor' element={<SkillsLookingFor />}></Route>
+          <Route path='pastactivities' element={<PostActivities />}></Route>
+          <Route path='currentactivities' element={<CurrentActivities />}></Route>
+          <Route path='futureactivity' element={<FutureActivity />}></Route>
+          <Route path='proposeactivity' element={<ProposeActivity />}></Route>
+          <Route path='gallery' element={<Pictures />}></Route>
+          <Route path='videos' element={<Videos />}></Route>
+          <Route path='announcement' element={<Announcements />}></Route>
+          <Route path='news' element={<News />}></Route>
+          <Route path='promoteclub' element={<PromoteClub />}></Route>
+          <Route path='uploadpost' element={<UploadPost />}></Route>
         </Route>
       </Routes>
     </div>

@@ -17,29 +17,28 @@ const Navbar = () => {
         }
     }
     window.addEventListener('scroll', navbarSticky);
-    console.log(window.scrollY);
     return (
         <div>
             <nav className={navbar ? 'fixed top-0 ml-0 bg-white z-30 w-full pt-3 pb-5' : 'pt-3 pb-5'}>
                 <div className="container flex justify-between h-10 mx-auto sm:justify-center sm:space-x-20 lg:justify-center lg:space-x-20">
                     <ul className="items-stretch hidden sm:space-x-16 md:space-x-20 lg:space-x-24 md:flex text-center">
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='/club/1' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Home"><AiOutlineHome /></NavLink>
+                            <NavLink to='home' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Home"><AiOutlineHome /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='/club/newsfeed' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Feed"><BiNews /></NavLink>
+                            <NavLink to={`newsfeed`} className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Feed"><BiNews /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='/club/gallery' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Gallery"><MdOutlinePhotoSizeSelectActual /></NavLink>
+                            <NavLink to='gallery' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Gallery"><MdOutlinePhotoSizeSelectActual /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='/club/activities' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Activities"><BsListCheck /></NavLink>
+                            <NavLink to='activities' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Activities"><BsListCheck /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='/club/myprofile' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Profile"><CgProfile /></NavLink>
+                            <NavLink to='myprofile' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Profile"><CgProfile /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='/club/settings' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Settings"><FiSettings /></NavLink>
+                            <NavLink to='settings' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Settings"><FiSettings /></NavLink>
                         </li>
                     </ul>
                 </div>

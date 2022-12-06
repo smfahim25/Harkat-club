@@ -8,7 +8,6 @@ const NewsFeed = () => {
             .then(res => res.json())
             .then(data => setPost(data))
     }, []);
-    // console.log(posts);
     return (
         <div className={`${styles.keep_scrolling} overflow-y-auto h-[720px] p-10`}>
             {
