@@ -4,7 +4,7 @@ const Feed = (props) => {
     const { id, title, thumbnailUrl } = props.post;
     return (
         <div>
-            <div className="rounded-md shadow-lg w-full 2xl:w[800px] mb-16">
+            <div className="rounded-md shadow-md w-full 2xl:w[800px] mb-10 bg-slate-50">
                 <div className="flex items-center justify-between p-3 cursor-pointer">
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <img src="https://images.ctfassets.net/hrltx12pl8hq/4ekcWeXQuA7uD5C1fcnlNJ/b22f0c5de296d041904bc00f441af9cc/thumb_july22_15.jpg?fit=fill&w=480&h=270" alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />

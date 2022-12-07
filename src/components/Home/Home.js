@@ -10,11 +10,11 @@ const Home = ({ id }) => {
         <div>
             {
                 isLoading ? <MyclubLoading /> : <section className={style.backroundHome}>
-                    <div className='flex flex-col absolute'>
+                    <div className='flex flex-col absolute mt-16'>
                         <div className='w-96 mt-16 ml-10 bg-accent rounded-[20px] text-center'>
                             <div className='flex flex-col text-gray-900'>
-                                <div className="flex px-4 pt-5 md:px-10 lg:px-10">
-                                    <h1 className="text-5xl font-bold w-64 mt-5 leading-none sm:text-4xl xl:max-w-md text-gray-900">{club?.club?.club_id?.club_name}</h1>
+                                <div className="flex px-4 items-center pt-5 md:px-10 lg:px-10">
+                                    <h1 className="text-5xl font-bold w-64 leading-none sm:text-4xl xl:max-w-md text-gray-900">{club?.club?.club_id?.club_name}</h1>
                                     <img alt="" src="https://images.pexels.com/photos/1323206/pexels-photo-1323206.jpeg?cs=srgb&dl=pexels-mixu-1323206.jpg&fm=jpg" className="object-cover w-20 h-20 rounded-full shadow" />
                                 </div>
                                 <div>
