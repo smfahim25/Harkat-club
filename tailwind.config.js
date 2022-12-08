@@ -1,7 +1,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'screen': '115vh',
+      }
+    },
   },
   daisyui: {
     themes: [
@@ -12,8 +16,6 @@ module.exports = {
           "base-100": "#ffffff",
         },
       },
-      "dark",
-      "cupcake",
     ],
   },
   plugins: [require("daisyui")],

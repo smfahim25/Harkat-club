@@ -9,7 +9,7 @@ const Feed = (props) => {
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <img src="https://images.ctfassets.net/hrltx12pl8hq/4ekcWeXQuA7uD5C1fcnlNJ/b22f0c5de296d041904bc00f441af9cc/thumb_july22_15.jpg?fit=fill&w=480&h=270" alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
-                            <h2 className="text-sm font-semibold leading-none">{title}</h2>
+                            <h2 className="text-xl font-semibold leading-none">{title}</h2>
                         </div>
                     </div>
                     <button title="Open options" type="button" className='cursor-pointer'>
@@ -20,7 +20,7 @@ const Feed = (props) => {
                         </svg>
                     </button>
                 </div>
-                <img src={thumbnailUrl} alt="" className="object-cover object-center w-full h-fit" />
+                <img src={thumbnailUrl} alt="" className="object-cover object-center w-full h-[400px]" />
                 <div className="p-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
@@ -63,7 +63,7 @@ const Feed = (props) => {
                         <p className="text-sm">
                             <span className="text-base font-semibold">leroy_jenkins72</span>Nemo ea quasi debitis impedit!
                         </p>
-                        <input type="text" placeholder="Add a comment..." className="w-full py-0.5 dark:bg-transparent border-none rounded text-sm pl-0 dark:text-gray-100" />
+                        <input type="text" placeholder="Add a comment..." className="w-full py-0.5 dark:bg-transparent border-none text-sm pl-0 text-gray-100" />
                     </div>
                 </div>
             </div>

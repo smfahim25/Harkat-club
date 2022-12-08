@@ -5,8 +5,8 @@ import styles from '../CSS/RightSidebar.module.css'
 const RightSidebar = () => {
     return (
         <div>
-            <div className={`${styles.keep_scrolling} h-[720px] pt-4 ml-5`}>
-                <nav className="space-y-5 text-sm w-76 ml-2">
+            <div className={`${styles.keep_scrolling} h-[720px] pt-4 mt-5`}>
+                <nav className="space-y-5 text-sm w-76">
                     <div className="space-y-2">
                         <Link to='announcement' className="text-2xl font-extrabold tracking-widest uppercase hover:bg-accent  p-3 rounded-lg">Annoucements</Link>
                         <div className="flex flex-col space-y-1">

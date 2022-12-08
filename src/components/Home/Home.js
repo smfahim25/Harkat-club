@@ -6,11 +6,12 @@ import MyclubLoading from '../isLoading/MyclubLoading';
 const Home = ({ id }) => {
 
     const { data: club, isLoading } = useGetClubDataQuery(id);
+    console.log(club);
     return (
         <div>
             {
                 isLoading ? <MyclubLoading /> : <section className={style.backroundHome}>
-                    <div className='flex flex-col absolute mt-16'>
+                    <div className='flex flex-col absolute mt-12'>
                         <div className='w-96 mt-16 ml-10 bg-accent rounded-[20px] text-center'>
                             <div className='flex flex-col text-gray-900'>
                                 <div className="flex px-4 items-center pt-5 md:px-10 lg:px-10">

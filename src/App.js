@@ -29,6 +29,7 @@ function App() {
       <Routes>
         <Route path='/' element={<MyClubs />}></Route>
         <Route path='/:id' element={<HarkatBase />}>
+          <Route path='' element={<NewsFeed />}></Route>
           <Route path='newsfeed' element={<NewsFeed />}></Route>
           <Route path='clubdetails' element={<ClubDetails />}></Route>
           <Route path='acchomplishment' element={<Acchomplishment />}></Route>

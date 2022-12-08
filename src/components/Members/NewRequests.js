@@ -13,7 +13,7 @@ const NewRequests = () => {
                         </div>
                     </span>
                     <div className="flex-1 p-2">
-                        <p className="text-md">Ad obcaecati eaque eum aut</p>
+                        <p className="text-xl">Ad obcaecati eaque eum aut</p>
                     </div>
                     <div className='mr-5 border rounded-full px-2 bg-accent'>Primary Skill</div>
                 </div>

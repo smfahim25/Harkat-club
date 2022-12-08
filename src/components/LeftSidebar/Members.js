@@ -12,7 +12,7 @@ const Members = () => {
     return (
         <div>
             <div>
-                <h1 className='text-center bg-accent p-3 rounded-full text-xl font-extrabold'>All Members</h1>
+                <h1 className='mt-10 text-center bg-accent p-3 rounded-full text-xl font-extrabold'>All Members</h1>
                 {
                     isLoading ? <MyclubLoading /> : <div>
                         <div>
