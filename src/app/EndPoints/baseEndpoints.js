@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const URL = "http://115.246.78.132/harkat";
+const URL = "https://mynextfilm.com/harkat";
 export const baseApi = createApi({
     reducerPath: "HarkatBase",
     baseQuery: fetchBaseQuery({

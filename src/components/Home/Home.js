@@ -4,9 +4,7 @@ import style from '../CSS/Home.module.css';
 import MyclubLoading from '../isLoading/MyclubLoading';
 
 const Home = ({ id }) => {
-
     const { data: club, isLoading } = useGetClubDataQuery(id);
-    console.log(club);
     return (
         <div>
             {

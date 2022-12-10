@@ -9,7 +9,7 @@ const NewsFeed = () => {
             .then(data => setPost(data))
     }, []);
     return (
-        <div className={`${styles.keep_scrolling} overflow-y-auto h-screen p-10`}>
+        <div className={`${styles.keep_scrolling} overflow-y-auto h-screen px-10 mt-10`}>
             {
                 posts.slice(1, 100).map(post => <Feed key={post.id} post={post}></Feed>)
             }

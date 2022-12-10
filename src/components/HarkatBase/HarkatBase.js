@@ -16,7 +16,9 @@ const HarkatBase = () => {
             {
                 isLoading ? <MyclubLoading /> : <div>
                     <Home id={id} />
-                    <Navbar />
+                    <div>
+                        <Navbar />
+                    </div>
                     <div className='ml-2 grid grid-cols-12 gap-5 lg:justify-items-stretch 2xl:justify-items-center 3xl:justify-items-end'>
                         <div className='col-span-10 md:col-span-3 2xl:col-span-4 3xl:col-span-4 xl:col-span-3'>
                             <LeftSidebar></LeftSidebar>

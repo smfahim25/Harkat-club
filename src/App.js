@@ -4,7 +4,6 @@ import './App.css';
 import HarkatBase from './components/HarkatBase/HarkatBase';
 import ClubDetails from './components/LeftSidebar/ClubDetails';
 import NewsFeed from './components/NewsFeed/NewsFeed';
-import Acchomplishment from './components/LeftSidebar/Acchomplishment';
 import ContactGoveringBody from './components/LeftSidebar/ContactGoveringBody';
 import MessageBox from './components/LeftSidebar/MessageBox';
 import MembersRequest from './components/LeftSidebar/MembersRequest';
@@ -22,6 +21,7 @@ import News from './components/LeftSidebar/News';
 import PromoteClub from './components/LeftSidebar/PromoteClub';
 import UploadPost from './components/LeftSidebar/UploadPost';
 import MyClubs from './components/MyClubs/MyClubs';
+import Accomplishment from './components/LeftSidebar/Accomplishment';
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
           <Route path='' element={<NewsFeed />}></Route>
           <Route path='newsfeed' element={<NewsFeed />}></Route>
           <Route path='clubdetails' element={<ClubDetails />}></Route>
-          <Route path='acchomplishment' element={<Acchomplishment />}></Route>
+          <Route path='accomplishment' element={<Accomplishment />}></Route>
           <Route path='contactgoverningbody' element={<ContactGoveringBody />}></Route>
           <Route path='messagebox' element={<MessageBox />}></Route>
           <Route path='membersrequest' element={<MembersRequest />}></Route>

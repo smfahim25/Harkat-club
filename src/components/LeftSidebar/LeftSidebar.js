@@ -17,8 +17,9 @@ const LeftSidebar = () => {
                 <div className={`${styles.keep_scrolling}`}>
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu w-[300px] text-base-content text-[17px]">
+                        <li><NavLink to='uploadpost' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Upload Post</NavLink></li>
                         <li><NavLink to='clubdetails' className='bg-accent h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center rounded-[20px]'><span className='text-xl'> <TbListDetails /></span> Details</NavLink></li>
-                        <li><NavLink to='acchomplishment' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Acchomplishment</NavLink></li>
+                        <li><NavLink to='accomplishment' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Accomplishment</NavLink></li>
                         <li><NavLink to='contactgoverningbody' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Contact Governing Body</NavLink></li>
                         <li><NavLink to='messagebox' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center' > <TiMessages /> Message Box</NavLink></li>
                         <li><NavLink to='membersrequest' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'> <AiOutlineUsergroupAdd />Members Requests </NavLink></li>
@@ -31,10 +32,9 @@ const LeftSidebar = () => {
                         <li><NavLink to='proposeactivity' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Propose an Activity</NavLink></li>
                         <li><NavLink to='gallery' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Pictures</NavLink></li>
                         <li><NavLink to='videos' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Videos</NavLink></li>
-                        <li><NavLink to='announcement' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Annoucements</NavLink></li>
+                        <li><NavLink to='announcement' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Announcements</NavLink></li>
                         <li><NavLink to='news' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>News</NavLink></li>
                         <li><NavLink to='promoteclub' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Promote Club</NavLink></li>
-                        <li><NavLink to='uploadpost' className='bg-accent rounded-[20px] h-[30px] hover:bg-neutral hover:text-white mb-2 justify-center'>Upload Post</NavLink></li>
                         <li><NavLink to='leaveclub' className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-neutral hover:text-white justify-center'>Leave Club</NavLink></li>
                     </ul>
                 </div>
