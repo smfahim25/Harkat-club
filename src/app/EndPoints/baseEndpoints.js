@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const URL = "https://mynextfilm.com/harkat";
+const URL = "http://115.246.78.132/harkat";
 export const baseApi = createApi({
     reducerPath: "HarkatBase",
     baseQuery: fetchBaseQuery({
@@ -21,6 +21,13 @@ export const baseApi = createApi({
             }),
             providesTags: ["club"]
         }),
+        // uploadImage: builder.mutation < {}, FormData> ({
+        //     query: (data) => ({
+        //         url: `api/v1/Clubs-Images/`,
+        //         method: "POST",
+        //         body: data,
+        //     })
+        // })
     }),
 })
 
