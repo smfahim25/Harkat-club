@@ -1,26 +1,53 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useDeleteClubImagesMutation } from '../../app/EndPoints/baseEndpoints';
 
 const Feed = (props) => {
-    const { id, title, thumbnailUrl } = props.post;
+    const { HarkatImages_id, title, user_id, img_upload_date, club_id, img } = props.post;
+    const [deleteClubImages, response] = useDeleteClubImagesMutation();
+    console.log(deleteClubImages);
+    const handleDelete = (id) => {
+        const proceed = window.confirm('Are you sure you want to delete??');
+        if (proceed) {
+            console.log(id)
+            deleteClubImages(id);
+            toast.success("Your post deleted successfully.");
+        }
+    }
+    const [open, setOpen] = useState(false);
+    const menuRef = useRef();
+    const iconRef = useRef();
     return (
         <div>
-            <div className="rounded-md shadow-md w-full 2xl:w[800px] mb-10 bg-slate-50">
+            <div className="rounded-md shadow-md w-full 2xl:w-[800px] mb-10 bg-slate-50">
                 <div className="flex items-center justify-between p-3 cursor-pointer">
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <img src="https://images.ctfassets.net/hrltx12pl8hq/4ekcWeXQuA7uD5C1fcnlNJ/b22f0c5de296d041904bc00f441af9cc/thumb_july22_15.jpg?fit=fill&w=480&h=270" alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
-                            <h2 className="text-xl font-semibold leading-none">{title}</h2>
+                            <h2 className="text-xl font-semibold leading-none mb-2">Kolkata Super star</h2>
+                            <span className="inline-block text-xs leading-none mt-2">{img_upload_date}</span>
                         </div>
                     </div>
-                    <button title="Open options" type="button" className='cursor-pointer'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
-                            <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
-                            <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
-                            <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
-                        </svg>
-                    </button>
+                    <div className='relative'>
+                        <button ref={iconRef} onClick={() => setOpen(!open)} title="Open options" type="button" className='cursor-pointer'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
+                                <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
+                                <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
+                                <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
+                            </svg>
+                            {
+                                open && (<div ref={menuRef} className='bg-white p-4 w-40 shadow-2xl absolute -left-40 rounded-md'>
+                                    <ul>
+                                        <li className='p-2 text-lg cursor-pointer rounded hover:bg-neutral hover:text-white'>Edit</li>
+                                        <li className='p-2 text-lg cursor-pointer rounded hover:bg-neutral hover:text-white' onClick={() => handleDelete(HarkatImages_id)}>Delete</li>
+                                    </ul>
+                                </div>)
+                            }
+                        </button>
+                    </div>
                 </div>
-                <img src={thumbnailUrl} alt="" className="object-cover object-center w-full h-[400px]" />
+                <p className='ml-7 px-2 text-lg'>{title}</p>
+                <img src={img} alt="" className="object-cover object-center w-full h-[400px]" />
                 <div className="p-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
@@ -53,16 +80,16 @@ const Feed = (props) => {
                                 <img alt="" className="w-5 h-5 border rounded-full" src="https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863" />
                                 <img alt="" className="w-5 h-5 border rounded-full" src="https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863" />
                             </div>
-                            <span className="text-sm">Liked by
+                            {/* <span className="text-sm">Liked by
                                 <span className="font-semibold">Good</span>and
-                                <span className="font-semibold">{id}others</span>
-                            </span>
+                                <span className="font-semibold">others</span>
+                            </span> */}
                         </div>
                     </div>
                     <div className="space-y-3">
-                        <p className="text-sm">
+                        {/* <p className="text-sm">
                             <span className="text-base font-semibold">leroy_jenkins72</span>Nemo ea quasi debitis impedit!
-                        </p>
+                        </p> */}
                         <input type="text" placeholder="Add a comment..." className="w-full py-0.5 dark:bg-transparent border-none text-sm pl-0 text-gray-100" />
                     </div>
                 </div>

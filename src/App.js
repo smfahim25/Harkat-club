@@ -22,6 +22,8 @@ import PromoteClub from './components/LeftSidebar/PromoteClub';
 import UploadPost from './components/LeftSidebar/UploadPost';
 import MyClubs from './components/MyClubs/MyClubs';
 import Accomplishment from './components/LeftSidebar/Accomplishment';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -51,6 +53,7 @@ function App() {
           <Route path='uploadpost' element={<UploadPost />}></Route>
         </Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import MyclubLoading from '../isLoading/MyclubLoading';
 
 const Home = ({ id }) => {
     const { data: club, isLoading } = useGetClubDataQuery(id);
+    console.log(club);
     return (
         <div>
             {
@@ -14,7 +15,7 @@ const Home = ({ id }) => {
                             <div className='flex flex-col text-gray-900'>
                                 <div className="flex px-4 items-center pt-5 md:px-10 lg:px-10">
                                     <h1 className="text-5xl font-bold w-64 leading-none sm:text-4xl xl:max-w-md text-gray-900">{club?.club?.club_id?.club_name}</h1>
-                                    <img alt="" src="https://images.pexels.com/photos/1323206/pexels-photo-1323206.jpeg?cs=srgb&dl=pexels-mixu-1323206.jpg&fm=jpg" className="object-cover w-20 h-20 rounded-full shadow" />
+                                    <img alt="" src={`http://115.246.78.132${club?.club?.club_profile}`} className="object-cover w-20 h-20 rounded-full shadow" />
                                 </div>
                                 <div>
                                     <p className="mt-6 flex-col mb-8 text-lg sm:mb-12 xl:max-w-lg text-gray-900">{club?.club?.club_id?.club_bio}</p>
