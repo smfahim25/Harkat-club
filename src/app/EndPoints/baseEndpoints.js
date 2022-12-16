@@ -15,7 +15,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/api/v1/Clubs`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["clubs"]
         }),
@@ -23,7 +23,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/club-api/${id}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["club"]
         }),
@@ -31,7 +31,7 @@ export const baseApi = createApi({
             query: ({ id, page_number }) => ({
                 url: `/club-images?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["club_images"]
         }),
@@ -40,21 +40,65 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Images/${id}/`,
                 method: "DELETE",
                 // headers: { 'content-type': 'application/json' }
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             invalidatesTags: ["club_images"]
         }),
-        uploadImage: builder.mutation({
-            query: (body) => ({
-                url: `api/v1/Club-Images/`,
-                method: "POST",
-                body: body,
-                // headers: authenticationsHeader
+        updateClubImages: builder.mutation({
+            query: (id) => ({
+                url: `/api/v1/Club-Images/${id}/`,
+                method: "PUT",
+                // headers: { 'content-type': 'application/json' }
+                headers: authenticationsHeader
             }),
             invalidatesTags: ["club_images"]
-        })
+        }),
+        getClubVideos: builder.query({
+            query: ({ id, page_number }) => ({
+                url: `/club-videos?club_id=${id}&page=${page_number}`,
+                method: "GET",
+                headers: authenticationsHeader
+            }),
+            providesTags: ["club_videos"]
+        }),
+        deleteClubVideos: builder.mutation({
+            query: (id) => ({
+                url: `/api/v1/Club-Videos/${id}/`,
+                method: "DELETE",
+                // headers: { 'content-type': 'application/json' }
+                headers: authenticationsHeader
+            }),
+            invalidatesTags: ["club_videos"]
+        }),
+        updateClubVideos: builder.mutation({
+            query: (id) => ({
+                url: `/api/v1/Club-videos/${id}/`,
+                method: "PUT",
+                // headers: { 'content-type': 'application/json' }
+                headers: authenticationsHeader
+            }),
+            invalidatesTags: ["club_videos"]
+        }),
+        uploadImage: builder.mutation({
+            query: (body) => ({
+                url: `/api/v1/Club-Images/`,
+                method: "POST",
+                body: body,
+                headers: authenticationsHeader
+            }),
+            invalidatesTags: ["club_images"]
+        }),
+        uploadVideo: builder.mutation({
+            query: (body) => ({
+                url: `/api/v1/Club-Videos/`,
+                method: "POST",
+                body: body,
+                headers: authenticationsHeader
+            }),
+            invalidatesTags: ["club_videos"]
+        }),
     }),
 })
 
 
-export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation } = baseApi;
+export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation } = baseApi;
