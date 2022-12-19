@@ -1,11 +1,20 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
 import style from '../CSS/Home.module.css';
 import MyclubLoading from '../isLoading/MyclubLoading';
+import { setUser } from '../../app/Slices/UserSlice';
+import { setMember } from '../../app/Slices/MembersSlice';
 
 const Home = ({ id }) => {
     const { data: club, isLoading } = useGetClubDataQuery(id);
-    console.log(club);
+    // const user = useSelector((state) => state.user.id);
+    // const dispatch = useDispatch();
+    // console.log(club, user);
+    // if (!user.id) {
+    //     dispatch(setUser(club.user));
+    //     dispatch(setMember(club.all_members));
+    // }
     return (
         <div>
             {

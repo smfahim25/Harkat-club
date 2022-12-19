@@ -3,10 +3,6 @@ import React from 'react';
 const EditFeed = () => {
     return (
         <div>
-            {/* The button to open modal */}
-            <label htmlFor="edit-modal" className="btn">open modal</label>
-
-            {/* Put this part before </body> tag */}
             <input type="checkbox" id="edit-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">

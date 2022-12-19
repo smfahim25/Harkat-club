@@ -1,35 +1,42 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { toast } from 'react-toastify';
 import { useDeleteClubImagesMutation, useDeleteClubVideosMutation } from '../../app/EndPoints/baseEndpoints';
 
 const Feed = (props) => {
     const { HarkatImages_id, HarkatVideos_id, title, user_id, img_upload_date, club_id, img, video } = props.post;
-    const [deleteClubImages] = useDeleteClubImagesMutation();
-    const [deleteClubVideos] = useDeleteClubVideosMutation()
+    const [deleteClubImages, resInfo] = useDeleteClubImagesMutation();
+    const [deleteClubVideos, resInfo1] = useDeleteClubVideosMutation()
     const handleDelete = (id) => {
-        const proceed = window.confirm('Are you sure you want to delete??');
-        if (proceed) {
-            if (img) {
-                deleteClubImages(id);
-                toast.success("Your post deleted successfully.");
-            }
-            else if (video) {
-                deleteClubVideos(id);
-                toast.success("Your post deleted successfully.");
-            }
+        if (img) {
+            deleteClubImages(id);
+            setDeleting(false);
+        }
+        else if (video) {
+            deleteClubVideos(id);
         }
     }
+    if (resInfo.isSuccess) {
+        toast.success("Your post deleted successfully.", {
+            position: toast.POSITION.BOTTOM_CENTER
+        });
+    }
+    if (resInfo1.isSuccess) {
+        toast.success("Your video deleted successfully.", {
+            position: toast.POSITION.BOTTOM_CENTER
+        });
+    }
+    // console.log(resInfo)
     const [open, setOpen] = useState(false);
-    const menuRef = useRef();
-    // const handleClick = () => {
-    //     if (!open) {
-    //         setOpen(true);
-    //     }
-    //     // else if (open) {
-    //     //     setOpen(false);
-    //     // }
-    // }
+    const btnRef = useRef();
+    useEffect(() => {
+        const closeMenu = (e) => { if (!btnRef.current.contains(e.target)) { setOpen(false); } };
+
+        document.body.addEventListener("mousedown", closeMenu);
+
+        return () => document.body.removeEventListener("mousedown", closeMenu);
+    }, []);
+    const [deleting, setDeleting] = useState(false);
     return (
         <div>
             <div className="rounded-md shadow-md w-full 2xl:w-[800px] mb-10 bg-slate-50">
@@ -42,21 +49,35 @@ const Feed = (props) => {
                         </div>
                     </div>
                     <div className='relative'>
-                        <button onClick={() => setOpen(!open)} title="Open options" type="button" className='cursor-pointer'>
+                        <button onClick={() => setOpen(true)} ref={btnRef} title="Open options" type="button" className='cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
                                 <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
                                 <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
                                 <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
                             </svg>
                             {
-                                open && (<div ref={menuRef} className='bg-white p-4 w-40 shadow-2xl absolute -left-40 rounded-md z-[1]'>
+                                open && (<div className='bg-white p-4 w-40 shadow-2xl absolute -left-40 rounded-md z-[1]'>
                                     <ul>
-                                        <li><label className='p-2 text-lg cursor-pointer rounded hover:bg-neutral hover:text-white' htmlFor="edit-modal">Edit</label></li>
-                                        {
-                                            img && <li className='p-2 text-lg cursor-pointer rounded hover:bg-neutral hover:text-white' onClick={() => handleDelete(HarkatImages_id)}>Delete</li>
+                                        {/* {
+                                            img && <li className='p-2 text-lg cursor-pointer rounded hover:primary-bg hover:text-white'>
+                                                <label onClick={() => handleEdit(HarkatImages_id)} className='p-2 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white' htmlFor="edit-modal">Edit</label>
+                                            </li>
                                         }
                                         {
-                                            video && <li className='p-2 text-lg cursor-pointer rounded hover:bg-neutral hover:text-white' onClick={() => handleDelete(HarkatVideos_id)}>Delete</li>
+                                            video && <li className='p-2 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white'>
+                                                <label onClick={() => handleDelete(HarkatVideos_id)} className='p-2 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white' htmlFor="edit-modal">Edit</label>
+                                            </li>
+                                        } */}
+
+                                        {
+                                            img && <li className='text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white'>
+                                                <label htmlFor="delete-modal" onClick={() => setDeleting(true)}>Delete</label>
+                                            </li>
+                                        }
+                                        {
+                                            video && <li className='p-2 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white'>
+                                                <label className='p-2 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white' htmlFor="delete-modal" onClick={() => setDeleting(true)}>Delete</label>
+                                            </li>
                                         }
                                     </ul>
                                 </div>)
@@ -126,15 +147,29 @@ const Feed = (props) => {
                     </div>
                 </div>
             </div>
-            {/* {
-                deletingPart && <EditFeed deletingPart={deletingPart}></EditFeed>
-            } */}
-            <input type="checkbox" id="edit-modal" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box relative">
-                    <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+            {
+                deleting && <div>
+                    <input type="checkbox" id="delete-modal" className="modal-toggle" />
+                    <div className="modal">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg">Are you sure want to delete?</h3>
+                            <div className="modal-action">
+                                {img && <button onClick={() => { handleDelete(HarkatImages_id); setDeleting(false); }} className='primary-bg px-5 py-2 rounded-lg text-white font-semibold'>Delete</button>}
+                                {video && <button onClick={() => { handleDelete(HarkatVideos_id); setDeleting(false); }} className='primary-bg px-5 py-2 rounded-lg text-white font-semibold'>Delete</button>}
+                                <label htmlFor="delete-modal" className="btn">Cancel</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div>
+                <input type="checkbox" id="edit-modal" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box relative">
+                        <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                        <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
+                        <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                    </div>
                 </div>
             </div>
         </div>

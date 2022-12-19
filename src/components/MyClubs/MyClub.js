@@ -12,7 +12,7 @@ const MyClub = (props) => {
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">{club_id?.club_name}</h2>
                     <p>{club_id?.club_bio}</p>
-                    <Link to={`/${club_id?.harkat_id}`} className="bg-neutral font-semibold text-white w-28 rounded-lg text-xl hover:text-white">Open Club</Link>
+                    <Link to={`/${club_id?.harkat_id}`} className="primary-bg font-semibold text-white w-28 rounded-lg text-xl hover:text-white">Open Club</Link>
                 </div>
             </div>
         </div>

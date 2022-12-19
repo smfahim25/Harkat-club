@@ -12,10 +12,12 @@ module.exports = {
       {
         mnftheme: {
           accent: "#ffe2e5",
-          neutral: "#ee3c4d",
+          neutral: "#3d4451",
           "base-100": "#ffffff",
         },
       },
+      "dark",
+      "cupcake",
     ],
   },
   plugins: [require("daisyui")],
