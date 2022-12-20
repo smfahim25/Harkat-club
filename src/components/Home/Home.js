@@ -5,16 +5,26 @@ import style from '../CSS/Home.module.css';
 import MyclubLoading from '../isLoading/MyclubLoading';
 import { setUser } from '../../app/Slices/UserSlice';
 import { setMember } from '../../app/Slices/MembersSlice';
+import { setAdmin } from '../../app/Slices/AdminSlice';
 
 const Home = ({ id }) => {
     const { data: club, isLoading } = useGetClubDataQuery(id);
-    // const user = useSelector((state) => state.user.id);
-    // const dispatch = useDispatch();
-    // console.log(club, user);
-    // if (!user.id) {
-    //     dispatch(setUser(club.user));
-    //     dispatch(setMember(club.all_members));
-    // }
+    const user = useSelector((state) => state.user.id);
+    const admin = useSelector((state) => state.admin.value);
+    const dispatch = useDispatch();
+    console.log(club, user);
+    // dispatch(setAdmin(false));
+    if (!user.id) {
+        dispatch(setUser(club.user));
+        dispatch(setMember(club.all_members));
+    }
+    if (club.club.club_id.user_id.id) {
+        let adminValue = false;
+        if (club.club.club_id.user_id.id === user) {
+            adminValue = true;
+        }
+        dispatch(setAdmin(adminValue));
+    }
     return (
         <div>
             {

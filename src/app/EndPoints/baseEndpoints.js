@@ -52,9 +52,10 @@ export const baseApi = createApi({
             invalidatesTags: ["club_images"]
         }),
         updateClubImages: builder.mutation({
-            query: (id) => ({
+            query: ({ body, id }) => ({
                 url: `/api/v1/Club-Images/${id}/`,
                 method: "PUT",
+                body: body
                 // headers: authenticationsHeader
             }),
             invalidatesTags: ["club_images"]
@@ -76,9 +77,10 @@ export const baseApi = createApi({
             invalidatesTags: ["club_videos"]
         }),
         updateClubVideos: builder.mutation({
-            query: (id) => ({
+            query: ({ id, body }) => ({
                 url: `/api/v1/Club-videos/${id}/`,
                 method: "PUT",
+                body: body
                 // headers: authenticationsHeader
             }),
             invalidatesTags: ["club_videos"]

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { useUploadImageMutation, useUploadVideoMutation } from '../../app/EndPoints/baseEndpoints';
@@ -6,6 +7,7 @@ import uploadImg from '../../assets/uploader.png';
 import '../CSS/UploadPost.css';
 
 const UploadPost = () => {
+    const user = useSelector((state) => state.user.id);
     const [fileList, setFileList] = useState([]);
     const fileName = (e) => {
         const fileL = e.target.files[0].name.length;
@@ -30,7 +32,7 @@ const UploadPost = () => {
             const file = e.target.uploadFile.files[0];
             const title = e.target.title.value;
             const club_id = id;
-            const user_id = '16';
+            const user_id = user;
             const body = new FormData();
             body.append('img', file);
             body.append('title', title);
@@ -49,7 +51,7 @@ const UploadPost = () => {
             const file = e.target.uploadFile.files[0];
             const title = e.target.title.value;
             const club_id = id;
-            const user_id = '16';
+            const user_id = user;
             const body = new FormData();
             body.append('video', file);
             body.append('title', title);
@@ -80,6 +82,7 @@ const UploadPost = () => {
             position: toast.POSITION.BOTTOM_CENTER
         });
     }
+    console.log(resInfo);
     const wrapperRef = useRef(null);
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
