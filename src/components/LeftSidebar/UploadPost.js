@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { useUploadImageMutation, useUploadVideoMutation } from '../../app/EndPoints/baseEndpoints';
 import uploadImg from '../../assets/uploader.png';
@@ -24,6 +24,9 @@ const UploadPost = () => {
         }
     }
     const { id } = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || `/${id}/newsfeed`;
     const [uploadImage, resInfo] = useUploadImageMutation();
     const [uploadVideo, resInfo1] = useUploadVideoMutation()
     const handleSubmit = (e) => {
@@ -76,13 +79,16 @@ const UploadPost = () => {
         toast.success("Image uploaded successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        navigate(from, { replace: true });
+        resInfo.isSuccess = false;
     }
     if (resInfo1.isSuccess) {
         toast.success("Video uploaded successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        navigate(from, { replace: true });
+        resInfo1.isSuccess = false;
     }
-    console.log(resInfo);
     const wrapperRef = useRef(null);
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');

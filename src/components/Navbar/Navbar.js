@@ -29,7 +29,7 @@ const Navbar = () => {
                             <NavLink to={`newsfeed`} className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Feed"><BiNews /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <NavLink to='gallery' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Gallery"><MdOutlinePhotoSizeSelectActual /></NavLink>
+                            <Link className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Gallery"><MdOutlinePhotoSizeSelectActual /></Link>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
                             <Link className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Activities"><BsListCheck /></Link>

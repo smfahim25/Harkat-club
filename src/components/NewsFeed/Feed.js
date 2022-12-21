@@ -6,9 +6,8 @@ import { useDeleteClubImagesMutation, useDeleteClubVideosMutation, useUpdateClub
 import uploadImg from '../../assets/uploader.png';
 
 const Feed = (props) => {
+    const { HarkatImages_id, HarkatVideos_id, title, user_id, img_upload_date, club_id, img, video, vid_upload_date } = props.post;
     const user = useSelector(state => state.user.id);
-    const userName = useSelector(state => state.user.username)
-    const { HarkatImages_id, HarkatVideos_id, title, user_id, img_upload_date, club_id, img, video } = props.post;
     const [deleteClubImages, resInfo] = useDeleteClubImagesMutation();
     const [deleteClubVideos, resInfo1] = useDeleteClubVideosMutation();
     const [updateClubImages, resImg] = useUpdateClubImagesMutation();
@@ -34,58 +33,6 @@ const Feed = (props) => {
         });
     }
     const [edit, setEdit] = useState(false);
-    // edit post
-    const handleEdit = (e) => {
-        e.preventDefault();
-        if (e.target.uploadFile.files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
-            let id = HarkatImages_id;
-            const file = e.target.uploadFile.files[0];
-            const title = e.target.title.value;
-            const body = new FormData();
-            body.append('img', file);
-            body.append('title', title);
-            body.append('club_id', club_id);
-            body.append('user_id', user);
-            updateClubImages({ body, id });
-            if (!resImg.isSuccess) {
-                toast.info("Image is updating now.", {
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
-            }
-            e.target.reset();
-            setFileList([]);
-        }
-        else if (e.target.uploadFile.files[0].name.match(/\.(mp4|mov|avi|3gp)$/)) {
-            let id = HarkatVideos_id;
-            const file = e.target.uploadFile.files[0];
-            const title = e.target.title.value;
-            const body = new FormData();
-            body.append('video', file);
-            body.append('title', title);
-            body.append('club_id', club_id);
-            body.append('user_id', user_id);
-            updateClubVideos(body, id);
-            if (!resVideo.isSuccess) {
-                toast.info("Video is updating now.", {
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
-            }
-            e.target.reset();
-            setFileList([]);
-        }
-        setEdit(false);
-    }
-    // if (resImg.isSuccess) {
-    //     toast.success("Image is updated successfully.", {
-    //         position: toast.POSITION.BOTTOM_CENTER
-    //     });
-    // }
-    // if (resVideo.isSuccess) {
-    //     toast.success("Video is updated successfully.", {
-    //         position: toast.POSITION.BOTTOM_CENTER
-    //     });
-    // }
-    // edit post modal
     const [fileList, setFileList] = useState([]);
     const fileName = (e) => {
         const fileL = e.target.files[0].name.length;
@@ -101,6 +48,60 @@ const Feed = (props) => {
             setFileList(updatedList);
         }
     }
+    // edit post
+    const handleEdit = (e) => {
+        e.preventDefault();
+        if (e.target.uploadFile.files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+            const file = e.target.uploadFile.files[0];
+            const title = e.target.title.value;
+            const body = new FormData();
+            body.append('img', file);
+            body.append('title', title);
+            body.append('club_id', club_id);
+            body.append('user_id', user);
+            const data = { id: HarkatImages_id, body: body }
+            updateClubImages(data);
+            if (!resImg.isSuccess) {
+                toast.info("Image is updating now.", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            }
+            e.target.reset();
+            setFileList([]);
+        }
+        else if (e.target.uploadFile.files[0].name.match(/\.(mp4|mov|avi|3gp)$/)) {
+            const file = e.target.uploadFile.files[0];
+            const title = e.target.title.value;
+            const body = new FormData();
+            body.append('video', file);
+            body.append('title', title);
+            body.append('club_id', club_id);
+            body.append('user_id', user);
+            const data = { id: HarkatVideos_id, body: body }
+            updateClubVideos(data);
+            if (!resVideo.isSuccess) {
+                toast.info("Video is updating now.", {
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+            }
+            e.target.reset();
+            setFileList([]);
+        }
+        setEdit(false);
+    }
+    if (resImg.isSuccess) {
+        toast.success("Image is updated successfully.", {
+            position: toast.POSITION.BOTTOM_CENTER
+        });
+        resImg.isSuccess = false;
+    }
+    if (resVideo.isSuccess) {
+        toast.success("Video is updated successfully.", {
+            position: toast.POSITION.BOTTOM_CENTER
+        });
+        resVideo.isSuccess = false;
+    }
+    // edit post modal
     const wrapperRef = useRef(null);
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -121,13 +122,14 @@ const Feed = (props) => {
             <div className="rounded-md shadow-md w-full 2xl:w-[800px] mb-10 bg-slate-50">
                 <div className="flex items-center justify-between p-3 cursor-pointer">
                     <div className="flex items-center space-x-2 cursor-pointer">
-                        <img src="https://images.ctfassets.net/hrltx12pl8hq/4ekcWeXQuA7uD5C1fcnlNJ/b22f0c5de296d041904bc00f441af9cc/thumb_july22_15.jpg?fit=fill&w=480&h=270" alt="" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
+                        <img src="https://media.istockphoto.com/id/1298261537/vector/blank-man-profile-head-icon-placeholder.jpg?s=612x612&w=0&k=20&c=CeT1RVWZzQDay4t54ookMaFsdi7ZHVFg2Y5v7hxigCA=" alt="profile pictures" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
-                            <h2 className="text-xl font-semibold leading-none mb-2">{userName}</h2>
+                            <h2 className="text-xl font-semibold leading-none mb-2">{user_id?.username}</h2>
                             <span className="inline-block text-xs leading-none mt-2">{img_upload_date}</span>
+                            <span className="inline-block text-xs leading-none mt-2">{vid_upload_date}</span>
                         </div>
                     </div>
-                    {user === user_id?.id && <div className='relative'>
+                    {(user === user_id?.id || user === user_id) && <div className='relative'>
                         <button onClick={() => setOpen(true)} ref={btnRef} title="Open option" type="button" className='cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
                                 <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
@@ -135,8 +137,8 @@ const Feed = (props) => {
                                 <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
                             </svg>
                             {
-                                open && (<div className='bg-white p-2 w-32 shadow-2xl absolute -left-32 rounded-md'>
-                                    <ul className='text-left'>
+                                open && (<div className='bg-white p-2 w-32 shadow-2xl absolute -left-32 rounded-md z-[1]'>
+                                    <ul className='text-left ml-2'>
                                         {
                                             img && <li>
                                                 <label onClick={() => setEdit(true)} className='p-1 pr-16 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' htmlFor="edit-modal">Edit</label>
@@ -155,7 +157,7 @@ const Feed = (props) => {
                                         }
                                         {
                                             video && <li>
-                                                <label className='p-1 pr-10 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' onClick={() => setDeleting(true)}>Delete</label>
+                                                <label className='p-1 pr-10 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' htmlFor="delete-modal" onClick={() => setDeleting(true)}>Delete</label>
                                             </li>
                                         }
                                     </ul>
@@ -233,9 +235,9 @@ const Feed = (props) => {
                         <div className="modal-box">
                             <h3 className="font-bold text-lg">Are you sure want to delete?</h3>
                             <div className="modal-action">
-                                {img && <button onClick={() => { handleDelete(HarkatImages_id); setDeleting(false); }} className='primary-bg px-5 py-2 rounded-lg text-white font-semibold'>Delete</button>}
-                                {video && <button onClick={() => { handleDelete(HarkatVideos_id); setDeleting(false); }} className='primary-bg px-5 py-1 rounded-lg text-white font-semibold'>Delete</button>}
-                                <label htmlFor="delete-modal" className="bg-neutral px-5 py-2 rounded-lg text-white font-semibold">Cancel</label>
+                                {img && <button onClick={() => { handleDelete(HarkatImages_id); setDeleting(false); }} className='primary-bg px-5 h-[32px]  rounded-lg text-white font-semibold'>Delete</button>}
+                                {video && <button onClick={() => { handleDelete(HarkatVideos_id); setDeleting(false); }} className='primary-bg px-5 h-[32px] rounded-lg text-white font-semibold'>Delete</button>}
+                                <label htmlFor="delete-modal" className="bg-neutral px-5 py-2 rounded-lg text-white font-semibold cursor-pointer">Cancel</label>
                             </div>
                         </div>
                     </div>
@@ -255,7 +257,7 @@ const Feed = (props) => {
                                     onDragLeave={onDragLeave}
                                     onDrop={onDrop}
                                 >
-                                    <div className="drop-file-input__label">
+                                    <div className="drop-file-input__label mt-[-40px]">
                                         <img src={uploadImg} alt="" />
                                         <p>Drag & Drop your files here</p>
                                         {
@@ -265,16 +267,13 @@ const Feed = (props) => {
                                         }
                                     </div>
                                     <input type="file" name='uploadFile' accept="image/*,video/*" onChange={fileName} />
-                                    <div>
-
-                                    </div>
                                 </div>
                             </div>
                             <div className="w-full max-w-xs">
                                 <label className='ml-2'>
-                                    <span className='text-xl font-semibold'>Description</span>
+                                    <span className='text-xl font-semibold mb-2'>Description</span>
                                 </label>
-                                <input type="text" name='title' placeholder="Type your description" className="input input-bordered w-[460px] h-16" />
+                                <input type="text" name='title' placeholder="Type your description" className="input input-bordered w-full h-10" />
                             </div>
                             <div className='flex justify-center items-center'>
                                 <input className='uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' style={{ backgroundColor: "#ee3c4d" }} type="submit" value='Update' />

@@ -45,7 +45,7 @@ function App() {
           <Route path='currentactivities' element={<CurrentActivities />}></Route>
           <Route path='futureactivity' element={<FutureActivity />}></Route>
           <Route path='proposeactivity' element={<ProposeActivity />}></Route>
-          <Route path='gallery' element={<Pictures />}></Route>
+          <Route path='pictures' element={<Pictures />}></Route>
           <Route path='videos' element={<Videos />}></Route>
           <Route path='announcement' element={<Announcements />}></Route>
           <Route path='news' element={<News />}></Route>

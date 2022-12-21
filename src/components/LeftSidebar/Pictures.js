@@ -9,7 +9,7 @@ const Pictures = () => {
     const page_number = 1;
     const { data: club_images, isLoading } = useGetClubImagesQuery({ id, page_number });
     return (
-        <div>
+        <div className='mt-10'>
             {
                 isLoading ? <div className='flex flex-col justify-center items-center mt-40'><PicturesLoading /> </div> : <div className='grid grid-cols-4 gap-1'> {club_images?.results?.map(club_image => <Picture key={club_image.HarkatImages_id
                 } post={club_image}></Picture>)}</div>

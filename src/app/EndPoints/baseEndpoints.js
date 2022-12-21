@@ -15,7 +15,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/api/v1/Clubs`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["clubs"]
         }),
@@ -23,7 +23,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/club-user`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["clubs"]
         }),
@@ -31,7 +31,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/club-api/${id}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["club"]
         }),
@@ -39,7 +39,7 @@ export const baseApi = createApi({
             query: ({ id, page_number }) => ({
                 url: `/club-images?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["club_images"]
         }),
@@ -47,24 +47,29 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/api/v1/Club-Images/${id}/`,
                 method: "DELETE",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             invalidatesTags: ["club_images"]
         }),
         updateClubImages: builder.mutation({
-            query: ({ body, id }) => ({
-                url: `/api/v1/Club-Images/${id}/`,
-                method: "PUT",
-                body: body
-                // headers: authenticationsHeader
-            }),
+            query: (data) => {
+                const id = data.id;
+                const body = data.body;
+                return {
+                    url: `/api/v1/Club-Images/${id}/`,
+                    method: 'PUT',
+                    body: body,
+                    // xsrfHeaderName: "X-CSRFToken",
+                    headers: authenticationsHeader
+                }
+            },
             invalidatesTags: ["club_images"]
         }),
         getClubVideos: builder.query({
             query: ({ id, page_number }) => ({
                 url: `/club-videos?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             providesTags: ["club_videos"]
         }),
@@ -72,17 +77,22 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/api/v1/Club-Videos/${id}/`,
                 method: "DELETE",
-                // headers: authenticationsHeader
+                headers: authenticationsHeader
             }),
             invalidatesTags: ["club_videos"]
         }),
         updateClubVideos: builder.mutation({
-            query: ({ id, body }) => ({
-                url: `/api/v1/Club-videos/${id}/`,
-                method: "PUT",
-                body: body
-                // headers: authenticationsHeader
-            }),
+            query: (data) => {
+                const id = data.id;
+                const body = data.body;
+                return {
+                    url: `/api/v1/Club-Videos/${id}/`,
+                    method: 'PUT',
+                    body: body,
+                    // xsrfHeaderName: "X-CSRFToken",
+                    // headers: authenticationsHeader
+                }
+            },
             invalidatesTags: ["club_videos"]
         }),
         uploadImage: builder.mutation({
@@ -90,7 +100,8 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Images/`,
                 method: "POST",
                 body: body,
-                // headers: authenticationsHeader
+                // xsrfHeaderName: "X-CSRFToken",
+                headers: authenticationsHeader
             }),
             invalidatesTags: ["club_images"]
         }),
@@ -99,12 +110,12 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Videos/`,
                 method: "POST",
                 body: body,
-                // headers: authenticationsHeader
+                // xsrfHeaderName: "X-CSRFToken",
+                headers: authenticationsHeader
             }),
             invalidatesTags: ["club_videos"]
         }),
     }),
 })
-
 
 export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation, useGetClubMemberQuery } = baseApi;

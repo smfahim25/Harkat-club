@@ -9,14 +9,14 @@ const MyClubs = () => {
     const { data: clubs, isLoading } = useGetHatkatDataQuery();
     const { data: member, isLoading: memberLoading } = useGetClubMemberQuery();
     // console.log(clubs);
-    // const user = useSelector((state) => state.user.id);
-    // const dispatch = useDispatch();
-    // if (!user.id) {
-    //     if (!memberLoading) {
-    //         dispatch(setUser(member));
-    //     }
-    // }
-    // console.log(user);
+    const user = useSelector((state) => state.user.id);
+    const dispatch = useDispatch();
+    if (!user.id) {
+        if (!memberLoading) {
+            dispatch(setUser(member));
+        }
+    }
+    console.log(user);
     return (
         <div>
             {

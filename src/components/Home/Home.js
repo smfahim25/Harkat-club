@@ -25,6 +25,7 @@ const Home = ({ id }) => {
         }
         dispatch(setAdmin(adminValue));
     }
+    console.log(user);
     return (
         <div>
             {

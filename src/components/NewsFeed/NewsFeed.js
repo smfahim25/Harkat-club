@@ -8,7 +8,8 @@ const NewsFeed = () => {
     const { id } = useParams();
     const page_number = 1;
     const { data: club_images, isLoading } = useGetClubImagesQuery({ id, page_number });
-    const { data: videos } = useGetClubVideosQuery({ id, page_number })
+    const { data: videos } = useGetClubVideosQuery({ id, page_number });
+    // console.log(videos, club_images);
     return (
         <div className={`${styles.keep_scrolling} h-[720px] px-10 mt-10`}>
             {
