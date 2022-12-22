@@ -114,7 +114,7 @@ const UploadPost = () => {
     }
     return (
         <div>
-            <div className='flex justify-between items-center mt-10 text-2xl px-5'>
+            <div className='flex justify-between items-center mt-10 text-xl px-5'>
                 <h1 onClick={uploadImageClick} className={imageActive ? 'w[250px] primary-bg p-2 px-16 cursor-pointer rounded-md text-white font-semibold' : 'w[250px] bg-accent p-2 px-16 cursor-pointer rounded-md'}>Upload Image</h1>
                 <h1 onClick={uploadVideoClick} className={videoActive ? 'w[250px] primary-bg p-2 px-16 cursor-pointer rounded-md text-white font-semibold' : 'w[250px] bg-accent p-2 px-16 cursor-pointer rounded-md'}>Upload Videos</h1>
             </div>
