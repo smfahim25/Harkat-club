@@ -24,6 +24,7 @@ import MyClubs from './components/MyClubs/MyClubs';
 import Accomplishment from './components/LeftSidebar/Accomplishment';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Activities from './components/Activities/Activities';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='/:id' element={<HarkatBase />}>
           <Route path='' element={<NewsFeed />}></Route>
           <Route path='newsfeed' element={<NewsFeed />}></Route>
+          <Route path='activities' element={<Activities />}></Route>
           <Route path='clubdetails' element={<ClubDetails />}></Route>
           <Route path='accomplishment' element={<Accomplishment />}></Route>
           <Route path='contactgoverningbody' element={<ContactGoveringBody />}></Route>

@@ -32,7 +32,7 @@ const Navbar = () => {
                             <Link className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Gallery"><MdOutlinePhotoSizeSelectActual /></Link>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral">
-                            <Link className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Activities"><BsListCheck /></Link>
+                            <NavLink to='activities' className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Activities"><BsListCheck /></NavLink>
                         </li>
                         <li className="flex justify-center pt-2 hover:text-neutral" >
                             <Link className="text-4xl hover:tooltip-accent hover:tooltip hover:tooltip-bottom" data-tip="Profile"><CgProfile /></Link>

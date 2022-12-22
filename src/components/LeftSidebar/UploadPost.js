@@ -7,6 +7,7 @@ import uploadImg from '../../assets/uploader.png';
 import '../CSS/UploadPost.css';
 
 const UploadPost = () => {
+    const [videoActive, setVideoActive] = useState(false);
     const user = useSelector((state) => state.user.id);
     const [fileList, setFileList] = useState([]);
     const fileName = (e) => {
@@ -23,12 +24,18 @@ const UploadPost = () => {
             setFileList(updatedList);
         }
     }
+
+    // for navigate to newsfeed
     const { id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || `/${id}/newsfeed`;
+
+    // upload video and image state
     const [uploadImage, resInfo] = useUploadImageMutation();
     const [uploadVideo, resInfo1] = useUploadVideoMutation()
+
+    // upload image and video function
     const handleSubmit = (e) => {
         e.preventDefault();
         if (e.target.uploadFile.files[0].name.match(/\.(jpg|jpeg|png|gif)$/) && imageActive) {
@@ -75,6 +82,8 @@ const UploadPost = () => {
             });
         }
     }
+
+    // for response notification
     if (resInfo.isSuccess) {
         toast.success("Image uploaded successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
@@ -89,6 +98,7 @@ const UploadPost = () => {
         navigate(from, { replace: true });
         resInfo1.isSuccess = false;
     }
+    // drag and drop 
     const wrapperRef = useRef(null);
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -98,7 +108,6 @@ const UploadPost = () => {
         setImageActive(!imageActive);
         setVideoActive(false);
     }
-    const [videoActive, setVideoActive] = useState(false);
     const uploadVideoClick = () => {
         setVideoActive(!videoActive);
         setImageActive(false);
@@ -138,7 +147,7 @@ const UploadPost = () => {
                         <label className='ml-2'>
                             <span className='text-xl font-semibold'>Description</span>
                         </label>
-                        <input type="text" name='title' placeholder="Type your description" className="input input-bordered w-[500px] h-16" />
+                        <textarea name='title' className="textarea textarea-primary resize-none w-[500px]" placeholder="Description"></textarea>
                     </div>
                     <div className='flex justify-center items-center'>
                         <input className='uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' style={{ backgroundColor: "#ee3c4d" }} type="submit" value='Upload' />

@@ -12,6 +12,7 @@ const Feed = (props) => {
     const [deleteClubVideos, resInfo1] = useDeleteClubVideosMutation();
     const [updateClubImages, resImg] = useUpdateClubImagesMutation();
     const [updateClubVideos, resVideo] = useUpdateClubVideosMutation();
+
     // delete post
     const handleDelete = (id) => {
         if (img) {
@@ -20,18 +21,23 @@ const Feed = (props) => {
         }
         else if (video) {
             deleteClubVideos(id);
+            setDeleting(false);
         }
     }
     if (resInfo.isSuccess) {
         toast.success("Your post deleted successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        resInfo.isSuccess = false;
     }
     if (resInfo1.isSuccess) {
         toast.success("Your video deleted successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        resInfo1.isSuccess = false;
     }
+
+    // update and edit post file name check
     const [edit, setEdit] = useState(false);
     const [fileList, setFileList] = useState([]);
     const fileName = (e) => {
@@ -48,6 +54,7 @@ const Feed = (props) => {
             setFileList(updatedList);
         }
     }
+
     // edit post
     const handleEdit = (e) => {
         e.preventDefault();
@@ -101,7 +108,9 @@ const Feed = (props) => {
         });
         resVideo.isSuccess = false;
     }
+
     // edit post modal
+    const [deleting, setDeleting] = useState(false);
     const wrapperRef = useRef(null);
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -116,7 +125,6 @@ const Feed = (props) => {
 
         return () => document.body.removeEventListener("mousedown", closeMenu);
     }, []);
-    const [deleting, setDeleting] = useState(false);
     return (
         <div>
             <div className="rounded-md shadow-md w-full 2xl:w-[800px] mb-10 bg-slate-50">
@@ -124,9 +132,10 @@ const Feed = (props) => {
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <img src="https://media.istockphoto.com/id/1298261537/vector/blank-man-profile-head-icon-placeholder.jpg?s=612x612&w=0&k=20&c=CeT1RVWZzQDay4t54ookMaFsdi7ZHVFg2Y5v7hxigCA=" alt="profile pictures" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
-                            <h2 className="text-xl font-semibold leading-none mb-2">{user_id?.username}</h2>
-                            <span className="inline-block text-xs leading-none mt-2">{img_upload_date}</span>
-                            <span className="inline-block text-xs leading-none mt-2">{vid_upload_date}</span>
+                            <h2 className="text-2xl font-semibold leading-none">{user_id?.username}</h2>
+                            {/* <h2 className="text-2xl font-semibold leading-none">{user_id?.username}</h2> */}
+                            <span className="inline-block text-sm leading-none">{img_upload_date}</span>
+                            <span className="inline-block text-sm leading-none mt-2">{vid_upload_date}</span>
                         </div>
                     </div>
                     {(user === user_id?.id || user === user_id) && <div className='relative'>
@@ -231,7 +240,7 @@ const Feed = (props) => {
             {
                 deleting && <div>
                     <input type="checkbox" id="delete-modal" className="modal-toggle" />
-                    <div className="modal">
+                    <div className="modal modal-bottom sm:modal-middle">
                         <div className="modal-box">
                             <h3 className="font-bold text-lg">Are you sure want to delete?</h3>
                             <div className="modal-action">
@@ -245,7 +254,7 @@ const Feed = (props) => {
             }
             {edit && <div>
                 <input type="checkbox" id="edit-modal" className="modal-toggle" />
-                <div className="modal">
+                <div className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box relative">
                         <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                         <form onSubmit={handleEdit}>
@@ -273,7 +282,7 @@ const Feed = (props) => {
                                 <label className='ml-2'>
                                     <span className='text-xl font-semibold mb-2'>Description</span>
                                 </label>
-                                <input type="text" name='title' placeholder="Type your description" className="input input-bordered w-full h-10" />
+                                <textarea name='title' className="textarea textarea-primary resize-none w-[375px]" placeholder="Description"></textarea>
                             </div>
                             <div className='flex justify-center items-center'>
                                 <input className='uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' style={{ backgroundColor: "#ee3c4d" }} type="submit" value='Update' />
