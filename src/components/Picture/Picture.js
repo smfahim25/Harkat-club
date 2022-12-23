@@ -1,14 +1,14 @@
 import React from 'react';
+import { Image } from "@zzwing/react-image";
 
-const Picture = (props) => {
-    const { img } = props.post;
+const Picture = ({ club_image }) => {
+    const { img } = club_image;
+    // console.log(index);
     return (
         <div>
-            <section className="">
-                <div className="">
-                    <img src={img} alt="" className="w-full h-48 rounded" />
-                </div>
-            </section>
+            <div className='shadow-lg'>
+                <Image src={img} width={200} height={150} />
+            </div>
         </div>
     );
 };
