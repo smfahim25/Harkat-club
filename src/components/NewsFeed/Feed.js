@@ -175,22 +175,24 @@ const Feed = (props) => {
                         </button>
                     </div>}
                 </div>
-                <p className='ml-7 px-2 text-lg'>{title}</p>
-                {
-                    img && <img src={img} alt="" className="object-cover object-center w-full h-[400px]" />
-                }
-                {
-                    video && <ReactPlayer
-                        style={{ maxWidth: "100%", width: "800px", margin: "0 auto" }}
-                        playing={true}
-                        volume={1}
-                        loop
-                        muted
-                        controls
-                        alt="All the devices"
-                        url={video}
-                    />
-                }
+                <figure>
+                    <figcaption className='px-2 text-lg mb-3'>{title}</figcaption>
+                    {
+                        img && <img src={img} alt="" className="w-full" />
+                    }
+                    {
+                        video && <ReactPlayer
+                            style={{ maxWidth: "100%", width: "800px", margin: "0 auto" }}
+                            playing={true}
+                            volume={1}
+                            loop
+                            muted
+                            controls
+                            alt="All the devices"
+                            url={video}
+                        />
+                    }
+                </figure>
                 <div className="p-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
