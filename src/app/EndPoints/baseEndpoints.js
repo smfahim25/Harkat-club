@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const URL = "http://115.246.78.132/harkat";
+const URL = "http://115.245.192.138/harkat";
 const authenticationsHeader = {
     "xsrfHeaderName": "X-CSRFToken",
     "xsrfCookieName": "csrftoken",
@@ -59,7 +59,6 @@ export const baseApi = createApi({
                     url: `/api/v1/Club-Images/${id}/`,
                     method: 'PUT',
                     body: body,
-                    // xsrfHeaderName: "X-CSRFToken",
                     // headers: authenticationsHeader
                 }
             },
@@ -89,7 +88,6 @@ export const baseApi = createApi({
                     url: `/api/v1/Club-Videos/${id}/`,
                     method: 'PUT',
                     body: body,
-                    // xsrfHeaderName: "X-CSRFToken",
                     // headers: authenticationsHeader
                 }
             },
@@ -100,7 +98,6 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Images/`,
                 method: "POST",
                 body: body,
-                // xsrfHeaderName: "X-CSRFToken",
                 // headers: authenticationsHeader
             }),
             invalidatesTags: ["club_images"]
@@ -110,7 +107,6 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Videos/`,
                 method: "POST",
                 body: body,
-                // xsrfHeaderName: "X-CSRFToken",
                 // headers: authenticationsHeader
             }),
             invalidatesTags: ["club_videos"]

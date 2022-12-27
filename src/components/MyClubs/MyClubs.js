@@ -16,6 +16,7 @@ const MyClubs = () => {
         }
     }
     console.log(user);
+    console.log(member);
     return (
         <div>
             {

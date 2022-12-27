@@ -5,9 +5,9 @@ export const userSlice = createSlice({
     initialState: { id: "", username: "", email: "" },
     reducers: {
         setUser(state, action) {
-            state.id = action.payload.id;
-            state.username = action.payload.username;
-            state.email = action.payload.email;
+            state.id = action?.payload?.id;
+            state.username = action?.payload?.username;
+            state.email = action?.payload?.email;
         }
     }
 })

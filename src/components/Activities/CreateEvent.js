@@ -3,8 +3,16 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 const CreateEvent = () => {
-    const { register, reset, formState: { errors }, handleSubmit } = useForm();
+    const { register, reset, setError, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = data => {
+        const file = data.picture[0];
+        if (file.type !== "image/jpg" || file.type !== "image/jpeg" || file.type !== "image/png") {
+            setError("picture", {
+                type: "filetype",
+                message: "Only image are valid."
+            });
+            return;
+        }
         alert(JSON.stringify(data));
         reset();
     }
@@ -37,7 +45,7 @@ const CreateEvent = () => {
                                 </div>
                                 <div className="col-span-6 lg:col-span-2">
                                     <label for="email" className="text-md font-semibold">Event description <span className='text-[#ee3c4d]'>*</span></label>
-                                    <textarea type="email" placeholder="description" {...register("eventdescription", {
+                                    <textarea type="text" placeholder="description" {...register("eventdescription", {
                                         required: {
                                             value: true,
                                             message: 'Event Description is Required'
@@ -55,7 +63,7 @@ const CreateEvent = () => {
                                 </div>
                                 <div className="col-span-6 lg:col-span-3">
                                     <label for="upload Image" className="text-md font-semibold">Upload Event Flyer (Image formate only) <span className='text-[#ee3c4d]'>*</span></label>
-                                    <input type="file" className="file-input file-input-bordered file-input-error w-full max-w-xs" {...register("picture", {
+                                    <input type="file" className="file-input file-input-bordered file-input-error w-full max-w-xs p-0" name='picture' {...register("picture", {
                                         required: {
                                             value: true,
                                             message: 'Event Flyer is Required'
@@ -513,18 +521,9 @@ const CreateEvent = () => {
                                 </div>
                                 <div className='col-span-6 justify-self-center'>
                                     <label className='flex justify-center items-center'>
-                                        <input type="checkbox" value='emailchecked' className="checkbox mr-2" {...register("emailcheck", {
-                                            required: {
-                                                value: true,
-                                                message: 'Email checked is Required'
-                                            }
+                                        <input type="checkbox" value='emailchecked' className="checkbox mr-2" checked {...register("emailcheck", {
                                         })} />
                                         <span>Send email to attendees</span>
-                                        <ErrorMessage
-                                            errors={errors}
-                                            name="emailcheck"
-                                            render={({ message }) => alert(message)}
-                                        />
                                     </label>
                                 </div>
                                 <div className='col-span-6 justify-self-center'>

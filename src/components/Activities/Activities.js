@@ -35,10 +35,10 @@ const Activities = () => {
                 <div className='mt-10'><label htmlFor='create-event' className='bg-[#ee3c4d] cursor-pointer text-white p-2 rounded-xl font-semibold'>Create Event</label></div>
             </div>}
             {
-                futureActivities && <div className='mt-5 px-10'><FutureActivity /></div>
+                futureActivities && <div className='mt-5 px-10 flex justify-center items-center'><FutureActivity /></div>
             }
             {
-                pastActivities && <div className='mt-5 px-10'><PastActivity /></div>
+                pastActivities && <div className='mt-5 px-10 flex justify-center items-center'><PastActivity /></div>
             }
             <CreateEvent />
         </div>
