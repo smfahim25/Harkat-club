@@ -1,21 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
+import dayjs from 'dayjs';
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { useCreateEventMutation } from '../../app/EndPoints/baseEndpoints';
+import { useParams } from 'react-router';
 
 const CreateEvent = () => {
+    const { id } = useParams();
+    const [startDateTime, setStartDateTime] = useState(dayjs().format('YYYY MM DD LT'));
+    const [endDateTime, setEndDateTime] = useState(dayjs().format('YYYY MM DD LT'));
     const { register, reset, setError, formState: { errors }, handleSubmit } = useForm();
+    const [createEvent, resinfo] = useCreateEventMutation();
     const onSubmit = data => {
         const file = data.picture[0];
-        if (file.type !== "image/jpg" || file.type !== "image/jpeg" || file.type !== "image/png") {
+        if (file.type !== "image/jpg" && file.type !== "image/jpeg" && file.type !== "image/png") {
             setError("picture", {
                 type: "filetype",
                 message: "Only image are valid."
             });
             return;
         }
-        alert(JSON.stringify(data));
+        const name = data.eventname;
+        const desciption = data.eventdescription;
+        const event_poster = file;
+        const coordinator = data.coordinator;
+        const coordinator_responsibility = data.coordinator_responsiblity;
+        const co_coordinator = data.co_coordinator;
+        const co_coordinator_responsibility = data.co_coordinator_responsiblity;
+        const venue = data.eventvenue;
+        const event_start = dayjs(startDateTime).format('YYYY-MM-DDThh:mm');
+        const event_end = dayjs(endDateTime).format('YYYY-MM-DDThh:mm');;
+        const equipment = data.firstquipment;
+        const equipment_incharge = data.firstperson;
+        const preparatory_work = data.firstpreparatory;
+        const preparatory_work_incharge = data.firstpreparatoryperson;
+        const follow_up_work = data.firstpersonrequire;
+        const follow_up_work_incharge = data.firstpersonrequire;
+        const prize = data.Prizename;
+        const prize_incharge = data.personprize;
+        const funds = data.eventfunds;
+        const guests = data.guestname;
+        const guests_title = data.titleofguest;
+        const club_id = id;
+        const body = new FormData();
+        body.append('name', name);
+        body.append('desciption', desciption);
+        body.append('club_id', club_id);
+        body.append('event_poster', event_poster);
+        body.append('coordinator', coordinator);
+        body.append('coordinator_responsibility', coordinator_responsibility);
+        body.append('co_coordinator', co_coordinator);
+        body.append('co_coordinator_responsibility', co_coordinator_responsibility);
+        body.append('venue', venue);
+        body.append('event_start', event_start);
+        body.append('event_end', event_end);
+        body.append('equipment', equipment);
+        body.append('equipment_incharge', equipment_incharge);
+        body.append('preparatory_work', preparatory_work);
+        body.append('preparatory_work_incharge', preparatory_work_incharge);
+        body.append('follow_up_work', follow_up_work);
+        body.append('follow_up_work_incharge', follow_up_work_incharge);
+        body.append('prize', prize);
+        body.append('prize_incharge', prize_incharge);
+        body.append('funds', funds);
+        body.append('guests', guests);
+        body.append('guests_title', guests_title);
+        createEvent(body);
         reset();
     }
+    console.log(resinfo)
     return (
         <div>
             <input type="checkbox" id="create-event" className="modal-toggle" />
@@ -33,7 +90,7 @@ const CreateEvent = () => {
                                             message: 'Event name is Required'
                                         },
                                         pattern: {
-                                            value: /[A-Za-z]/,
+                                            value: /^[A-Za-z]+$/,
                                             message: 'Only letters acceptable'
                                         }
                                     })} placeholder="Event name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -51,7 +108,7 @@ const CreateEvent = () => {
                                             message: 'Event Description is Required'
                                         },
                                         pattern: {
-                                            value: /[A-Za-z]/,
+                                            value: /^[A-Za-z]+$/,
                                             message: 'Only letters acceptable'
                                         }
                                     })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900" />
@@ -85,7 +142,7 @@ const CreateEvent = () => {
                                                     message: 'Event Coordinator is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -102,7 +159,7 @@ const CreateEvent = () => {
                                                     message: 'Event Coordinator responsiblity is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -113,19 +170,19 @@ const CreateEvent = () => {
                                             />
                                         </div>
                                         <div>
-                                            <input type="text" name='cocoordinator' placeholder="Co_cordinator name" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("co-coordinator", {
+                                            <input type="text" name='cocoordinator' placeholder="Co_cordinator name" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("co_coordinator", {
                                                 required: {
                                                     value: true,
                                                     message: 'Event Co-Coordinator is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
                                             <ErrorMessage
                                                 errors={errors}
-                                                name="co-coordinator"
+                                                name="co_coordinator"
                                                 render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
                                             />
                                         </div>
@@ -136,7 +193,7 @@ const CreateEvent = () => {
                                                     message: 'Event Co-Coordinator responsiblity is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -166,30 +223,26 @@ const CreateEvent = () => {
                                     <label for="city" className="text-md font-semibold">Enter timings <span className='text-[#ee3c4d]'>*</span></label>
                                     <div className='grid grid-cols-2 gap-3'>
                                         <div>
-                                            <input name="startdate" type="date" placeholder="start date" className="w-full rounded-md border-black border-[1px] text-gray-900 h-8"  {...register("eventstartdate", {
-                                                required: {
-                                                    value: true,
-                                                    message: 'Event start date is Required'
-                                                }
-                                            })} />
-                                            <ErrorMessage
-                                                errors={errors}
-                                                name="eventstartdate"
-                                                render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
-                                            />
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <MobileDateTimePicker
+                                                    value={startDateTime}
+                                                    onChange={(newValue) => {
+                                                        setStartDateTime(newValue);
+                                                    }}
+                                                    renderInput={(params) => <TextField required fullWidth {...params} />}
+                                                />
+                                            </LocalizationProvider>
                                         </div>
                                         <div>
-                                            <input name="enddate" type="date" placeholder="end date" className="w-full rounded-md border-black border-[1px] text-gray-900 h-8"  {...register("eventenddate", {
-                                                required: {
-                                                    value: true,
-                                                    message: 'Event end date is Required'
-                                                }
-                                            })} />
-                                            <ErrorMessage
-                                                errors={errors}
-                                                name="eventenddate"
-                                                render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
-                                            />
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <MobileDateTimePicker
+                                                    value={endDateTime}
+                                                    onChange={(newValue) => {
+                                                        setEndDateTime(newValue);
+                                                    }}
+                                                    renderInput={(params) => <TextField required fullWidth {...params} />}
+                                                />
+                                            </LocalizationProvider>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +256,7 @@ const CreateEvent = () => {
                                                     message: 'Equipment is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -220,7 +273,7 @@ const CreateEvent = () => {
                                                     message: 'Person in charge is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -232,12 +285,12 @@ const CreateEvent = () => {
                                         </div>
                                         <div>
                                             <input type="text" name='secondequipment' placeholder="equipment" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("secondequipment", {
-                                                required: {
-                                                    value: true,
-                                                    message: 'Equipment is Required'
-                                                },
+                                                // required: {
+                                                //     value: true,
+                                                //     message: 'Equipment is Required'
+                                                // },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -248,12 +301,12 @@ const CreateEvent = () => {
                                             />
                                         </div>
                                         <div> <input type="text" name='secondperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("secondperson", {
-                                            required: {
-                                                value: true,
-                                                message: 'Person in charge is Required'
-                                            },
+                                            // required: {
+                                            //     value: true,
+                                            //     message: 'Person in charge is Required'
+                                            // },
                                             pattern: {
-                                                value: /[A-Za-z]/,
+                                                value: /^[A-Za-z]+$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} />
@@ -274,7 +327,7 @@ const CreateEvent = () => {
                                                 message: 'Event Preparatory work is Required'
                                             },
                                             pattern: {
-                                                value: /[A-Za-z]/,
+                                                value: /^[A-Za-z]+$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} />
@@ -289,7 +342,7 @@ const CreateEvent = () => {
                                                 message: 'Person in charge is Required'
                                             },
                                             pattern: {
-                                                value: /[A-Za-z]/,
+                                                value: /^[A-Za-z]+$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} />
@@ -300,12 +353,12 @@ const CreateEvent = () => {
                                             />
                                         </div>
                                         <div><input type="text" name='' placeholder="work" className="w-full h-8 rounded-md focus:ring border-black border-[1px] text-gray-900" {...register("secondpreparatory", {
-                                            required: {
-                                                value: true,
-                                                message: 'Event Preparatory work is Required'
-                                            },
+                                            // required: {
+                                            //     value: true,
+                                            //     message: 'Event Preparatory work is Required'
+                                            // },
                                             pattern: {
-                                                value: /[A-Za-z]/,
+                                                value: /^[A-Za-z]+$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} /> <ErrorMessage
@@ -314,12 +367,12 @@ const CreateEvent = () => {
                                                 render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
                                             /></div>
                                         <div> <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("secondpreparatoryperson", {
-                                            required: {
-                                                value: true,
-                                                message: 'Person in charge is Required'
-                                            },
+                                            // required: {
+                                            //     value: true,
+                                            //     message: 'Person in charge is Required'
+                                            // },
                                             pattern: {
-                                                value: /[A-Za-z]/,
+                                                value: /^[A-Za-z]+$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} /> <ErrorMessage
@@ -339,7 +392,7 @@ const CreateEvent = () => {
                                                     message: 'Event Follow up work is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -356,7 +409,7 @@ const CreateEvent = () => {
                                                     message: 'Person in charge is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -368,12 +421,12 @@ const CreateEvent = () => {
                                         </div>
                                         <div>
                                             <input type="text" name='eventname' placeholder="Event follow up work require" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" {...register("secondworkrequire", {
-                                                required: {
-                                                    value: true,
-                                                    message: 'Event Follow up work is Required'
-                                                },
+                                                // required: {
+                                                //     value: true,
+                                                //     message: 'Event Follow up work is Required'
+                                                // },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -385,12 +438,12 @@ const CreateEvent = () => {
                                         </div>
                                         <div>
                                             <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" {...register("secondpersonrequire", {
-                                                required: {
-                                                    value: true,
-                                                    message: 'person in charge is Required'
-                                                },
+                                                // required: {
+                                                //     value: true,
+                                                //     message: 'person in charge is Required'
+                                                // },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -412,7 +465,7 @@ const CreateEvent = () => {
                                                     message: 'Event Prize is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -429,7 +482,7 @@ const CreateEvent = () => {
                                                     message: 'Person in charge is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -451,7 +504,7 @@ const CreateEvent = () => {
                                                     message: 'Event Funds is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[0-9]/,
+                                                    value: /^[0-9]+$/,
                                                     message: 'Only numbers acceptable'
                                                 }
                                             })} />
@@ -463,12 +516,12 @@ const CreateEvent = () => {
                                         </div>
                                         <div>
                                             <input id="city" type="text" placeholder="Fund source" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8" {...register("fundsource", {
-                                                required: {
-                                                    value: true,
-                                                    message: 'Event Fund source is Required'
-                                                },
+                                                // required: {
+                                                //     value: true,
+                                                //     message: 'Event Fund source is Required'
+                                                // },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -490,7 +543,7 @@ const CreateEvent = () => {
                                                     message: 'Event Guest name is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -507,7 +560,7 @@ const CreateEvent = () => {
                                                     message: 'Guest short title is Required'
                                                 },
                                                 pattern: {
-                                                    value: /[A-Za-z]/,
+                                                    value: /^[A-Za-z]+$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />

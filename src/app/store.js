@@ -2,15 +2,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { baseApi } from './EndPoints/baseEndpoints';
 import userReducer from './Slices/UserSlice';
-import membersReducer from './Slices/MembersSlice';
 import adminReducer from './Slices/AdminSlice';
+import memberReducer from './Slices/MembersSlice';
+import clubcurrentmemberReducer from './Slices/ClubMemberSlice';
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     user: userReducer,
-    members: membersReducer,
     admin: adminReducer,
+    members: memberReducer,
+    clubcurrentmember: clubcurrentmemberReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });

@@ -111,7 +111,34 @@ export const baseApi = createApi({
             }),
             invalidatesTags: ["club_videos"]
         }),
+        createEvent: builder.mutation({
+            query: (body) => ({
+                url: `/api/v1/Club-Events/`,
+                method: "POST",
+                body: body,
+                // headers: authenticationsHeader
+            }),
+            invalidatesTags: ["club_events"]
+        }),
+        requestJoinform: builder.mutation({
+            query: (body) => ({
+                url: `/api/v1/join-club-member/`,
+                method: "POST",
+                body: body,
+                // headers: authenticationsHeader
+            }),
+            invalidatesTags: ["join-club-member"]
+        }),
+        memberUpdate: builder.mutation({
+            query: (body) => ({
+                url: `/club-member-handler`,
+                method: "PUT",
+                body: body,
+                // headers: authenticationsHeader
+            }),
+            invalidatesTags: ["join-club-member"]
+        }),
     }),
 })
 
-export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation, useGetClubMemberQuery } = baseApi;
+export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation } = baseApi;

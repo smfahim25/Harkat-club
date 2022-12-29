@@ -7,40 +7,45 @@ import { setUser } from '../../app/Slices/UserSlice';
 import { setMember } from '../../app/Slices/MembersSlice';
 import { setAdmin } from '../../app/Slices/AdminSlice';
 import RequestForm from './RequestForm';
+import { setClubCurrentMember } from '../../app/Slices/ClubMemberSlice';
 
 const Home = ({ id }) => {
     const [clubMember, setClubMember] = useState(null);
-    const [clubAdmin, setClubAdmin] = useState(false);
+    const [memberRQStatus, setMemberRQStatus] = useState(null)
     const { data: club, isLoading } = useGetClubDataQuery(id);
-    const allMembers = useSelector(state => state.members);
+    const allMembers = useSelector(state => state.members.value);
     const user = useSelector((state) => state.user.id);
     const admin = useSelector((state) => state.admin.value);
     const dispatch = useDispatch();
     if (clubMember == null) {
         if (allMembers && user) {
-            const findMember = allMembers.find(member => member.id === user);
+            const findMember = allMembers.find(member => member.member_id === user);
             if (findMember) {
-                setClubMember(true);
+                setClubMember(findMember.member_status);
+                dispatch(setClubCurrentMember(findMember));
             }
             else {
-                setMember(false);
+                setClubMember(false);
             }
         }
     }
     if (!user.id) {
         if (club?.club?.club_id?.user_id?.id) {
             dispatch(setUser(club.user));
+        }
+    }
+    if (allMembers.length === 0) {
+        if (club?.club?.club_id?.user_id?.id) {
             dispatch(setMember(club.all_members));
         }
     }
     if (admin == null) {
         if (club?.club?.club_id?.user_id?.id) {
             let adminValue = false;
-            if (club.club.club_id.user_id.id === user) {
+            if (club?.club?.club_id?.user_id?.id === user) {
                 adminValue = true;
+                dispatch(setAdmin(adminValue));
             }
-            dispatch(setAdmin(adminValue));
-            setClubAdmin(true);
         }
     }
     return (
@@ -62,7 +67,7 @@ const Home = ({ id }) => {
                         <div className='ml-10 mt-5 flex flex-col justify-center'>
                             <p className='text-xl text-white'>Active since mm month / members-count</p>
                             {
-                                clubMember || clubAdmin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Joined</p> </div> :
+                                admin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Admin</p> </div> : clubMember === 'active' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Active Member</p> : clubMember === 'pending' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Cancel Join Request</p> :
                                     <label htmlFor='request-join' className='cursor-pointer primary-bg text-white text-xl text-center p-2 rounded-xl font-semibold'>Request to join</label>
                             }
                         </div>

@@ -1,13 +1,42 @@
 import { ErrorMessage } from '@hookform/error-message';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { useGetClubDataQuery, useRequestJoinformMutation } from '../../app/EndPoints/baseEndpoints';
 
 const RequestForm = () => {
-    const { register, reset, setError, formState: { errors }, handleSubmit } = useForm();
+    const { id } = useParams();
+    const { register, reset, formState: { errors }, handleSubmit } = useForm();
+    const user = useSelector((state) => state.user.id);
+    const { data: club } = useGetClubDataQuery(id);
+    const [requestJoinform, resInfo] = useRequestJoinformMutation();
     const onSubmit = data => {
-        alert(JSON.stringify(data));
+        const mobile_no = data.mobilenumber;
+        const prev_club = data.previousclubname;
+        const join_reason = data.joinreason;
+        const film_exp = data.filmexperience;
+        const skills = data.skills;
+        const equipments = data.filmequipments;
+        const club_exp = data.clubexperience;
+        const club_id = id;
+        const member_id = user;
+        const member_status = "pending";
+        const body = new FormData();
+        body.append('mobile_no', mobile_no);
+        body.append('prev_club', prev_club);
+        body.append('join_reason', join_reason);
+        body.append('film_exp', film_exp);
+        body.append('skills', skills);
+        body.append('equipments', equipments);
+        body.append('club_exp', club_exp);
+        body.append('club_id', club_id);
+        body.append('member_id', member_id);
+        body.append('member_status', member_status);
+        requestJoinform(body);
         reset();
     }
+    console.log(resInfo);
     return (
         <div>
             <input type="checkbox" id="request-join" className="modal-toggle" />
@@ -16,8 +45,8 @@ const RequestForm = () => {
                     <label htmlFor="request-join" className="btn btn-sm btn-circle absolute right-2 top-2 hover:text-white">✕</label>
                     <section className="p-3 bg-slate-100 text-black">
                         <div className="flex flex-row-reverse justify-center items-center">
-                            <h1 className="text-5xl font-bold ml-5 leading-none sm:text-4xl xl:max-w-md text-gray-900">waka</h1>
-                            <img alt="" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" className="object-cover w-20 h-20 rounded-full shadow" />
+                            <h1 className="text-5xl font-bold ml-5 leading-none sm:text-4xl xl:max-w-md text-gray-900">{club?.club?.club_id?.club_name}</h1>
+                            <img alt="" src={`http://115.245.192.138${club?.club?.club_profile}`} className="object-cover w-20 h-20 rounded-full shadow" />
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)} className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
                             <div className="grid gap-2 grid-cols-1 col-span-6 py-3">
@@ -29,7 +58,7 @@ const RequestForm = () => {
                                             message: 'Mobile number is Required'
                                         },
                                         pattern: {
-                                            value: /[0-9]/,
+                                            value: /^[0-9]+$/,
                                             message: 'Only numbers acceptable'
                                         }
                                     })} placeholder="Mobile Number" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -47,7 +76,7 @@ const RequestForm = () => {
                                             message: 'Previous Club Name is Required'
                                         },
                                         pattern: {
-                                            value: /[A-Za-z]/,
+                                            value: /^[A-Za-z]+$/,
                                             message: 'Only letters acceptable'
                                         }
                                     })} placeholder="Previous Club Name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -65,7 +94,7 @@ const RequestForm = () => {
                                             message: 'Join Reason is Required'
                                         },
                                         pattern: {
-                                            value: /[A-Za-z]/,
+                                            value: /^[A-Za-z]+$/,
                                             message: 'Only letters acceptable'
                                         }
                                     })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900" />
@@ -83,7 +112,7 @@ const RequestForm = () => {
                                             message: 'Film experience is Required'
                                         },
                                         pattern: {
-                                            value: /[0-9]/,
+                                            value: /^[0-9]+$/,
                                             message: 'Only numbers acceptable'
                                         }
                                     })} placeholder="Film Experience in years" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -101,7 +130,25 @@ const RequestForm = () => {
                                             message: 'Skills is Required'
                                         },
                                         pattern: {
-                                            value: /[A-Za-z]/,
+                                            value: /^[A-Za-z]+$/,
+                                            message: 'Only letters acceptable'
+                                        }
+                                    })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                    <ErrorMessage
+                                        errors={errors}
+                                        name="skills"
+                                        render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
+                                    />
+                                </div>
+                                <div className="lg:col-span-6 sm:col-span-3">
+                                    <label for="equipments" className="text-md font-semibold">Film Equipments <span className='text-[#ee3c4d]'>*</span></label>
+                                    <input type="text" {...register("filmequipments", {
+                                        required: {
+                                            value: true,
+                                            message: 'Film Equipments is Required'
+                                        },
+                                        pattern: {
+                                            value: /^[A-Za-z]+$/,
                                             message: 'Only letters acceptable'
                                         }
                                     })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -119,7 +166,7 @@ const RequestForm = () => {
                                             message: 'Club experience is Required'
                                         },
                                         pattern: {
-                                            value: /[0-9]/,
+                                            value: /^[0-9]+$/,
                                             message: 'Only numbers acceptable'
                                         }
                                     })} placeholder="Club Experience in years" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />

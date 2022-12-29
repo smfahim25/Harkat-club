@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const memberSlice = createSlice({
     name: "members",
-    initialState: [],
+    initialState: { value: [] },
     reducers: {
         setMember(state, action) {
-            state = action.payload;
+            state.value = action.payload;
         }
     }
 })
