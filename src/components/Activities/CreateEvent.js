@@ -25,6 +25,12 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
             });
             return;
         }
+        if (startDateTime === endDateTime) {
+            toast.error("Start and end date time can not be same", {
+                position: toast.POSITION.BOTTOM_CENTER
+            });
+            return;
+        }
         const name = data.eventname;
         const desciption = data.eventdescription;
         const event_poster = file;
@@ -85,7 +91,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
         });
         resinfo.isSuccess = false;
     }
-    // console.log(resinfo)
+    console.log(createEventForm)
     return (
         <div>
             {createEventForm && <div>
@@ -104,7 +110,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 message: 'Event name is Required'
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+$/,
+                                                value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} placeholder="Event name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -119,10 +125,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <textarea type="text" placeholder="description" {...register("eventdescription", {
                                             required: {
                                                 value: true,
+                                                maxLength: 300,
                                                 message: 'Event Description is Required'
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+$/,
+                                                value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900" />
@@ -156,7 +163,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Coordinator is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -173,7 +180,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Coordinator responsiblity is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -190,7 +197,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Co-Coordinator is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -207,7 +214,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Co-Coordinator responsiblity is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -272,7 +279,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Equipment is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -289,7 +296,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Person in charge is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -306,7 +313,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     //     message: 'Equipment is Required'
                                                     // },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -322,7 +329,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 //     message: 'Person in charge is Required'
                                                 // },
                                                 pattern: {
-                                                    value: /^[A-Za-z]+$/,
+                                                    value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -343,7 +350,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     message: 'Event Preparatory work is Required'
                                                 },
                                                 pattern: {
-                                                    value: /^[A-Za-z]+$/,
+                                                    value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -358,7 +365,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     message: 'Person in charge is Required'
                                                 },
                                                 pattern: {
-                                                    value: /^[A-Za-z]+$/,
+                                                    value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} />
@@ -374,7 +381,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 //     message: 'Event Preparatory work is Required'
                                                 // },
                                                 pattern: {
-                                                    value: /^[A-Za-z]+$/,
+                                                    value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} /> <ErrorMessage
@@ -388,7 +395,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 //     message: 'Person in charge is Required'
                                                 // },
                                                 pattern: {
-                                                    value: /^[A-Za-z]+$/,
+                                                    value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
                                                 }
                                             })} /> <ErrorMessage
@@ -408,7 +415,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Follow up work is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -425,7 +432,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Person in charge is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -442,7 +449,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     //     message: 'Event Follow up work is Required'
                                                     // },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -459,7 +466,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     //     message: 'person in charge is Required'
                                                     // },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -481,7 +488,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Prize is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -498,7 +505,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Person in charge is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -537,7 +544,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     //     message: 'Event Fund source is Required'
                                                     // },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -559,7 +566,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Event Guest name is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />
@@ -576,7 +583,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                         message: 'Guest short title is Required'
                                                     },
                                                     pattern: {
-                                                        value: /^[A-Za-z]+$/,
+                                                        value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
                                                     }
                                                 })} />

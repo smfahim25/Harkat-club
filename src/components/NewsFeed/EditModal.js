@@ -1,18 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useUpdateClubImagesMutation, useUpdateClubVideosMutation } from '../../app/EndPoints/baseEndpoints';
+import { useUpdateClubMediaMutation } from '../../app/EndPoints/baseEndpoints';
 import uploadImg from '../../assets/uploader.png';
 
-const EditModal = ({ post, setEdit, edit }) => {
-    const { HarkatImages_id, HarkatVideos_id, club_id } = post;
+const EditModal = ({ media, setEdit, edit, setOpen }) => {
+    const { media_id, club_id, img, video } = media;
     const wrapperRef = useRef(null);
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
     const user = useSelector(state => state.user.id);
-    const [updateClubImages, resImg] = useUpdateClubImagesMutation();
-    const [updateClubVideos, resVideo] = useUpdateClubVideosMutation();
+    const [updateClubMedia, resMedia] = useUpdateClubMediaMutation();
     const [fileList, setFileList] = useState([]);
     const fileName = (e) => {
         const fileL = e.target.files[0].name.length;
@@ -32,7 +31,7 @@ const EditModal = ({ post, setEdit, edit }) => {
     // edit post
     const handleEdit = (e) => {
         e.preventDefault();
-        if (e.target.uploadFile.files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
+        if (e.target.uploadFile.files[0].name.match(/\.(jpg|jpeg|png|gif)$/) && img) {
             const file = e.target.uploadFile.files[0];
             const title = e.target.title.value;
             const body = new FormData();
@@ -40,17 +39,19 @@ const EditModal = ({ post, setEdit, edit }) => {
             body.append('title', title);
             body.append('club_id', club_id);
             body.append('user_id', user);
-            const data = { id: HarkatImages_id, body: body }
-            updateClubImages(data);
-            if (!resImg.isSuccess) {
+            const data = { id: media_id, body: body }
+            updateClubMedia(data);
+            if (!resMedia.isSuccess) {
                 toast.info("Image is updating now.", {
                     position: toast.POSITION.BOTTOM_CENTER
                 });
             }
             e.target.reset();
             setFileList([]);
+            setOpen(false);
+
         }
-        else if (e.target.uploadFile.files[0].name.match(/\.(mp4|mov|avi|3gp)$/)) {
+        else if (e.target.uploadFile.files[0].name.match(/\.(mp4|mov|avi|3gp)$/) && video) {
             const file = e.target.uploadFile.files[0];
             const title = e.target.title.value;
             const body = new FormData();
@@ -58,15 +59,21 @@ const EditModal = ({ post, setEdit, edit }) => {
             body.append('title', title);
             body.append('club_id', club_id);
             body.append('user_id', user);
-            const data = { id: HarkatVideos_id, body: body }
-            updateClubVideos(data);
-            if (!resVideo.isSuccess) {
+            const data = { id: media_id, body: body }
+            updateClubMedia(data);
+            if (!resMedia.isSuccess) {
                 toast.info("Video is updating now.", {
                     position: toast.POSITION.BOTTOM_CENTER
                 });
             }
             e.target.reset();
             setFileList([]);
+            setOpen(false);
+        }
+        else {
+            toast.error("Selected wrong file.", {
+                position: toast.POSITION.BOTTOM_CENTER
+            });
         }
         setEdit(false);
     }

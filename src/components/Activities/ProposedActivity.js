@@ -1,14 +1,20 @@
+import dayjs from 'dayjs';
 import React from 'react';
 
-const ProposedActivity = () => {
+const ProposedActivity = (props) => {
+    const { event_start, desciption, event_end, venue, event_poster } = props.event;
+    const startDate = dayjs(event_start).format('LL LT');
+    const endDate = dayjs(event_end).format('LL LT');
     return (
         <div>
-            <div className="max-w-xl p-6 rounded-md shadow-md bg-slate-100">
-                <img src="https://source.unsplash.com/random/300x300/?1" alt="" className="object-cover object-center w-full rounded-md h-72 bg-gray-500" />
+            <div className="max-w-xl p-6 rounded-md shadow-xl">
+                <img src={event_poster} alt="" className="object-cover object-center w-full rounded-md h-72 bg-gray-500" />
                 <div className="mt-6 mb-2">
-                    <span className="block text-xl font-medium tracking-widest uppercase text-black">Date and Venue</span>
+                    <span className="block text-xl font-semibold text-black tracking-widest">Event Start: <span className='font-bold'>{startDate}</span></span>
+                    <span className="block text-xl font-semibold tracking-widest text-black">Event End: <span className='font-bold'>{endDate}</span></span>
+                    <span className="block text-xl font-semibold tracking-widest text-black">Event Venue: {venue}</span>
                 </div>
-                <p className="text-black">Mauris et lorem at elit tristique dignissim et ullamcorper elit. In sed feugiat mi. Etiam ut lacinia dui.</p>
+                <p className="text-black text-lg">{desciption.slice(0, 200)}..</p>
             </div>
         </div>
     );

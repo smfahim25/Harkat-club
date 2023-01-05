@@ -20,7 +20,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/api/v1/Clubs`,
                 method: "GET",
-                headers: headers
+                // headers: headers
             }),
             providesTags: ["clubs"]
         }),
@@ -28,7 +28,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/club-user`,
                 method: "GET",
-                headers: headers
+                // headers: headers
             }),
             providesTags: ["clubs"]
         }),
@@ -36,92 +36,71 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/club-api/${id}`,
                 method: "GET",
-                headers: headers
+                // headers: headers
             }),
             providesTags: ["club"]
         }),
-        getClubImages: builder.query({
-            query: ({ id, page_number }) => ({
-                url: `/club-images?club_id=${id}&page=${page_number}`,
+        getEvent: builder.query({
+            query: (id) => ({
+                url: `/club-events?club_id=${id}`,
                 method: "GET",
-                headers: headers
+                // headers: headers
             }),
             providesTags: ["club_images"]
         }),
-        deleteClubImages: builder.mutation({
+        deleteClubMedia: builder.mutation({
             query: (id) => ({
-                url: `/api/v1/Club-Images/${id}/`,
+                url: `/api/v1/Club-Media/${id}/`,
                 method: "DELETE",
-                headers: csrf
+                // headers: csrf
             }),
-            invalidatesTags: ["club_images"]
+            invalidatesTags: ["club_media"]
         }),
-        updateClubImages: builder.mutation({
+        updateClubMedia: builder.mutation({
             query: (data) => {
                 const id = data.id;
                 const body = data.body;
                 return {
-                    url: `/api/v1/Club-Images/${id}/`,
+                    url: `/api/v1/Club-Media/${id}/`,
                     method: 'PUT',
                     body: body,
-                    headers: csrf
+                    // headers: csrf
                 }
             },
-            invalidatesTags: ["club_images"]
+            invalidatesTags: ["club_media"]
         }),
-        getClubVideos: builder.query({
+        getClubMedia: builder.query({
             query: ({ id, page_number }) => ({
-                url: `/club-videos?club_id=${id}&page=${page_number}`,
+                url: `/club-media?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                headers: headers
+                // headers: headers
             }),
-            providesTags: ["club_videos"]
-        }),
-        deleteClubVideos: builder.mutation({
-            query: (id) => ({
-                url: `/api/v1/Club-Videos/${id}/`,
-                method: "DELETE",
-                headers: csrf
-            }),
-            invalidatesTags: ["club_videos"]
-        }),
-        updateClubVideos: builder.mutation({
-            query: (data) => {
-                const id = data.id;
-                const body = data.body;
-                return {
-                    url: `/api/v1/Club-Videos/${id}/`,
-                    method: 'PUT',
-                    body: body,
-                    headers: csrf
-                }
-            },
-            invalidatesTags: ["club_videos"]
-        }),
-        uploadImage: builder.mutation({
-            query: (body) => ({
-                url: `/api/v1/Club-Images/`,
-                method: "POST",
-                body: body,
-                headers: csrf
-            }),
-            invalidatesTags: ["club_images"]
+            providesTags: ["club_media"]
         }),
         uploadVideo: builder.mutation({
             query: (body) => ({
-                url: `/api/v1/Club-Videos/`,
+                url: `/api/v1/Club-Media/`,
                 method: "POST",
                 body: body,
-                headers: csrf
+                // headers: csrf
             }),
-            invalidatesTags: ["club_videos"]
+            invalidatesTags: ["club_media"]
+        }),
+        uploadImage: builder.mutation({
+            query: (body) => ({
+                url: `/api/v1/Club-Media/`,
+                method: "POST",
+                body: body,
+                // headers: csrf
+            }),
+            invalidatesTags: ["club_media"]
         }),
         createEvent: builder.mutation({
             query: (body) => ({
                 url: `/api/v1/Club-Events/`,
                 method: "POST",
                 body: body,
-                headers: csrf
+                // headers: csrf
             }),
             invalidatesTags: ["club_events"]
         }),
@@ -130,7 +109,7 @@ export const baseApi = createApi({
                 url: `/api/v1/join-club-member/`,
                 method: "POST",
                 body: body,
-                headers: csrf
+                // headers: csrf
             }),
             invalidatesTags: ["join-club-member"]
         }),
@@ -139,7 +118,7 @@ export const baseApi = createApi({
                 url: `/club-member-handler`,
                 method: "PUT",
                 body: body,
-                headers: csrf
+                // headers: csrf
             }),
             invalidatesTags: ["join-club-member"]
         }),
@@ -148,11 +127,11 @@ export const baseApi = createApi({
                 url: `/club-member-handler`,
                 method: "PUT",
                 body: body,
-                headers: csrf
+                // headers: csrf
             }),
             invalidatesTags: ["join-club-member"]
         }),
     }),
 })
 
-export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useMemberDeleteMutation } = baseApi;
+export const { useGetHatkatDataQuery, useGetClubDataQuery, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useMemberDeleteMutation, useGetEventQuery, useUpdateClubMediaMutation, useGetClubMediaQuery, useDeleteClubMediaMutation, useUploadImageMutation, useUploadVideoMutation } = baseApi;

@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import Toggle from './Toggle';
 
 
-const Feed = ({ post }) => {
-    const { title, user_id, img_upload_date, img, video, vid_upload_date } = post;
+const Feed = ({ media }) => {
+    const { post, user_id, created_date, img, video } = media;
     const user = useSelector(state => state.user.id);
 
     const openToggle = () => {
@@ -22,18 +22,17 @@ const Feed = ({ post }) => {
     // }, []);
     return (
         <div className="relative">
-            <div className="relative rounded-md shadow-xl w-full 2xl:w-[800px] mb-10">
+            <div className="rounded-md shadow-xl w-full 2xl:w-[800px] mb-10">
                 <div className="flex items-center justify-between p-3 cursor-pointer">
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <img src="https://media.istockphoto.com/id/1298261537/vector/blank-man-profile-head-icon-placeholder.jpg?s=612x612&w=0&k=20&c=CeT1RVWZzQDay4t54ookMaFsdi7ZHVFg2Y5v7hxigCA=" alt="profile pictures" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
                             <h2 className="text-2xl font-semibold leading-none">{user_id?.username}</h2>
-                            {/* <h2 className="text-2xl font-semibold leading-none">{user_id?.username}</h2> */}
-                            <span className="inline-block text-sm leading-none">{img_upload_date}</span>
-                            <span className="inline-block text-sm leading-none mt-2">{vid_upload_date}</span>
+                            {img && <span className="inline-block text-sm leading-none">{created_date}</span>}
+                            {video && <span className="inline-block text-sm leading-none mt-2">{created_date}</span>}
                         </div>
                     </div>
-                    {(user === user_id?.id || user === user_id) && <div className='relative'>
+                    {(user === user_id?.id || user === user_id) && <div>
                         <button onClick={openToggle} title="Open option" type="button" className='cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
                                 <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
@@ -44,7 +43,7 @@ const Feed = ({ post }) => {
                     </div>}
                 </div>
                 <figure>
-                    <figcaption className='px-2 text-lg mb-3'>{title}</figcaption>
+                    <figcaption className='px-2 text-lg mb-3'>{post}</figcaption>
                     {
                         img && <img src={img} alt="" className="w-full" />
                     }
@@ -90,7 +89,7 @@ const Feed = ({ post }) => {
             </div>
             <div className='absolute top-10 left-[350px]'>
                 {
-                    open && <Toggle post={post}></Toggle>
+                    open && <Toggle media={media} setOpen={setOpen}></Toggle>
                 }
             </div>
         </div>

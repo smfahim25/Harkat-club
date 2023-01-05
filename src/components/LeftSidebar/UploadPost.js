@@ -33,7 +33,7 @@ const UploadPost = () => {
 
     // upload video and image state
     const [uploadImage, resInfo] = useUploadImageMutation();
-    const [uploadVideo, resInfo1] = useUploadVideoMutation()
+    const [uploadVideo, resInfo1] = useUploadVideoMutation();
 
     // upload image and video function
     const handleSubmit = (e) => {
@@ -82,7 +82,6 @@ const UploadPost = () => {
             });
         }
     }
-
     // for response notification
     if (resInfo.isSuccess) {
         toast.success("Image uploaded successfully.", {
@@ -147,7 +146,7 @@ const UploadPost = () => {
                         <label className='ml-2'>
                             <span className='text-xl font-semibold'>Description</span>
                         </label>
-                        <textarea name='title' className="textarea textarea-primary resize-none w-[500px]" placeholder="Description"></textarea>
+                        <textarea name='title' className="textarea textarea-primary resize-none w-[500px]" maxLength={300} placeholder="Description"></textarea>
                     </div>
                     <div className='flex justify-center items-center'>
                         <input className='uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' style={{ backgroundColor: "#ee3c4d" }} type="submit" value='Upload' />
