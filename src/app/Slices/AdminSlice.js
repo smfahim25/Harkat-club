@@ -5,10 +5,13 @@ export const AdminSlice = createSlice({
     initialState: { value: null },
     reducers: {
         setAdmin(state, action) {
-            state.value = action.payload;
+            state.value = action?.payload;
+        },
+        removeAdmin(state) {
+            state.value = null;
         }
     }
 })
 
-export const { setAdmin } = AdminSlice.actions;
+export const { setAdmin, removeAdmin } = AdminSlice.actions;
 export default AdminSlice.reducer;

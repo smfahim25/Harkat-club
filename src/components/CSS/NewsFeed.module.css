@@ -1,5 +1,5 @@
 .keep_scrolling {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 

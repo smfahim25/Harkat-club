@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
 import MyclubLoading from '../isLoading/MyclubLoading';
@@ -7,14 +8,17 @@ import NewRequests from '../Members/NewRequests';
 
 const Members = () => {
     const { id } = useParams();
+    const admin = useSelector((state) => state.admin.value);
+    const clubMemberCheck = useSelector(state => state.clubcurrentmember.member_status);
     const { data: members, isLoading } = useGetClubDataQuery(id);
-    console.log(members);
+    const activeMembers = members.all_members.filter(member => member.member_status === 'active');
+    const requestMembers = members.all_members.filter(member => member.member_status === 'pending');
     return (
         <div>
             <div className='mt-10'>
                 {
                     isLoading ? <MyclubLoading /> : <div>
-                        <div>
+                        {admin && <div>
                             <div className='flex justify-between items-center mt-4 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold'>
                                 <div>
                                     <h1>New Requests</h1>
@@ -35,9 +39,11 @@ const Members = () => {
                                     </fieldset>
                                 </div>
                             </div>
-                            <NewRequests />
-                        </div>
-                        <div>
+                            {
+                                requestMembers.map(member => <NewRequests key={member.member_Club_id} member={member}></NewRequests>)
+                            }
+                        </div>}
+                        {admin || clubMemberCheck === 'active' ? <div>
                             <div className='flex justify-between items-center mt-5 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold'>
                                 <div>
                                     <h1>Members</h1>
@@ -59,13 +65,13 @@ const Members = () => {
                                 </div>
                             </div>
                             {
-                                members?.all_members?.map(member => <AllMembers key={member.Club_id} member={member}></AllMembers>)
+                                activeMembers.map(member => <AllMembers key={member.member_Club_id} member={member}></AllMembers>)
                             }
-                        </div>
+                        </div> : ''}
                     </div>
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

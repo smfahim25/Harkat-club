@@ -2,14 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const ClubCurrentMemberSlice = createSlice({
     name: "clubcurrentmember",
-    initialState: { member_club_id: "", member_status: "", member_id: "" },
+    initialState: { member_Club_id: "", member_status: "", member_id: "" },
     reducers: {
         setClubCurrentMember(state, action) {
-            console.log(action.payload);
-            // state.member_club_id = action.payload;
+            state.member_Club_id = action?.payload?.member_Club_id;
+            state.member_status = action?.payload?.member_status;
+            state.member_id = action?.payload?.member_id;
+        },
+        removeClubCurrentMember(state) {
+            state.member_club_id = "";
+            state.member_status = "";
+            state.member_id = "";
         }
     }
 })
 
-export const { setClubCurrentMember } = ClubCurrentMemberSlice.actions;
+export const { setClubCurrentMember, removeClubCurrentMember } = ClubCurrentMemberSlice.actions;
 export default ClubCurrentMemberSlice.reducer;

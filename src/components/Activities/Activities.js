@@ -8,6 +8,7 @@ const Activities = () => {
     const [proposedActivities, setProposedActivities] = useState(true);
     const [futureActivities, setFutureActivities] = useState(false);
     const [pastActivities, setPastActivities] = useState(false);
+    const [createEventForm, setCreateEventForm] = useState(false);
     const proposedActivitiesClick = () => {
         setProposedActivities(!proposedActivities);
         setFutureActivities(false);
@@ -32,7 +33,7 @@ const Activities = () => {
             </div>
             {proposedActivities && <div className='mt-5 flex flex-col justify-center items-center'>
                 <ProposedActivity />
-                <div className='mt-10'><label htmlFor='create-event' className='bg-[#ee3c4d] cursor-pointer text-white p-2 rounded-xl font-semibold'>Create Event</label></div>
+                <div className='mt-10'><label htmlFor='create-event' onClick={() => setCreateEventForm(true)} className='bg-[#ee3c4d] cursor-pointer text-white p-2 rounded-xl font-semibold'>Create Event</label></div>
             </div>}
             {
                 futureActivities && <div className='mt-5 px-10 flex justify-center items-center'><FutureActivity /></div>
@@ -40,7 +41,7 @@ const Activities = () => {
             {
                 pastActivities && <div className='mt-5 px-10 flex justify-center items-center'><PastActivity /></div>
             }
-            <CreateEvent />
+            <CreateEvent createEvent={createEventForm} setCreateEvent={setCreateEventForm}></CreateEvent>
         </div>
     );
 };

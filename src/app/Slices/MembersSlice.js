@@ -5,10 +5,13 @@ export const memberSlice = createSlice({
     initialState: { value: [] },
     reducers: {
         setMember(state, action) {
-            state.value = action.payload;
+            state.value = action?.payload;
+        },
+        removeMember(state) {
+            state.value = [];
         }
     }
 })
 
-export const { setMember } = memberSlice.actions;
+export const { setMember, removeMember } = memberSlice.actions;
 export default memberSlice.reducer;

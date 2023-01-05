@@ -1,133 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { useDeleteClubImagesMutation, useDeleteClubVideosMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation } from '../../app/EndPoints/baseEndpoints';
-import uploadImg from '../../assets/uploader.png';
+import Toggle from './Toggle';
 
-const Feed = (props) => {
-    const { HarkatImages_id, HarkatVideos_id, title, user_id, img_upload_date, club_id, img, video, vid_upload_date } = props.post;
+
+const Feed = ({ post }) => {
+    const { title, user_id, img_upload_date, img, video, vid_upload_date } = post;
     const user = useSelector(state => state.user.id);
-    const [deleteClubImages, resInfo] = useDeleteClubImagesMutation();
-    const [deleteClubVideos, resInfo1] = useDeleteClubVideosMutation();
-    const [updateClubImages, resImg] = useUpdateClubImagesMutation();
-    const [updateClubVideos, resVideo] = useUpdateClubVideosMutation();
 
-    // delete post
-    const handleDelete = (id) => {
-        if (img) {
-            deleteClubImages(id);
-            setDeleting(false);
-        }
-        else if (video) {
-            deleteClubVideos(id);
-            setDeleting(false);
-        }
+    const openToggle = () => {
+        setOpen(!open);
     }
-    if (resInfo.isSuccess) {
-        toast.success("Your post deleted successfully.", {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        resInfo.isSuccess = false;
-    }
-    if (resInfo1.isSuccess) {
-        toast.success("Your video deleted successfully.", {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        resInfo1.isSuccess = false;
-    }
-
-    // update and edit post file name check
-    const [edit, setEdit] = useState(false);
-    const [fileList, setFileList] = useState([]);
-    const fileName = (e) => {
-        const fileL = e.target.files[0].name.length;
-        if (fileL > 90) {
-            toast.error("Your file name should be less than 90 character.", {
-                position: toast.POSITION.BOTTOM_CENTER
-            });
-            e.target.reset();
-        }
-        const newFile = e.target.files[0];
-        if (newFile) {
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
-        }
-    }
-
-    // edit post
-    const handleEdit = (e) => {
-        e.preventDefault();
-        if (e.target.uploadFile.files[0].name.match(/\.(jpg|jpeg|png|gif)$/)) {
-            const file = e.target.uploadFile.files[0];
-            const title = e.target.title.value;
-            const body = new FormData();
-            body.append('img', file);
-            body.append('title', title);
-            body.append('club_id', club_id);
-            body.append('user_id', user);
-            const data = { id: HarkatImages_id, body: body }
-            updateClubImages(data);
-            if (!resImg.isSuccess) {
-                toast.info("Image is updating now.", {
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
-            }
-            e.target.reset();
-            setFileList([]);
-        }
-        else if (e.target.uploadFile.files[0].name.match(/\.(mp4|mov|avi|3gp)$/)) {
-            const file = e.target.uploadFile.files[0];
-            const title = e.target.title.value;
-            const body = new FormData();
-            body.append('video', file);
-            body.append('title', title);
-            body.append('club_id', club_id);
-            body.append('user_id', user);
-            const data = { id: HarkatVideos_id, body: body }
-            updateClubVideos(data);
-            if (!resVideo.isSuccess) {
-                toast.info("Video is updating now.", {
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
-            }
-            e.target.reset();
-            setFileList([]);
-        }
-        setEdit(false);
-    }
-    if (resImg.isSuccess) {
-        toast.success("Image is updated successfully.", {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        resImg.isSuccess = false;
-    }
-    if (resVideo.isSuccess) {
-        toast.success("Video is updated successfully.", {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        resVideo.isSuccess = false;
-    }
-
-    // edit post modal
-    const [deleting, setDeleting] = useState(false);
-    const wrapperRef = useRef(null);
-    const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-    const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
-    const onDrop = () => wrapperRef.current.classList.remove('dragover');
-    // open modal 
     const [open, setOpen] = useState(false);
-    const btnRef = useRef();
-    useEffect(() => {
-        const closeMenu = (e) => { if (!btnRef.current.contains(e.target)) { setOpen(false); } };
+    // const btnRef = useRef();
+    // useEffect(() => {
+    //     const closeMenu = (e) => { if (!btnRef.current.contains(e.target)) { setOpen(false); } };
 
-        document.body.addEventListener("mousedown", closeMenu);
+    //     document.body.addEventListener("mousedown", closeMenu);
 
-        return () => document.body.removeEventListener("mousedown", closeMenu);
-    }, []);
+    //     return () => document.body.removeEventListener("mousedown", closeMenu);
+    // }, []);
     return (
-        <div>
-            <div className="rounded-md shadow-md w-full 2xl:w-[800px] mb-10 bg-slate-50">
+        <div className="relative">
+            <div className="relative rounded-md shadow-xl w-full 2xl:w-[800px] mb-10">
                 <div className="flex items-center justify-between p-3 cursor-pointer">
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <img src="https://media.istockphoto.com/id/1298261537/vector/blank-man-profile-head-icon-placeholder.jpg?s=612x612&w=0&k=20&c=CeT1RVWZzQDay4t54ookMaFsdi7ZHVFg2Y5v7hxigCA=" alt="profile pictures" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
@@ -139,39 +34,12 @@ const Feed = (props) => {
                         </div>
                     </div>
                     {(user === user_id?.id || user === user_id) && <div className='relative'>
-                        <button onClick={() => setOpen(true)} ref={btnRef} title="Open option" type="button" className='cursor-pointer'>
+                        <button onClick={openToggle} title="Open option" type="button" className='cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
                                 <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
                                 <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
                                 <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
                             </svg>
-                            {
-                                open && (<div className='bg-white p-2 w-32 shadow-2xl absolute -left-32 rounded-md z-[1]'>
-                                    <ul className='text-left ml-2'>
-                                        {
-                                            img && <li>
-                                                <label onClick={() => setEdit(true)} className='p-1 pr-16 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' htmlFor="edit-modal">Edit</label>
-                                            </li>
-                                        }
-                                        {
-                                            video && <li >
-                                                <label onClick={() => setEdit(true)} className='p-1 pr-16 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' htmlFor="edit-modal">Edit</label>
-                                            </li>
-                                        }
-
-                                        {
-                                            img && <li >
-                                                <label className='p-1 pr-10 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' htmlFor="delete-modal" onClick={() => setDeleting(true)}>Delete</label>
-                                            </li>
-                                        }
-                                        {
-                                            video && <li>
-                                                <label className='p-1 pr-10 text-lg cursor-pointer rounded hover:bg-[#ee3c4d] hover:text-white font-semibold' htmlFor="delete-modal" onClick={() => setDeleting(true)}>Delete</label>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>)
-                            }
                         </button>
                     </div>}
                 </div>
@@ -183,11 +51,11 @@ const Feed = (props) => {
                     {
                         video && <ReactPlayer
                             style={{ maxWidth: "100%", width: "800px", margin: "0 auto" }}
-                            playing={true}
                             volume={1}
                             loop
                             muted
                             controls
+                            playing
                             alt="All the devices"
                             url={video}
                         />
@@ -218,81 +86,13 @@ const Feed = (props) => {
                             </svg>
                         </button>
                     </div>
-                    <div className="flex flex-wrap items-center pt-3 pb-1">
-                        <div className="flex items-center space-x-2">
-                            <div className="flex -space-x-1">
-                                <img alt="" className="w-5 h-5 border rounded-full" src="https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863" />
-                                <img alt="" className="w-5 h-5 border rounded-full" src="https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863" />
-                                <img alt="" className="w-5 h-5 border rounded-full" src="https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863" />
-                            </div>
-                            {/* <span className="text-sm">Liked by
-                                <span className="font-semibold">Good</span>and
-                                <span className="font-semibold">others</span>
-                            </span> */}
-                        </div>
-                    </div>
-                    <div className="space-y-3">
-                        {/* <p className="text-sm">
-                            <span className="text-base font-semibold">leroy_jenkins72</span>Nemo ea quasi debitis impedit!
-                        </p> */}
-                        <input type="text" placeholder="Add a comment..." className="w-full py-0.5 dark:bg-transparent border-none text-sm pl-0 text-gray-100" />
-                    </div>
                 </div>
             </div>
-            {
-                deleting && <div>
-                    <input type="checkbox" id="delete-modal" className="modal-toggle" />
-                    <div className="modal modal-bottom sm:modal-middle">
-                        <div className="modal-box">
-                            <h3 className="font-bold text-lg">Are you sure want to delete?</h3>
-                            <div className="modal-action">
-                                {img && <button onClick={() => { handleDelete(HarkatImages_id); setDeleting(false); }} className='primary-bg px-5 h-[32px]  rounded-lg text-white font-semibold'>Delete</button>}
-                                {video && <button onClick={() => { handleDelete(HarkatVideos_id); setDeleting(false); }} className='primary-bg px-5 h-[32px] rounded-lg text-white font-semibold'>Delete</button>}
-                                <label htmlFor="delete-modal" className="bg-neutral px-5 py-2 rounded-lg text-white font-semibold cursor-pointer">Cancel</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            {edit && <div>
-                <input type="checkbox" id="edit-modal" className="modal-toggle" />
-                <div className="modal modal-bottom sm:modal-middle">
-                    <div className="modal-box relative">
-                        <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                        <form onSubmit={handleEdit}>
-                            <div className='flex flex-col justify-center items-center mt-5 mb-2'>
-                                <div
-                                    ref={wrapperRef}
-                                    className="drop-file-input w-full h-72 border-dashed"
-                                    onDragEnter={onDragEnter}
-                                    onDragLeave={onDragLeave}
-                                    onDrop={onDrop}
-                                >
-                                    <div className="drop-file-input__label mt-[-40px]">
-                                        <img src={uploadImg} alt="" />
-                                        <p>Drag & Drop your files here</p>
-                                        {
-                                            fileList.map((item, index) => (
-                                                <p key={index}>({item.name.slice(0, 20)}...)</p>
-                                            ))
-                                        }
-                                    </div>
-                                    <input type="file" name='uploadFile' accept="image/*,video/*" onChange={fileName} />
-                                </div>
-                            </div>
-                            <div className="w-full max-w-xs">
-                                <label className='ml-2'>
-                                    <span className='text-xl font-semibold mb-2'>Description</span>
-                                </label>
-                                <textarea name='title' className="textarea textarea-primary resize-none w-[375px]" placeholder="Description"></textarea>
-                            </div>
-                            <div className='flex justify-center items-center'>
-                                <input className='uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' style={{ backgroundColor: "#ee3c4d" }} type="submit" value='Update' />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>}
+            <div className='absolute top-10 left-[350px]'>
+                {
+                    open && <Toggle post={post}></Toggle>
+                }
+            </div>
         </div>
     );
 };

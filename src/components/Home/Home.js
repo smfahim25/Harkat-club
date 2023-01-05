@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
 import style from '../CSS/Home.module.css';
@@ -11,43 +11,46 @@ import { setClubCurrentMember } from '../../app/Slices/ClubMemberSlice';
 
 const Home = ({ id }) => {
     const [clubMember, setClubMember] = useState(null);
-    const [memberRQStatus, setMemberRQStatus] = useState(null)
+    const [requestForm, setRequestForm] = useState(false);
     const { data: club, isLoading } = useGetClubDataQuery(id);
     const allMembers = useSelector(state => state.members.value);
     const user = useSelector((state) => state.user.id);
     const admin = useSelector((state) => state.admin.value);
     const dispatch = useDispatch();
-    if (clubMember == null) {
-        if (allMembers && user) {
-            const findMember = allMembers.find(member => member.member_id === user);
-            if (findMember) {
-                setClubMember(findMember.member_status);
-                dispatch(setClubCurrentMember(findMember));
+    useEffect(() => {
+        if (clubMember == null) {
+            if (allMembers && user) {
+                const findMember = allMembers.find(member => member?.member_id === user);
+                if (findMember) {
+                    setClubMember(findMember.member_status);
+                    dispatch(setClubCurrentMember(findMember));
+                }
+                else {
+                    setClubMember(false);
+                }
             }
-            else {
-                setClubMember(false);
+        }
+        if (!user.id) {
+            if (club?.club?.club_id?.user_id?.id) {
+                dispatch(setUser(club.user));
             }
         }
-    }
-    if (!user.id) {
-        if (club?.club?.club_id?.user_id?.id) {
-            dispatch(setUser(club.user));
+        if (allMembers.length === 0) {
+            if (club?.club?.club_id?.user_id?.id) {
+                dispatch(setMember(club.all_members));
+            }
         }
-    }
-    if (allMembers.length === 0) {
-        if (club?.club?.club_id?.user_id?.id) {
-            dispatch(setMember(club.all_members));
-        }
-    }
-    if (admin == null) {
-        if (club?.club?.club_id?.user_id?.id) {
-            let adminValue = false;
-            if (club?.club?.club_id?.user_id?.id === user) {
-                adminValue = true;
+        if (admin == null && user) {
+            if (club?.club?.club_id?.user_id?.id) {
+                let adminValue = false;
+                if (club?.club?.club_id?.user_id?.id === user) {
+                    adminValue = true;
+                }
                 dispatch(setAdmin(adminValue));
             }
         }
-    }
+    }, [admin, user, allMembers, club, clubMember, dispatch]);
+    // console.log(clubMember)
     return (
         <div>
             {
@@ -66,15 +69,16 @@ const Home = ({ id }) => {
                         </div>
                         <div className='ml-10 mt-5 flex flex-col justify-center'>
                             <p className='text-xl text-white'>Active since mm month / members-count</p>
-                            {
-                                admin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Admin</p> </div> : clubMember === 'active' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Active Member</p> : clubMember === 'pending' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Cancel Join Request</p> :
-                                    <label htmlFor='request-join' className='cursor-pointer primary-bg text-white text-xl text-center p-2 rounded-xl font-semibold'>Request to join</label>
-                            }
+
+                            {admin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Admin</p> </div> :
+                                clubMember === 'active' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Active Member</p> :
+                                    clubMember === 'pending' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Cancel Join Request</p> :
+                                        <label htmlFor='request-join' onClick={() => setRequestForm(true)} className='cursor-pointer primary-bg text-white text-xl text-center p-2 rounded-xl font-semibold'>Request to join</label>}
                         </div>
                     </div>
                 </section >
             }
-            <RequestForm />
+            <RequestForm requestForm={requestForm} setRequestForm={setRequestForm}></RequestForm>
         </div >
     );
 };

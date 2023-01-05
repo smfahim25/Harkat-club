@@ -7,9 +7,26 @@ import { TiMessages } from 'react-icons/ti';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { GiPokecog } from 'react-icons/gi';
 import { useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 const LeftSidebar = () => {
-    
-    const [memberUpdate] = useMemberUpdateMutation();
+    const [memberUpdate, resInfo] = useMemberUpdateMutation();
+    const admin = useSelector((state) => state.admin.value);
+    const clubMember = useSelector(state => state.clubcurrentmember.member_Club_id);
+    const clubMemberCheck = useSelector(state => state.clubcurrentmember.member_status);
+    const leaveClub = () => {
+        const body = {
+            club_member_id: clubMember, status: "leaved"
+        }
+        memberUpdate(body);
+    }
+    if (resInfo.isSuccess) {
+        toast.success("Leaved successfully.", {
+            position: toast.POSITION.BOTTOM_CENTER
+        });
+        resInfo.isSuccess = false;
+    }
+    // console.log(resInfo);
     return (
         <div>
             <div className="drawer drawer-mobile h-[720px] 2xl:mr-5 mt-5">
@@ -17,7 +34,7 @@ const LeftSidebar = () => {
                 <div className="drawer-content flex flex-col items-center justify-center">
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
                 </div>
-                <div className={`${styles.keep_scrolling}`}>
+                {admin || clubMemberCheck === 'active' ? <div className={`${styles.keep_scrolling}`}>
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu w-[300px] text-base-content text-[17px]">
                         <li><NavLink to='uploadpost' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Upload Post</NavLink></li>
@@ -38,9 +55,9 @@ const LeftSidebar = () => {
                         <li><NavLink to='announcement' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Announcements</NavLink></li>
                         <li><NavLink to='news' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>News</NavLink></li>
                         <li><NavLink to='promoteclub' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Promote Club</NavLink></li>
-                        <li><button className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white justify-center'>Leave Club</button></li>
+                        <li>{clubMemberCheck === 'active' ? < button onClick={leaveClub} className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white justify-center'>Leave Club</button> : ''}</li>
                     </ul>
-                </div>
+                </div> : " "}
             </div>
         </div >
     );

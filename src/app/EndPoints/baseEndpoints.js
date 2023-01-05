@@ -1,8 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import Cookies from 'js-cookie';
 const URL = "http://115.245.192.138/harkat";
-const authenticationsHeader = {
-    "xsrfHeaderName": "X-CSRFToken",
-    "xsrfCookieName": "csrftoken",
+const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+}
+const csrfToken = Cookies.get('csrftoken')
+const csrf = {
+    'X-CSRFToken': csrfToken
 }
 export const baseApi = createApi({
     reducerPath: "HarkatBase",
@@ -15,7 +20,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/api/v1/Clubs`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: headers
             }),
             providesTags: ["clubs"]
         }),
@@ -23,7 +28,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/club-user`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: headers
             }),
             providesTags: ["clubs"]
         }),
@@ -31,7 +36,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/club-api/${id}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: headers
             }),
             providesTags: ["club"]
         }),
@@ -39,7 +44,7 @@ export const baseApi = createApi({
             query: ({ id, page_number }) => ({
                 url: `/club-images?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: headers
             }),
             providesTags: ["club_images"]
         }),
@@ -47,7 +52,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/api/v1/Club-Images/${id}/`,
                 method: "DELETE",
-                // headers: authenticationsHeader
+                headers: csrf
             }),
             invalidatesTags: ["club_images"]
         }),
@@ -59,7 +64,7 @@ export const baseApi = createApi({
                     url: `/api/v1/Club-Images/${id}/`,
                     method: 'PUT',
                     body: body,
-                    // headers: authenticationsHeader
+                    headers: csrf
                 }
             },
             invalidatesTags: ["club_images"]
@@ -68,7 +73,7 @@ export const baseApi = createApi({
             query: ({ id, page_number }) => ({
                 url: `/club-videos?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                // headers: authenticationsHeader
+                headers: headers
             }),
             providesTags: ["club_videos"]
         }),
@@ -76,7 +81,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/api/v1/Club-Videos/${id}/`,
                 method: "DELETE",
-                // headers: authenticationsHeader
+                headers: csrf
             }),
             invalidatesTags: ["club_videos"]
         }),
@@ -88,7 +93,7 @@ export const baseApi = createApi({
                     url: `/api/v1/Club-Videos/${id}/`,
                     method: 'PUT',
                     body: body,
-                    // headers: authenticationsHeader
+                    headers: csrf
                 }
             },
             invalidatesTags: ["club_videos"]
@@ -98,7 +103,7 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Images/`,
                 method: "POST",
                 body: body,
-                // headers: authenticationsHeader
+                headers: csrf
             }),
             invalidatesTags: ["club_images"]
         }),
@@ -107,7 +112,7 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Videos/`,
                 method: "POST",
                 body: body,
-                // headers: authenticationsHeader
+                headers: csrf
             }),
             invalidatesTags: ["club_videos"]
         }),
@@ -116,7 +121,7 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Events/`,
                 method: "POST",
                 body: body,
-                // headers: authenticationsHeader
+                headers: csrf
             }),
             invalidatesTags: ["club_events"]
         }),
@@ -125,7 +130,7 @@ export const baseApi = createApi({
                 url: `/api/v1/join-club-member/`,
                 method: "POST",
                 body: body,
-                // headers: authenticationsHeader
+                headers: csrf
             }),
             invalidatesTags: ["join-club-member"]
         }),
@@ -134,11 +139,20 @@ export const baseApi = createApi({
                 url: `/club-member-handler`,
                 method: "PUT",
                 body: body,
-                // headers: authenticationsHeader
+                headers: csrf
+            }),
+            invalidatesTags: ["join-club-member"]
+        }),
+        memberDelete: builder.mutation({
+            query: (body) => ({
+                url: `/club-member-handler`,
+                method: "PUT",
+                body: body,
+                headers: csrf
             }),
             invalidatesTags: ["join-club-member"]
         }),
     }),
 })
 
-export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation } = baseApi;
+export const { useGetHatkatDataQuery, useGetClubDataQuery, useUploadImageMutation, useGetClubImagesQuery, useDeleteClubImagesMutation, useUpdateClubImagesMutation, useUpdateClubVideosMutation, useGetClubVideosQuery, useUploadVideoMutation, useDeleteClubVideosMutation, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useMemberDeleteMutation } = baseApi;
