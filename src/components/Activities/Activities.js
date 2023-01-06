@@ -43,7 +43,7 @@ const Activities = () => {
             {isLoading ? <div className='flex justify-center items-center mt-10'><FeedLoader /></div> : <div>
                 {proposedActivities && <div className='mt-5 flex flex-col justify-center items-center'>
                     {
-                        club_events?.results?.slice(0, 2).map(event => <ProposedActivity key={event?.HarkatClubEvents_id} event={event}></ProposedActivity>)
+                        club_events?.results?.slice(0, 1).map(event => <ProposedActivity key={event?.HarkatClubEvents_id} event={event}></ProposedActivity>)
                     }
                     {admin && <div className='mt-10'>
                         <label htmlFor='create-event' onClick={() => setCreateEventForm(true)} className='text-xl bg-[#ee3c4d] cursor-pointer text-white p-2 rounded-xl font-semibold'>Create Event</label></div>}

@@ -10,7 +10,7 @@ const Videos = () => {
     const { data: club_media, isLoading } = useGetClubMediaQuery({ id, page_number });
 
     return (
-        <div className='mt-10 keep_scrolling h-[720px]'>
+        <div className='mt-10 keep_scrolling h-[720px] 2xl:w-[800px]'>
             {isLoading ? <div className='flex flex-col justify-center items-center mt-40'><PicturesLoading /> </div> : <div className='grid grid-cols-2 gap-1'> {club_media?.results?.map(club_video =>
                 club_video?.video !== null ? <Video key={club_video.media_id
                 } post={club_video}></Video> : ''

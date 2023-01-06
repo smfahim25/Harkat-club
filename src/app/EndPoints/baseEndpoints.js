@@ -20,7 +20,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/api/v1/Clubs`,
                 method: "GET",
-                // headers: headers
+                headers: headers
             }),
             providesTags: ["clubs"]
         }),
@@ -28,7 +28,7 @@ export const baseApi = createApi({
             query: () => ({
                 url: `/club-user`,
                 method: "GET",
-                // headers: headers
+                headers: headers
             }),
             providesTags: ["clubs"]
         }),
@@ -36,7 +36,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/club-api/${id}`,
                 method: "GET",
-                // headers: headers
+                headers: headers
             }),
             providesTags: ["club"]
         }),
@@ -44,7 +44,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/club-events?club_id=${id}`,
                 method: "GET",
-                // headers: headers
+                headers: headers
             }),
             providesTags: ["club_images"]
         }),
@@ -52,7 +52,7 @@ export const baseApi = createApi({
             query: (id) => ({
                 url: `/api/v1/Club-Media/${id}/`,
                 method: "DELETE",
-                // headers: csrf
+                headers: csrf
             }),
             invalidatesTags: ["club_media"]
         }),
@@ -64,7 +64,7 @@ export const baseApi = createApi({
                     url: `/api/v1/Club-Media/${id}/`,
                     method: 'PUT',
                     body: body,
-                    // headers: csrf
+                    headers: csrf
                 }
             },
             invalidatesTags: ["club_media"]
@@ -73,7 +73,7 @@ export const baseApi = createApi({
             query: ({ id, page_number }) => ({
                 url: `/club-media?club_id=${id}&page=${page_number}`,
                 method: "GET",
-                // headers: headers
+                headers: headers
             }),
             providesTags: ["club_media"]
         }),
@@ -82,7 +82,7 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Media/`,
                 method: "POST",
                 body: body,
-                // headers: csrf
+                headers: csrf
             }),
             invalidatesTags: ["club_media"]
         }),
@@ -91,7 +91,7 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Media/`,
                 method: "POST",
                 body: body,
-                // headers: csrf
+                headers: csrf
             }),
             invalidatesTags: ["club_media"]
         }),
@@ -100,7 +100,7 @@ export const baseApi = createApi({
                 url: `/api/v1/Club-Events/`,
                 method: "POST",
                 body: body,
-                // headers: csrf
+                headers: csrf
             }),
             invalidatesTags: ["club_events"]
         }),
@@ -109,7 +109,7 @@ export const baseApi = createApi({
                 url: `/api/v1/join-club-member/`,
                 method: "POST",
                 body: body,
-                // headers: csrf
+                headers: csrf
             }),
             invalidatesTags: ["join-club-member"]
         }),
@@ -118,20 +118,29 @@ export const baseApi = createApi({
                 url: `/club-member-handler`,
                 method: "PUT",
                 body: body,
-                // headers: csrf
+                headers: csrf
             }),
-            invalidatesTags: ["join-club-member"]
+            invalidatesTags: ["member-hanlder"]
         }),
         memberDelete: builder.mutation({
             query: (body) => ({
                 url: `/club-member-handler`,
                 method: "PUT",
                 body: body,
-                // headers: csrf
+                headers: csrf
             }),
-            invalidatesTags: ["join-club-member"]
+            invalidatesTags: ["member-hanlder"]
+        }),
+        memberBlock: builder.mutation({
+            query: (body) => ({
+                url: `/club-member-handler`,
+                method: "PUT",
+                body: body,
+                headers: csrf
+            }),
+            invalidatesTags: ["member-hanlder"]
         }),
     }),
 })
 
-export const { useGetHatkatDataQuery, useGetClubDataQuery, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useMemberDeleteMutation, useGetEventQuery, useUpdateClubMediaMutation, useGetClubMediaQuery, useDeleteClubMediaMutation, useUploadImageMutation, useUploadVideoMutation } = baseApi;
+export const { useGetHatkatDataQuery, useGetClubDataQuery, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useMemberDeleteMutation, useGetEventQuery, useUpdateClubMediaMutation, useGetClubMediaQuery, useDeleteClubMediaMutation, useUploadImageMutation, useUploadVideoMutation, useMemberBlockMutation } = baseApi;

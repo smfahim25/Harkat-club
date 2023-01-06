@@ -10,7 +10,6 @@ import RightSidebar from '../RightSidebar/RightSidebar';
 const HarkatBase = () => {
     const { id } = useParams();
     const { isLoading } = useGetClubDataQuery(id);
-    // console.log(id);
     return (
         <div>
             {

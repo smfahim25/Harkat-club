@@ -9,7 +9,7 @@ import '../CSS/UploadPost.css';
 const UploadPost = () => {
     const [videoActive, setVideoActive] = useState(false);
     const user = useSelector((state) => state.user.id);
-    const [fileList, setFileList] = useState([]);
+    const [fileList, setFileList] = useState(" ");
     const fileName = (e) => {
         const fileL = e.target.files[0].name.length;
         if (fileL > 90) {
@@ -20,8 +20,7 @@ const UploadPost = () => {
         }
         const newFile = e.target.files[0];
         if (newFile) {
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
+            setFileList(newFile.name);
         }
     }
 
@@ -55,7 +54,7 @@ const UploadPost = () => {
                 });
             }
             e.target.reset();
-            setFileList([]);
+            setFileList("");
         }
         else if (e.target.uploadFile.files[0].name.match(/\.(mp4|mov|avi|3gp)$/) && videoActive) {
             const file = e.target.uploadFile.files[0];
@@ -74,7 +73,7 @@ const UploadPost = () => {
                 });
             }
             e.target.reset();
-            setFileList([]);
+            setFileList("");
         }
         else {
             toast.error("Please select correct file and select correct upload button.", {
@@ -112,7 +111,7 @@ const UploadPost = () => {
         setImageActive(false);
     }
     return (
-        <div>
+        <div className='2xl:w-[800px]'>
             <div className='flex justify-between items-center mt-10 text-xl px-5'>
                 <h1 onClick={uploadImageClick} className={imageActive ? 'w[250px] primary-bg p-2 px-16 cursor-pointer rounded-md text-white font-semibold' : 'w[250px] bg-accent p-2 px-16 cursor-pointer rounded-md'}>Upload Image</h1>
                 <h1 onClick={uploadVideoClick} className={videoActive ? 'w[250px] primary-bg p-2 px-16 cursor-pointer rounded-md text-white font-semibold' : 'w[250px] bg-accent p-2 px-16 cursor-pointer rounded-md'}>Upload Videos</h1>
@@ -128,18 +127,15 @@ const UploadPost = () => {
                             onDrop={onDrop}
                         >
                             <div className="drop-file-input__label">
-                                <img src={uploadImg} alt="" />
-                                <p>Drag & Drop your files here</p>
-                                {
-                                    fileList.map((item, index) => (
-                                        <p key={index}>({item.name.slice(0, 20)}...)</p>
-                                    ))
-                                }
+                                <img className='ml-[40px]' src={uploadImg} alt="" />
+                                {fileList === '' ? '' : <p>Drag & Drop your files here</p>}
+                                <p>{fileList.slice(0, 20)}</p>
+                                <input type="file" name='uploadFile' accept="image/*,video/*" onChange={fileName} />
                             </div>
-                            <input type="file" name='uploadFile' accept="image/*,video/*" onChange={fileName} />
-                            <div>
 
-                            </div>
+                            {/* <div>
+
+                            </div> */}
                         </div>
                     </div>
                     <div className="w-full max-w-xs">

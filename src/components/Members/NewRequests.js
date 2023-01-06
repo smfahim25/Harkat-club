@@ -37,7 +37,7 @@ const NewRequests = (props) => {
                     <span className="flex-shrink-0 inline-flex item-center border justify-center leading-none rounded-full">
                         <div className="avatar">
                             <div className="w-12 rounded-full border-2">
-                                <img src="https://placeimg.com/192/192/people" alt='member pictures' />
+                                <img src="https://media.istockphoto.com/id/1298261537/vector/blank-man-profile-head-icon-placeholder.jpg?s=612x612&w=0&k=20&c=CeT1RVWZzQDay4t54ookMaFsdi7ZHVFg2Y5v7hxigCA=" alt='member pictures' />
                             </div>
                         </div>
                     </span>

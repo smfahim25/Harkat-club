@@ -15,7 +15,7 @@ const NewsFeed = () => {
     useEffect(() => {
         setPosts(club_media);
     }, [club_media])
-    console.log(posts);
+    // console.log(posts);
     return (
         <div className={`${styles.keep_scrolling} h-[720px] px-10 mt-10`}>
             {

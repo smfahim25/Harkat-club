@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
@@ -11,6 +12,8 @@ const Feed = ({ media }) => {
     const openToggle = () => {
         setOpen(!open);
     }
+    const videoDate = moment(new Date(created_date)).fromNow();
+    const imgDate = moment(new Date(created_date)).fromNow();
     const [open, setOpen] = useState(false);
     // const btnRef = useRef();
     // useEffect(() => {
@@ -28,8 +31,8 @@ const Feed = ({ media }) => {
                         <img src="https://media.istockphoto.com/id/1298261537/vector/blank-man-profile-head-icon-placeholder.jpg?s=612x612&w=0&k=20&c=CeT1RVWZzQDay4t54ookMaFsdi7ZHVFg2Y5v7hxigCA=" alt="profile pictures" className="object-cover object-center w-8 h-8 rounded-full shadow-sm" />
                         <div className="-space-y-1 cursor-pointer">
                             <h2 className="text-2xl font-semibold leading-none">{user_id?.username}</h2>
-                            {img && <span className="inline-block text-sm leading-none">{created_date}</span>}
-                            {video && <span className="inline-block text-sm leading-none mt-2">{created_date}</span>}
+                            {img && <span className="inline-block text-sm leading-none">{imgDate}</span>}
+                            {video && <span className="inline-block text-sm leading-none mt-2">{videoDate}</span>}
                         </div>
                     </div>
                     {(user === user_id?.id || user === user_id) && <div>
@@ -87,7 +90,7 @@ const Feed = ({ media }) => {
                     </div>
                 </div>
             </div>
-            <div className='absolute top-10 left-[350px]'>
+            <div className='absolute top-10 md:left-[350px] lg:left-[430px] 2xl:left-[580px]'>
                 {
                     open && <Toggle media={media} setOpen={setOpen}></Toggle>
                 }

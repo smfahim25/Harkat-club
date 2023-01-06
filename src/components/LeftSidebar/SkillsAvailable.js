@@ -3,7 +3,7 @@ import Skill from '../Skills/Skill';
 
 const SkillsAvailable = () => {
     return (
-        <div className='mt-10'>
+        <div className='mt-10 2xl:w-[800px]'>
             <div className='flex justify-between items-center mt-4 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold'>
                 <div>
                     <h1>Members</h1>

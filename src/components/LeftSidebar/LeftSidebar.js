@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from "../CSS/LeftSidebar.module.css"
 import { TbListDetails } from 'react-icons/tb';
@@ -10,6 +10,7 @@ import { useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 const LeftSidebar = () => {
+    const [open, setOpen] = useState(false);
     const [memberUpdate, resInfo] = useMemberUpdateMutation();
     const admin = useSelector((state) => state.admin.value);
     const clubMember = useSelector(state => state.clubcurrentmember.member_Club_id);
@@ -19,12 +20,14 @@ const LeftSidebar = () => {
             club_member_id: clubMember, status: "leaved"
         }
         memberUpdate(body);
+        setOpen(false);
     }
     if (resInfo.isSuccess) {
         toast.success("Leaved successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
         resInfo.isSuccess = false;
+        window.location.reload();
     }
     // console.log(resInfo);
     return (
@@ -55,10 +58,22 @@ const LeftSidebar = () => {
                         <li><NavLink to='announcement' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Announcements</NavLink></li>
                         <li><NavLink to='news' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>News</NavLink></li>
                         <li><NavLink to='promoteclub' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Promote Club</NavLink></li>
-                        <li>{clubMemberCheck === 'active' ? < button onClick={leaveClub} className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white justify-center'>Leave Club</button> : ''}</li>
+                        <li>{clubMemberCheck === 'active' ? < label htmlFor='leave-modal' onClick={() => setOpen(true)} className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white justify-center'>Leave Club</label> : ''}</li>
                     </ul>
                 </div> : " "}
             </div>
+            {open && <div>
+                <input type="checkbox" id="leave-modal" className="modal-toggle" />
+                <div className="modal modal-bottom sm:modal-middle">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">Are you sure want to leave the club?</h3>
+                        <div className="modal-action">
+                            <button onClick={leaveClub} className='primary-bg px-5 h-[32px] rounded-lg text-white font-semibold'>Yes</button>
+                            <label htmlFor="leave-modal" className="bg-neutral px-5 py-2 rounded-lg text-white font-semibold cursor-pointer">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>}
         </div >
     );
 };

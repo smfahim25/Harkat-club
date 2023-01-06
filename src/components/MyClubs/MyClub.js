@@ -5,7 +5,7 @@ const MyClub = (props) => {
     const { club_id, club_profile } = props.club;
     return (
         <div>
-            <div className="card w-full h-full bg-base-100 shadow-xl cursor-pointer p-5">
+            <div className="card w-full h-full bg-base-100 shadow-xl cursor-pointer p-3">
                 <figure className="h-[200px]">
                     <img src={club_profile} alt="club profile" className="rounded-xl" />
                 </figure>

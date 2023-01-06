@@ -50,7 +50,6 @@ const Home = ({ id }) => {
             }
         }
     }, [admin, user, allMembers, club, clubMember, dispatch]);
-    // console.log(clubMember)
     return (
         <div>
             {
@@ -70,8 +69,8 @@ const Home = ({ id }) => {
                         <div className='ml-10 mt-5 flex flex-col justify-center'>
                             <p className='text-xl text-white'>Active since mm month / members-count</p>
 
-                            {admin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Admin</p> </div> :
-                                clubMember === 'active' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Active Member</p> :
+                            {admin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Admin</p> </div> : clubMember === 'moderator' ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Moderator</p> </div> :
+                                clubMember === 'active' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Active Member</p> : clubMember === 'banned' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Member Blocked</p> :
                                     clubMember === 'pending' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Cancel Join Request</p> :
                                         <label htmlFor='request-join' onClick={() => setRequestForm(true)} className='cursor-pointer primary-bg text-white text-xl text-center p-2 rounded-xl font-semibold'>Request to join</label>}
                         </div>

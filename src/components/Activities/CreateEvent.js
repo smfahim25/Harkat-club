@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,10 +12,21 @@ import { toast } from 'react-toastify';
 
 const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
     const { id } = useParams();
+    const [disable, setDisable] = useState(true);
     const [startDateTime, setStartDateTime] = useState(dayjs().format('YYYY MM DD LT'));
     const [endDateTime, setEndDateTime] = useState(dayjs().format('YYYY MM DD LT'));
     const { register, reset, setError, formState: { errors }, handleSubmit } = useForm();
     const [createEvent, resinfo] = useCreateEventMutation();
+    const st = dayjs(startDateTime).format('YYYY-MM-DDThh:mm');
+    const ed = dayjs(endDateTime).format('YYYY-MM-DDThh:mm');
+    useEffect(() => {
+        if (st < ed) {
+            toast.error("Start date can not be less then end date", {
+                position: toast.POSITION.BOTTOM_CENTER
+            });
+            setDisable(false);
+        }
+    }, [ed, st])
     const onSubmit = data => {
         const file = data.picture[0];
         if (file.type !== "image/jpg" && file.type !== "image/jpeg" && file.type !== "image/png") {
@@ -26,7 +37,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
             return;
         }
         if (startDateTime === endDateTime) {
-            toast.error("Start and end date time can not be same", {
+            toast.error("Start and end date time can not be same.", {
                 position: toast.POSITION.BOTTOM_CENTER
             });
             return;
@@ -83,15 +94,15 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                 position: toast.POSITION.BOTTOM_CENTER
             });
         }
-        setCreateEventForm(false);
     }
     if (resinfo.isSuccess) {
         toast.success("Event created successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        setCreateEventForm(false);
         resinfo.isSuccess = false;
+        window.location.reload();
     }
-    console.log(createEventForm)
     return (
         <div>
             {createEventForm && <div>
@@ -603,7 +614,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         </label>
                                     </div>
                                     <div className='col-span-6 justify-self-center'>
-                                        <input className='uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' style={{ backgroundColor: "#ee3c4d" }} type="submit" value='Create event' />
+                                        <input className={disable ? 'bg-gray-300 uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' : 'bg-[#ee3c4d] uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white'} disabled={disable} type="submit" value='Create event' />
                                     </div>
                                 </div>
                             </form>

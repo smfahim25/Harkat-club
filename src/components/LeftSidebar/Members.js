@@ -19,7 +19,7 @@ const Members = () => {
                 {
                     isLoading ? <MyclubLoading /> : <div>
                         {admin && <div>
-                            <div className='flex justify-between items-center mt-4 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold'>
+                            <div className='flex justify-between items-center mt-4 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold 2xl:w-[800px]'>
                                 <div>
                                     <h1>New Requests</h1>
                                 </div>
@@ -44,7 +44,7 @@ const Members = () => {
                             }
                         </div>}
                         {admin || clubMemberCheck === 'active' ? <div>
-                            <div className='flex justify-between items-center mt-5 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold'>
+                            <div className='flex justify-between items-center mt-5 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold 2xl:w-[800px]'>
                                 <div>
                                     <h1>Members</h1>
                                 </div>

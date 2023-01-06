@@ -93,7 +93,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 message: 'Previous Club Name is Required'
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+$/,
+                                                value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} placeholder="Previous Club Name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -111,7 +111,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 message: 'Join Reason is Required'
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+$/,
+                                                value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900" />
@@ -126,6 +126,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                         <input type="text" {...register("filmexperience", {
                                             required: {
                                                 value: true,
+                                                maxLength: 16,
                                                 message: 'Film experience is Required'
                                             },
                                             pattern: {
@@ -147,7 +148,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 message: 'Skills is Required'
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+$/,
+                                                value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
@@ -165,7 +166,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 message: 'Film Equipments is Required'
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+$/,
+                                                value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
                                         })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
