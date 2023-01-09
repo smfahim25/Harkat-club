@@ -19,7 +19,7 @@ const MyClubs = () => {
                 dispatch(setUser(member));
             }
         }
-    }, [user, dispatch])
+    }, [user, dispatch, memberLoading, member])
     dispatch(removeAdmin());
     dispatch(removeClubCurrentMember());
     dispatch(removeMember());

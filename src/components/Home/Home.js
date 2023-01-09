@@ -8,10 +8,12 @@ import { setMember } from '../../app/Slices/MembersSlice';
 import { setAdmin } from '../../app/Slices/AdminSlice';
 import RequestForm from './RequestForm';
 import { setClubCurrentMember } from '../../app/Slices/ClubMemberSlice';
+import CancelRequestModal from './CancelRequestModal';
 
 const Home = ({ id }) => {
     const [clubMember, setClubMember] = useState(null);
     const [requestForm, setRequestForm] = useState(false);
+    const [cancelRequest, setCancelRequest] = useState(false)
     const { data: club, isLoading } = useGetClubDataQuery(id);
     const allMembers = useSelector(state => state.members.value);
     const user = useSelector((state) => state.user.id);
@@ -71,13 +73,14 @@ const Home = ({ id }) => {
 
                             {admin ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Admin</p> </div> : clubMember === 'moderator' ? <div className='bg-accent h-10 mt-3 rounded-[20px]'> <p className='text-xl text-black text-center py-1 font-semibold'>Club Moderator</p> </div> :
                                 clubMember === 'active' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Active Member</p> : clubMember === 'banned' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Member Blocked</p> :
-                                    clubMember === 'pending' ? <p className='bg-accent text-xl text-black text-center py-1 font-semibold rounded-xl'>Cancel Join Request</p> :
+                                    clubMember === 'pending' ? <label onClick={() => setCancelRequest(true)} htmlFor='cancel-modal' className='cursor-pointer primary-bg text-xl text-white text-center py-1 font-semibold rounded-xl'>Cancel Join Request</label> :
                                         <label htmlFor='request-join' onClick={() => setRequestForm(true)} className='cursor-pointer primary-bg text-white text-xl text-center p-2 rounded-xl font-semibold'>Request to join</label>}
                         </div>
                     </div>
                 </section >
             }
             <RequestForm requestForm={requestForm} setRequestForm={setRequestForm}></RequestForm>
+            <CancelRequestModal cancelRequest={cancelRequest} setCancelRequest={setCancelRequest}></CancelRequestModal>
         </div >
     );
 };

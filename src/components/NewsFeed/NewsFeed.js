@@ -34,7 +34,7 @@ const NewsFeed = () => {
                 isLoading ? <div className='flex justify-center items-center'><FeedLoader /></div> : club_media?.results?.map(media => <Feed key={media.media_id
                 } media={media}></Feed>)
             }
-            {club_media?.next !== null ? <button onClick={loadClick} className='text-[#ee3c4d] text-lg font-semibold'>Load more..</button> : ''}
+            {club_media?.next !== null ? <button onClick={loadClick} className='text-white primary-bg text-lg font-semibold flex justify-center'>Load more</button> : ''}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiBadgeCheck } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import MemberToggle from './MemberToggle';
@@ -9,6 +9,14 @@ const AllMembers = ({ member }) => {
     const openToggle = () => {
         setOpen(!open);
     }
+    const btnRef = useRef();
+    useEffect(() => {
+        const closeMenu = (e) => { if (!btnRef.current.contains(e.target)) { setOpen(false); } };
+
+        document.body.addEventListener("mousedown", closeMenu);
+
+        return () => document.body.removeEventListener("mousedown", closeMenu);
+    }, []);
     return (
         <div className='relative'>
             <div className='flex justify-between mt-2 border-y-2'>
@@ -29,18 +37,20 @@ const AllMembers = ({ member }) => {
                     <p className=''>{member_status}</p>
                     <HiBadgeCheck />
                 </div>
-                {admin && <button onClick={openToggle} title="Open option" type="button" className='cursor-pointer'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
-                        <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
-                        <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
-                        <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
-                    </svg>
-                </button>}
-            </div>
-            <div className='absolute top-10 lg:left-[430px] 2xl:left-[540px] z-[1]'>
-                {
-                    open && <MemberToggle member={member} setOpen={setOpen}></MemberToggle>
-                }
+                {admin && <div ref={btnRef}>
+                    <button onClick={openToggle} title="Open option" type="button" className='cursor-pointer'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
+                            <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
+                            <path d="M256,368a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,368Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,464Z"></path>
+                            <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
+                        </svg>
+                    </button>
+                    <div className='absolute top-10 lg:left-[430px] 2xl:left-[540px] z-[1]'>
+                        {
+                            open && <MemberToggle member={member} open={open} setOpen={setOpen}></MemberToggle>
+                        }
+                    </div>
+                </div>}
             </div>
         </div>
     );

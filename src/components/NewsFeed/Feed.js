@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import Toggle from './Toggle';
@@ -15,14 +15,14 @@ const Feed = ({ media }) => {
     const videoDate = moment(new Date(created_date)).fromNow();
     const imgDate = moment(new Date(created_date)).fromNow();
     const [open, setOpen] = useState(false);
-    // const btnRef = useRef();
-    // useEffect(() => {
-    //     const closeMenu = (e) => { if (!btnRef.current.contains(e.target)) { setOpen(false); } };
+    const btnRef = useRef();
+    useEffect(() => {
+        const closeMenu = (e) => { if (!btnRef.current.contains(e.target)) { setOpen(false); } };
 
-    //     document.body.addEventListener("mousedown", closeMenu);
+        document.body.addEventListener("mousedown", closeMenu);
 
-    //     return () => document.body.removeEventListener("mousedown", closeMenu);
-    // }, []);
+        return () => document.body.removeEventListener("mousedown", closeMenu);
+    }, []);
     return (
         <div className="relative">
             <div className="rounded-md shadow-xl w-full 2xl:w-[800px] mb-10">
@@ -35,7 +35,7 @@ const Feed = ({ media }) => {
                             {video && <span className="inline-block text-md leading-none mt-2">{videoDate}</span>}
                         </div>
                     </div>
-                    {(user === user_id?.id || user === user_id) && <div>
+                    {(user === user_id?.id || user === user_id) && <div ref={btnRef}>
                         <button onClick={openToggle} title="Open option" type="button" className='cursor-pointer'>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
                                 <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>
@@ -43,6 +43,11 @@ const Feed = ({ media }) => {
                                 <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
                             </svg>
                         </button>
+                        <div className='absolute top-10 left-[350px] 2xl:left-[580px]'>
+                            {
+                                open && <Toggle media={media} setOpen={setOpen}></Toggle>
+                            }
+                        </div>
                     </div>}
                 </div>
                 <figure>
@@ -64,7 +69,7 @@ const Feed = ({ media }) => {
                     }
                 </figure>
                 <div className="p-3">
-                    <div className="flex items-center justify-between">
+                    {/* <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                             <button type="button" title="Like post" className="flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
@@ -87,13 +92,8 @@ const Feed = ({ media }) => {
                                 <path d="M424,496H388.75L256.008,381.19,123.467,496H88V16H424ZM120,48V456.667l135.992-117.8L392,456.5V48Z"></path>
                             </svg>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
-            </div>
-            <div className='absolute top-10 left-[350px] 2xl:left-[580px]'>
-                {
-                    open && <Toggle media={media} setOpen={setOpen}></Toggle>
-                }
             </div>
         </div>
     );

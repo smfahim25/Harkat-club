@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { useMemberBlockMutation, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
 
-const MemberToggle = ({ setOpen, member }) => {
+const MemberToggle = ({ open, setOpen, member }) => {
     const { member_Club_id } = member;
     const [memberBlock, resInfo] = useMemberBlockMutation();
     const [memberUpdate, resInfo1] = useMemberUpdateMutation();
@@ -14,6 +14,7 @@ const MemberToggle = ({ setOpen, member }) => {
         toast.success("Blocking the member.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        setOpen(false);
     };
     const makeModerator = () => {
         const body = {
@@ -23,6 +24,7 @@ const MemberToggle = ({ setOpen, member }) => {
         toast.success("Making the member to moderator.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
+        setOpen(false);
     };
     if (resInfo.isSuccess) {
         toast.success("Blocked member successfully.", {
@@ -38,14 +40,14 @@ const MemberToggle = ({ setOpen, member }) => {
     }
     return (
         <div>
-            <div className='bg-white shadow-2xl rounded-xl w-60 p-3'>
+            {open && <div className='bg-white shadow-2xl rounded-xl w-60 p-3'>
                 <div className='p-1 mb-1  text-lg cursor-pointer rounded hover:bg-slate-100 hover:text-[#ee3c4d] font-semibold'>
                     <label className='mt-2 pr-[4rem] flex items-center cursor-pointer' htmlFor="moderator-modal">Make moderator</label>
                 </div>
                 <div className='p-1 text-lg cursor-pointer rounded hover:bg-slate-100 hover:text-[#ee3c4d] font-semibold'>
                     <label className='mt-2 pr-20 flex items-center cursor-pointer' htmlFor="block-modal">Block member</label>
                 </div>
-            </div>
+            </div>}
             <div>
                 <input type="checkbox" id="moderator-modal" className="modal-toggle" />
                 <div className="modal modal-bottom sm:modal-middle">

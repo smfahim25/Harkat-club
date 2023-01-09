@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import styles from "../CSS/LeftSidebar.module.css"
 import { TbListDetails } from 'react-icons/tb';
 import { BsPeople } from 'react-icons/bs';
 import { TiMessages } from 'react-icons/ti';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { GiPokecog } from 'react-icons/gi';
-import { useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubDataQuery, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 const LeftSidebar = () => {
+    const { id } = useParams();
     const [open, setOpen] = useState(false);
     const [memberUpdate, resInfo] = useMemberUpdateMutation();
     const admin = useSelector((state) => state.admin.value);
     const clubMember = useSelector(state => state.clubcurrentmember.member_Club_id);
     const clubMemberCheck = useSelector(state => state.clubcurrentmember.member_status);
+    const { data: members } = useGetClubDataQuery(id);
+    const requestMembers = members.all_members.filter(member => member.member_status === 'pending');
     const leaveClub = () => {
         const body = {
             club_member_id: clubMember, status: "leaved"
@@ -32,11 +35,11 @@ const LeftSidebar = () => {
     // console.log(resInfo);
     return (
         <div>
-            <div className="drawer drawer-mobile h-[720px] 2xl:mr-5 mt-5">
-                <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+            <div className="drawer drawer-mobile h-[720px] 2xl:mr-5 mt-5 border-r-2">
+                {/* <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-center justify-center">
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-                </div>
+                </div> */}
                 {admin || clubMemberCheck === 'active' || clubMemberCheck === 'moderator' ? <div className={`${styles.keep_scrolling}`}>
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu w-[300px] text-base-content text-[17px]">
@@ -45,7 +48,10 @@ const LeftSidebar = () => {
                         <li><NavLink to='accomplishment' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Accomplishment</NavLink></li>
                         <li><NavLink to='contactgoverningbody' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Contact Governing Body</NavLink></li>
                         <li><NavLink to='messagebox' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center' > <TiMessages /> Message Box</NavLink></li>
-                        <li><NavLink to='membersrequest' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'> <AiOutlineUsergroupAdd />Members Requests </NavLink></li>
+                        {admin && <div className="indicator">
+                            {requestMembers > 0 && <span className="indicator-item badge badge-bg-slate-900 left-[255px] text-white font-semibold">{requestMembers.length}</span>}
+                            <li><NavLink to='membersrequest' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center w-[300px]'> <AiOutlineUsergroupAdd />Members Requests </NavLink></li>
+                        </div>}
                         <li><NavLink to='members' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'> <BsPeople />Members </NavLink></li>
                         <li><NavLink to='skillavailable' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'><span className=""><GiPokecog /> </span>Skills Available</NavLink></li>
                         <li><NavLink to='skillfor' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Skills Looking For</NavLink></li>

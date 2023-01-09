@@ -8,7 +8,7 @@ const ProposedActivity = (props) => {
     console.log(event_start);
     return (
         <div>
-            <div className="max-w-xl p-6 rounded-md shadow-xl 2xl:w-[800px]">
+            <div className="p-3 rounded-md shadow-xl w-[500px] 2xl:w-[800px]">
                 <img src={event_poster} alt="" className="object-cover object-center w-full rounded-md h-72 bg-gray-500" />
                 <div className="mt-6 mb-2">
                     <span className="block text-xl font-semibold text-black tracking-widest">Event Start: <span className='font-medium'>{startDate}</span></span>
