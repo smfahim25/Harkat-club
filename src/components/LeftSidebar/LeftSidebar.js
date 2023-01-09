@@ -37,7 +37,7 @@ const LeftSidebar = () => {
                 <div className="drawer-content flex flex-col items-center justify-center">
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
                 </div>
-                {admin || clubMemberCheck === 'active' ? <div className={`${styles.keep_scrolling}`}>
+                {admin || clubMemberCheck === 'active' || clubMemberCheck === 'moderator' ? <div className={`${styles.keep_scrolling}`}>
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu w-[300px] text-base-content text-[17px]">
                         <li><NavLink to='uploadpost' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Upload Post</NavLink></li>

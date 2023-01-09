@@ -8,7 +8,7 @@ const RightSidebar = () => {
     const clubMemberCheck = useSelector(state => state.clubcurrentmember.member_status);
     return (
         <div>
-            {admin || clubMemberCheck === 'active' ? <div className={`${styles.keep_scrolling} h-[720px] pt-4 mt-5`}>
+            {admin || clubMemberCheck === 'active' || clubMemberCheck === 'moderator' ? <div className={`${styles.keep_scrolling} h-[720px] pt-4 mt-5`}>
                 <nav className="space-y-5 text-sm w-76">
                     <div className="space-y-2">
                         <Link to='announcement' className="text-2xl font-extrabold tracking-widest uppercase hover:bg-accent  p-3 rounded-lg">Annoucements</Link>

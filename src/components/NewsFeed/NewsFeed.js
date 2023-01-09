@@ -13,16 +13,28 @@ const NewsFeed = () => {
     }
     const { data: club_media, isLoading } = useGetClubMediaQuery({ id, page_number });
     useEffect(() => {
-        setPosts(club_media);
+        let data = [];
+        if (posts.length === 0) {
+            club_media?.results.forEach(element => {
+                data.push(element)
+            });
+        }
+        else {
+            data = [...posts];
+            club_media?.results.forEach(element => {
+                data.push(element)
+            });
+        }
+        setPosts(data)
     }, [club_media])
-    // console.log(posts);
+    console.log(club_media);
     return (
         <div className={`${styles.keep_scrolling} h-[720px] px-10 mt-10`}>
             {
-                isLoading ? <div className='flex justify-center items-center'><FeedLoader /></div> : posts?.results?.map(media => <Feed key={media.media_id
+                isLoading ? <div className='flex justify-center items-center'><FeedLoader /></div> : club_media?.results?.map(media => <Feed key={media.media_id
                 } media={media}></Feed>)
             }
-            {club_media?.results?.length === 15 ? <button onClick={loadClick} className='text-[#ee3c4d] text-lg font-semibold'>Load more..</button> : ''}
+            {club_media?.next !== null ? <button onClick={loadClick} className='text-[#ee3c4d] text-lg font-semibold'>Load more..</button> : ''}
         </div>
     );
 };

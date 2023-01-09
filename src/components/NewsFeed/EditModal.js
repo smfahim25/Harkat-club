@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useUpdateClubMediaMutation } from '../../app/EndPoints/baseEndpoints';
 import uploadImg from '../../assets/uploader.png';
+import CSRFToken from '../CSRF_Token/CSRFToken';
 
 const EditModal = ({ media, setEdit, edit, setOpen }) => {
     const { media_id, club_id, img, video } = media;
@@ -12,7 +13,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
     const user = useSelector(state => state.user.id);
     const [updateClubMedia, resMedia] = useUpdateClubMediaMutation();
-    const [fileList, setFileList] = useState([]);
+    const [fileList, setFileList] = useState(" ");
     const fileName = (e) => {
         const fileL = e.target.files[0].name.length;
         if (fileL > 90) {
@@ -23,8 +24,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
         }
         const newFile = e.target.files[0];
         if (newFile) {
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
+            setFileList(newFile.name);
         }
     }
 
@@ -36,7 +36,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
             const title = e.target.title.value;
             const body = new FormData();
             body.append('img', file);
-            body.append('title', title);
+            body.append('post', title);
             body.append('club_id', club_id);
             body.append('user_id', user);
             const data = { id: media_id, body: body }
@@ -47,7 +47,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
                 });
             }
             e.target.reset();
-            setFileList([]);
+            setFileList(" ");
             setOpen(false);
 
         }
@@ -56,7 +56,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
             const title = e.target.title.value;
             const body = new FormData();
             body.append('video', file);
-            body.append('title', title);
+            body.append('post', title);
             body.append('club_id', club_id);
             body.append('user_id', user);
             const data = { id: media_id, body: body }
@@ -67,7 +67,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
                 });
             }
             e.target.reset();
-            setFileList([]);
+            setFileList("");
             setOpen(false);
         }
         else {
@@ -83,8 +83,9 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
                 <input type="checkbox" id="edit-modal" className="modal-toggle" />
                 <div className="modal modal-bottom sm:modal-middle mt-20">
                     <div className="modal-box relative">
-                        <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                        <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2 hover:text-white">✕</label>
                         <form onSubmit={handleEdit}>
+                            <CSRFToken />
                             <div className='flex flex-col justify-center items-center mt-5 mb-2'>
                                 <div
                                     ref={wrapperRef}
@@ -93,16 +94,12 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
                                     onDragLeave={onDragLeave}
                                     onDrop={onDrop}
                                 >
-                                    <div className="drop-file-input__label mt-[-40px]">
+                                    <div className="drop-file-input__label_2 mt-[-40px]">
                                         <img src={uploadImg} alt="" />
-                                        <p>Drag & Drop your files here</p>
-                                        {
-                                            fileList.map((item, index) => (
-                                                <p key={index}>({item.name.slice(0, 20)}...)</p>
-                                            ))
-                                        }
+                                        {fileList === '' ? '' : <p>Drag & Drop your files here</p>}
+                                        <p>{fileList.slice(0, 20)}</p>
                                     </div>
-                                    <input type="file" name='uploadFile' accept="image/*,video/*" onChange={fileName} />
+                                    <input type="file" name='uploadFile' className='p-0' accept="image/*,video/*" onChange={fileName} />
                                 </div>
                             </div>
                             <div className="w-full max-w-xs">

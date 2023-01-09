@@ -32,7 +32,7 @@ const Feed = ({ media }) => {
                         <div className="-space-y-1 cursor-pointer">
                             <h2 className="text-2xl font-semibold leading-none">{user_id?.username}</h2>
                             {img && <span className="inline-block text-sm leading-none">{imgDate}</span>}
-                            {video && <span className="inline-block text-sm leading-none mt-2">{videoDate}</span>}
+                            {video && <span className="inline-block text-md leading-none mt-2">{videoDate}</span>}
                         </div>
                     </div>
                     {(user === user_id?.id || user === user_id) && <div>
@@ -90,7 +90,7 @@ const Feed = ({ media }) => {
                     </div>
                 </div>
             </div>
-            <div className='absolute top-10 md:left-[350px] lg:left-[430px] 2xl:left-[580px]'>
+            <div className='absolute top-10 left-[350px] 2xl:left-[580px]'>
                 {
                     open && <Toggle media={media} setOpen={setOpen}></Toggle>
                 }

@@ -6,8 +6,8 @@ const Picture = ({ club_image }) => {
     // console.log(index);
     return (
         <div>
-            <div className='shadow-lg'>
-                <Image src={img} width={250} height={150} />
+            <div>
+                <Image src={img} width={200} height={150} />
             </div>
         </div>
     );

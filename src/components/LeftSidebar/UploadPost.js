@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { useUploadImageMutation, useUploadVideoMutation } from '../../app/EndPoints/baseEndpoints';
 import uploadImg from '../../assets/uploader.png';
+import CSRFToken from '../CSRF_Token/CSRFToken';
 import '../CSS/UploadPost.css';
 
 const UploadPost = () => {
@@ -44,7 +45,7 @@ const UploadPost = () => {
             const user_id = user;
             const body = new FormData();
             body.append('img', file);
-            body.append('title', title);
+            body.append('post', title);
             body.append('club_id', club_id);
             body.append('user_id', user_id);
             uploadImage(body);
@@ -63,7 +64,7 @@ const UploadPost = () => {
             const user_id = user;
             const body = new FormData();
             body.append('video', file);
-            body.append('title', title);
+            body.append('post', title);
             body.append('club_id', club_id);
             body.append('user_id', user_id);
             uploadVideo(body);
@@ -118,6 +119,7 @@ const UploadPost = () => {
             </div>
             <div className='flex flex-col justify-center items-center mt-4'>
                 <form onSubmit={handleSubmit}>
+                    <CSRFToken />
                     <div className='flex flex-col justify-center items-center mt-5 mb-2'>
                         <div
                             ref={wrapperRef}

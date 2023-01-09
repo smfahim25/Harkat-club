@@ -9,6 +9,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useCreateEventMutation } from '../../app/EndPoints/baseEndpoints';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
+import CSRFToken from '../CSRF_Token/CSRFToken';
 
 const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
     const { id } = useParams();
@@ -17,14 +18,17 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
     const [endDateTime, setEndDateTime] = useState(dayjs().format('YYYY MM DD LT'));
     const { register, reset, setError, formState: { errors }, handleSubmit } = useForm();
     const [createEvent, resinfo] = useCreateEventMutation();
-    const st = dayjs(startDateTime).format('YYYY-MM-DDThh:mm');
-    const ed = dayjs(endDateTime).format('YYYY-MM-DDThh:mm');
+    const st = dayjs(startDateTime).format('YYYY MM DD LT');
+    const ed = dayjs(endDateTime).format('YYYY MM DD LT');
     useEffect(() => {
         if (st < ed) {
+            setDisable(false);
+        }
+        else {
             toast.error("Start date can not be less then end date", {
                 position: toast.POSITION.BOTTOM_CENTER
             });
-            setDisable(false);
+            setDisable(true);
         }
     }, [ed, st])
     const onSubmit = data => {
@@ -112,6 +116,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                         <label htmlFor="create-event" className="btn btn-sm btn-circle absolute right-2 top-2 hover:text-white">✕</label>
                         <section className="p-6 bg-slate-100 text-black">
                             <form onSubmit={handleSubmit(onSubmit)} className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
+                                <CSRFToken />
                                 <div className="grid grid-cols-4 gap-4 col-span-6 lg:col-span-3">
                                     <div className="lg:col-span-6 sm:col-span-3">
                                         <label htmlFor="eventname" className="text-md font-semibold">Event name <span className='text-[#ee3c4d]'>*</span></label>
@@ -124,7 +129,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
-                                        })} placeholder="Event name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Event name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="eventname"
@@ -143,7 +148,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
-                                        })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900" />
+                                        })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="eventdescription"
@@ -152,7 +157,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                     </div>
                                     <div className="col-span-6 lg:col-span-3">
                                         <label htmlFor="upload Image" className="text-md font-semibold">Upload Event Flyer (Image formate only) <span className='text-[#ee3c4d]'>*</span></label>
-                                        <input type="file" className="file-input file-input-bordered file-input-error w-full max-w-xs p-0" name='picture' {...register("picture", {
+                                        <input type="file" className="file-input file-input-bordered file-input-error w-full max-w-xs p-0" accept='image/*' name='picture' {...register("picture", {
                                             required: {
                                                 value: true,
                                                 message: 'Event Flyer is Required'
@@ -168,7 +173,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <label htmlFor="eventname" className="text-md font-semibold">Event coordinator <span className='text-[#ee3c4d]'>*</span></label>
                                         <div className='grid grid-cols-2 gap-3'>
                                             <div>
-                                                <input type="text" name='coordinator' placeholder="Event coordinator name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900"  {...register("coordinator", {
+                                                <input type="text" name='coordinator' placeholder="Event coordinator name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2"  {...register("coordinator", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Coordinator is Required'
@@ -185,7 +190,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='responsiblity' placeholder="responsiblity" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900"  {...register("coordinator_responsiblity", {
+                                                <input type="text" name='responsiblity' placeholder="responsiblity" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2"  {...register("coordinator_responsiblity", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Coordinator responsiblity is Required'
@@ -202,7 +207,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='cocoordinator' placeholder="Co_cordinator name" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("co_coordinator", {
+                                                <input type="text" name='cocoordinator' placeholder="Co_cordinator name" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("co_coordinator", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Co-Coordinator is Required'
@@ -219,7 +224,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='co-responsiblity' placeholder="co responsiblity" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("co_coordinator_responsiblity", {
+                                                <input type="text" name='co-responsiblity' placeholder="co responsiblity" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("co_coordinator_responsiblity", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Co-Coordinator responsiblity is Required'
@@ -239,7 +244,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                     </div>
                                     <div className="col-span-6">
                                         <label htmlFor="address" className="text-md font-semibold">Event Venue details <span className='text-[#ee3c4d]'>*</span></label>
-                                        <input name="address" type="text" placeholder="Address" className="w-full rounded-md border-black border-[1px] text-gray-900 h-8"  {...register("eventvenue", {
+                                        <input name="address" type="text" placeholder="Address" className="w-full rounded-md border-black border-[1px] text-gray-900 h-8 p-2"  {...register("eventvenue", {
                                             required: {
                                                 value: true,
                                                 message: 'Event venue details is Required'
@@ -284,7 +289,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <label htmlFor="eventname" className="text-md font-semibold">Event Equipment required</label>
                                         <div className='grid grid-cols-2 gap-3'>
                                             <div>
-                                                <input type="text" name='firstequipment' placeholder="equipment" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900"  {...register("firstquipment", {
+                                                <input type="text" name='firstequipment' placeholder="equipment" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2"  {...register("firstquipment", {
                                                     required: {
                                                         value: true,
                                                         message: 'Equipment is Required'
@@ -301,7 +306,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='firstperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900"  {...register("firstperson", {
+                                                <input type="text" name='firstperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2"  {...register("firstperson", {
                                                     required: {
                                                         value: true,
                                                         message: 'Person in charge is Required'
@@ -318,11 +323,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='secondequipment' placeholder="equipment" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("secondequipment", {
-                                                    // required: {
-                                                    //     value: true,
-                                                    //     message: 'Equipment is Required'
-                                                    // },
+                                                <input type="text" name='secondequipment' placeholder="equipment" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("secondequipment", {
+                                                    required: {
+                                                        value: true,
+                                                        message: 'Equipment is Required'
+                                                    },
                                                     pattern: {
                                                         value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
@@ -334,11 +339,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
                                                 />
                                             </div>
-                                            <div> <input type="text" name='secondperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("secondperson", {
-                                                // required: {
-                                                //     value: true,
-                                                //     message: 'Person in charge is Required'
-                                                // },
+                                            <div> <input type="text" name='secondperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("secondperson", {
+                                                required: {
+                                                    value: true,
+                                                    message: 'Person in charge is Required'
+                                                },
                                                 pattern: {
                                                     value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
@@ -355,7 +360,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                     <div className="lg:col-span-6 sm:col-span-3">
                                         <label htmlFor="eventname" className="text-md font-semibold">Event Preparatory work required</label>
                                         <div className='grid grid-cols-2 gap-3'>
-                                            <div><input type="text" name='firstpreparatory' placeholder="work" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("firstpreparatory", {
+                                            <div><input type="text" name='firstpreparatory' placeholder="work" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("firstpreparatory", {
                                                 required: {
                                                     value: true,
                                                     message: 'Event Preparatory work is Required'
@@ -370,7 +375,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     name="firstpreparatory"
                                                     render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
                                                 /></div>
-                                            <div> <input type="text" name='firstpreparatoryperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("firstpreparatoryperson", {
+                                            <div> <input type="text" name='firstpreparatoryperson' placeholder="person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("firstpreparatoryperson", {
                                                 required: {
                                                     value: true,
                                                     message: 'Person in charge is Required'
@@ -386,11 +391,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
                                                 />
                                             </div>
-                                            <div><input type="text" name='' placeholder="work" className="w-full h-8 rounded-md focus:ring border-black border-[1px] text-gray-900" {...register("secondpreparatory", {
-                                                // required: {
-                                                //     value: true,
-                                                //     message: 'Event Preparatory work is Required'
-                                                // },
+                                            <div><input type="text" name='' placeholder="work" className="w-full h-8 rounded-md focus:ring border-black border-[1px] text-gray-900 p-2" {...register("secondpreparatory", {
+                                                required: {
+                                                    value: true,
+                                                    message: 'Event Preparatory work is Required'
+                                                },
                                                 pattern: {
                                                     value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
@@ -400,11 +405,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                     name="secondpreparatory"
                                                     render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
                                                 /></div>
-                                            <div> <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("secondpreparatoryperson", {
-                                                // required: {
-                                                //     value: true,
-                                                //     message: 'Person in charge is Required'
-                                                // },
+                                            <div> <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("secondpreparatoryperson", {
+                                                required: {
+                                                    value: true,
+                                                    message: 'Person in charge is Required'
+                                                },
                                                 pattern: {
                                                     value: /^[a-zA-Z ]*$/,
                                                     message: 'Only letters acceptable'
@@ -420,7 +425,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <label className="text-md font-semibold">Event Follow up work required</label>
                                         <div className='grid grid-cols-2 gap-3'>
                                             <div>
-                                                <input type="text" name='' placeholder=" Event follow up work required" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("firstworkrequire", {
+                                                <input type="text" name='' placeholder=" Event follow up work required" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("firstworkrequire", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Follow up work is Required'
@@ -437,7 +442,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900" {...register("firstpersonrequire", {
+                                                <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-black border-[1px] text-gray-900 p-2" {...register("firstpersonrequire", {
                                                     required: {
                                                         value: true,
                                                         message: 'Person in charge is Required'
@@ -454,11 +459,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='eventname' placeholder="Event follow up work require" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" {...register("secondworkrequire", {
-                                                    // required: {
-                                                    //     value: true,
-                                                    //     message: 'Event Follow up work is Required'
-                                                    // },
+                                                <input type="text" name='eventname' placeholder="Event follow up work require" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" {...register("secondworkrequire", {
+                                                    required: {
+                                                        value: true,
+                                                        message: 'Event Follow up work is Required'
+                                                    },
                                                     pattern: {
                                                         value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
@@ -471,11 +476,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" {...register("secondpersonrequire", {
-                                                    // required: {
-                                                    //     value: true,
-                                                    //     message: 'person in charge is Required'
-                                                    // },
+                                                <input type="text" name='eventname' placeholder="Person in charge" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" {...register("secondpersonrequire", {
+                                                    required: {
+                                                        value: true,
+                                                        message: 'person in charge is Required'
+                                                    },
                                                     pattern: {
                                                         value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
@@ -493,7 +498,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <label htmlFor="city" className="text-md font-semibold">Event prize</label>
                                         <div className='grid grid-cols-2 gap-3'>
                                             <div>
-                                                <input type="text" placeholder="Prize Name" className="w-full rounded-md border-[1px] border-black text-gray-900 h-8" {...register("Prizename", {
+                                                <input type="text" placeholder="Prize Name" className="w-full rounded-md border-[1px] border-black text-gray-900 h-8 p-2" {...register("Prizename", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Prize is Required'
@@ -510,7 +515,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input id="city" type="text" placeholder="Person in charge" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8" {...register("personprize", {
+                                                <input id="city" type="text" placeholder="Person in charge" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8 p-2" {...register("personprize", {
                                                     required: {
                                                         value: true,
                                                         message: 'Person in charge is Required'
@@ -532,7 +537,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <label htmlFor="city" className="text-md font-semibold">Event Funds <span className='text-[#ee3c4d]'>*</span></label>
                                         <div className='grid grid-cols-2 gap-3'>
                                             <div>
-                                                <input id="city" type="text" placeholder="funds amount" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8" {...register("eventfunds", {
+                                                <input id="city" type="text" placeholder="funds amount" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8 p-2" {...register("eventfunds", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Funds is Required'
@@ -549,11 +554,11 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input id="city" type="text" placeholder="Fund source" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8" {...register("fundsource", {
-                                                    // required: {
-                                                    //     value: true,
-                                                    //     message: 'Event Fund source is Required'
-                                                    // },
+                                                <input id="city" type="text" placeholder="Fund source" className="w-full rounded-md border-[1px]  border-black text-gray-900 h-8 p-2" {...register("fundsource", {
+                                                    required: {
+                                                        value: true,
+                                                        message: 'Event Fund source is Required'
+                                                    },
                                                     pattern: {
                                                         value: /^[a-zA-Z ]*$/,
                                                         message: 'Only letters acceptable'
@@ -571,7 +576,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         <label htmlFor="city" className="text-md font-semibold">Event Guest name</label>
                                         <div className='grid grid-cols-2 gap-3'>
                                             <div>
-                                                <input id="city" type="text" placeholder="Event guest name" className="w-full rounded-md  border-black border-[1px] text-gray-900 h-8" {...register("guestname", {
+                                                <input id="city" type="text" placeholder="Event guest name" className="w-full rounded-md  border-black border-[1px] text-gray-900 h-8 p-2" {...register("guestname", {
                                                     required: {
                                                         value: true,
                                                         message: 'Event Guest name is Required'
@@ -588,7 +593,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <input id="city" type="text" placeholder="Short title" className="w-full rounded-md  border-black border-[1px] text-gray-900 h-8" {...register("titleofguest", {
+                                                <input id="city" type="text" placeholder="Short title" className="w-full rounded-md  border-black border-[1px] text-gray-900 h-8 p-2" {...register("titleofguest", {
                                                     required: {
                                                         value: true,
                                                         message: 'Guest short title is Required'
@@ -614,7 +619,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
                                         </label>
                                     </div>
                                     <div className='col-span-6 justify-self-center'>
-                                        <input className={disable ? 'bg-gray-300 uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' : 'bg-[#ee3c4d] uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white'} disabled={disable} type="submit" value='Create event' />
+                                        <input className={disable ? 'bg-gray-300 uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white' : 'bg-primary uppercase font-semibold px-8 rounded-xl cursor-pointer py-2 mt-4 text-white'} disabled={disable} type="submit" value='Create event' />
                                     </div>
                                 </div>
                             </form>

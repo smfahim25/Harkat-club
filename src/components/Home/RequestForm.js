@@ -64,7 +64,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                 <h1 className="text-5xl font-bold ml-5 leading-none sm:text-4xl xl:max-w-md text-gray-900">{club?.club?.club_id?.club_name}</h1>
                                 <img alt="" src={`http://115.245.192.138${club?.club?.club_profile}`} className="object-cover w-20 h-20 rounded-full shadow" />
                             </div>
-                            <form onSubmit={handleSubmit(onSubmit)} className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
+                            <form onSubmit={handleSubmit(onSubmit)} className="container flex flex-col mx-auto ng-untouched ng-pristine ng-valid">
                                 <CSRFToken />
                                 <div className="grid gap-2 grid-cols-1 col-span-6 py-3">
                                     <div className="lg:col-span-6 sm:col-span-3">
@@ -78,7 +78,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[0-9]+$/,
                                                 message: 'Only numbers acceptable'
                                             }
-                                        })} placeholder="Mobile Number" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Mobile Number" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="mobilenumber"
@@ -96,7 +96,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
-                                        })} placeholder="Previous Club Name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Previous Club Name" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="previousclubname"
@@ -114,7 +114,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
-                                        })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900" />
+                                        })} className="resize-none w-full rounded-md border-black border-[1px] text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="joinreason"
@@ -133,7 +133,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[0-9]+$/,
                                                 message: 'Only numbers acceptable'
                                             }
-                                        })} placeholder="Film Experience in years" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Film Experience in years" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="filmexperience"
@@ -151,7 +151,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
-                                        })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="skills"
@@ -169,7 +169,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[a-zA-Z ]*$/,
                                                 message: 'Only letters acceptable'
                                             }
-                                        })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Skills" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="skills"
@@ -187,7 +187,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                                 value: /^[0-9]+$/,
                                                 message: 'Only numbers acceptable'
                                             }
-                                        })} placeholder="Club Experience in years" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900" />
+                                        })} placeholder="Club Experience in years" className="w-full h-8 rounded-md border-[1px] border-black text-gray-900 p-2" />
                                         <ErrorMessage
                                             errors={errors}
                                             name="clubexperience"
@@ -207,7 +207,7 @@ const RequestForm = ({ setRequestForm, requestForm }) => {
                                         <ErrorMessage
                                             errors={errors}
                                             name="termcheck"
-                                            render={({ message }) => <p className='text-[#ee3c4d]'>{message}</p>}
+                                            render={({ message }) => <p className='text-[#ee3c4d] text-center'>{message}</p>}
                                         />
                                     </div>
                                     <div className='col-span-6 justify-self-center'>
