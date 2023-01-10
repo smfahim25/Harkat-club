@@ -113,15 +113,6 @@ export const baseApi = createApi({
             }),
             invalidatesTags: ["join-club-member"]
         }),
-        memberUpdate: builder.mutation({
-            query: (body) => ({
-                url: `/club-member-handler`,
-                method: "PUT",
-                body: body,
-                headers: csrf
-            }),
-            invalidatesTags: ["member-hanlder"]
-        }),
         memberDelete: builder.mutation({
             query: (body) => ({
                 url: `/club-member-handler`,

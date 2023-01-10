@@ -49,7 +49,7 @@ const LeftSidebar = () => {
                         <li><NavLink to='contactgoverningbody' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Contact Governing Body</NavLink></li>
                         <li><NavLink to='messagebox' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center' > <TiMessages /> Message Box</NavLink></li>
                         {admin && <div className="indicator">
-                            {requestMembers > 0 && <span className="indicator-item badge badge-bg-slate-900 left-[255px] text-white font-semibold">{requestMembers.length}</span>}
+                            {requestMembers.length > 0 && <span className="indicator-item badge badge-bg-slate-900 left-[-10px] text-white font-semibold">{requestMembers.length}</span>}
                             <li><NavLink to='membersrequest' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center w-[300px]'> <AiOutlineUsergroupAdd />Members Requests </NavLink></li>
                         </div>}
                         <li><NavLink to='members' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'> <BsPeople />Members </NavLink></li>

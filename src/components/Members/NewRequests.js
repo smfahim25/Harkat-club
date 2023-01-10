@@ -1,11 +1,11 @@
 import React from 'react';
 import { BiUserPlus, BiUserX } from 'react-icons/bi';
 import { toast } from 'react-toastify';
-import { useMemberDeleteMutation, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
+import { useDeleteRQMutation, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
 const NewRequests = (props) => {
     const { skills, member_Club_id } = props.member;
     const [memberUpdate, resInfo] = useMemberUpdateMutation();
-    const [memberDelete, resInfo1] = useMemberDeleteMutation();
+    const [deleteRQ, resInfo1] = useDeleteRQMutation();
     const acceptMemberRequest = () => {
         const body = {
             club_member_id: member_Club_id, status: "active"
@@ -16,10 +16,8 @@ const NewRequests = (props) => {
         });
     }
     const deleteMemberRequest = () => {
-        const body = {
-            club_member_id: member_Club_id, status: "not accepted"
-        }
-        memberDelete(body);
+        const id = member_Club_id;
+        deleteRQ(id);
         toast.success("Request delete successfully.", {
             position: toast.POSITION.BOTTOM_CENTER
         });
