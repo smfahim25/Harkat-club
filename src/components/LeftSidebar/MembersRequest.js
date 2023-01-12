@@ -11,7 +11,7 @@ const MembersRequest = () => {
     const { data: members, isLoading } = useGetClubDataQuery(id);
     const requestMembers = members.all_members.filter(member => member.member_status === 'pending');
     return (
-        <div>
+        <div className='mt-10'>
             {isLoading ? <div className='flex flex-col justify-center items-center mt-48'><PicturesLoading /> </div> : <div>
                 {admin && <div>
                     <div className='flex justify-between items-center mt-4 pl-4 bg-accent p-2 rounded-xl text-lg font-semibold 2xl:w-[800px]'>

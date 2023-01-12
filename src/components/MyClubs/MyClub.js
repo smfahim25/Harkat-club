@@ -14,7 +14,7 @@ const MyClub = (props) => {
                     <p>{club_id?.club_bio.slice(0, 200)}</p>
                 </div>
                 <div className='flex justify-center'>
-                    <Link to={`/${club_id?.harkat_id}`} className="primary-bg font-semibold text-white rounded-xl text-xl hover:text-white py-2 px-5">Open Club</Link>
+                    <Link to={`/${club_id?.harkat_id}`} className="mnf_btn hover:primary-bg text-[#ee3c4d] font-semibold rounded-xl text-xl hover:text-white py-2 px-5">Open Club</Link>
                 </div>
             </div>
         </div>

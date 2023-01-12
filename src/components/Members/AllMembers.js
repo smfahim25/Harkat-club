@@ -37,7 +37,7 @@ const AllMembers = ({ member }) => {
                     <p className=''>{member_status}</p>
                     <HiBadgeCheck />
                 </div>
-                {admin && <div ref={btnRef}>
+                {admin && <div ref={btnRef} className="flex justify-center items-center">
                     <button onClick={openToggle} title="Open option" type="button" className='cursor-pointer'>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 fill-current">
                             <path d="M256,144a64,64,0,1,0-64-64A64.072,64.072,0,0,0,256,144Zm0-96a32,32,0,1,1-32,32A32.036,32.036,0,0,1,256,48Z"></path>

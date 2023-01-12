@@ -113,7 +113,7 @@ export const baseApi = createApi({
             }),
             invalidatesTags: ["join-club-member"]
         }),
-        memberDelete: builder.mutation({
+        memberUpdate: builder.mutation({
             query: (body) => ({
                 url: `/club-member-handler`,
                 method: "PUT",
@@ -142,4 +142,4 @@ export const baseApi = createApi({
     }),
 })
 
-export const { useGetHatkatDataQuery, useGetClubDataQuery, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useMemberDeleteMutation, useGetEventQuery, useUpdateClubMediaMutation, useGetClubMediaQuery, useDeleteClubMediaMutation, useUploadImageMutation, useUploadVideoMutation, useMemberBlockMutation, useDeleteRQMutation } = baseApi;
+export const { useGetHatkatDataQuery, useGetClubDataQuery, useGetClubMemberQuery, useCreateEventMutation, useRequestJoinformMutation, useMemberUpdateMutation, useGetEventQuery, useUpdateClubMediaMutation, useGetClubMediaQuery, useDeleteClubMediaMutation, useUploadImageMutation, useUploadVideoMutation, useMemberBlockMutation, useDeleteRQMutation } = baseApi;

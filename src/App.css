@@ -46,6 +46,7 @@
   background-color: #ee3c4d;
 }
 
+
 .date-container-event input {
   border: 1px solid;
   box-sizing: border-box;
@@ -95,4 +96,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-weight: 600;
   padding: 10px;
   width: 270px;
+}
+
+.mnf_btn {
+  background-color: #ffe2e5;
+}
+
+.mnf_btn:hover {
+  background-color: #ee3c4d;
+}
+
+.toggle_btn:hover {
+  background-color: #ffe2e5;
 }

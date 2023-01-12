@@ -32,15 +32,10 @@ const LeftSidebar = () => {
         resInfo.isSuccess = false;
         window.location.reload();
     }
-    // console.log(resInfo);
     return (
         <div>
-            <div className="drawer drawer-mobile h-[720px] 2xl:mr-5 mt-5 border-r-2">
-                {/* <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center">
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-                </div> */}
-                {admin || clubMemberCheck === 'active' || clubMemberCheck === 'moderator' ? <div className={`${styles.keep_scrolling}`}>
+            {admin || clubMemberCheck === 'active' || clubMemberCheck === 'moderator' ? <div className="drawer drawer-mobile h-[720px] 2xl:mr-5 mt-5 border-r-2">
+                <div className={`${styles.keep_scrolling}`}>
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu w-[300px] text-base-content text-[17px]">
                         <li><NavLink to='uploadpost' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Upload Post</NavLink></li>
@@ -64,10 +59,10 @@ const LeftSidebar = () => {
                         <li><NavLink to='announcement' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Announcements</NavLink></li>
                         <li><NavLink to='news' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>News</NavLink></li>
                         <li><NavLink to='promoteclub' className='bg-accent rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white mb-2 justify-center'>Promote Club</NavLink></li>
-                        <li>{clubMemberCheck === 'active' ? < label htmlFor='leave-modal' onClick={() => setOpen(true)} className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white justify-center'>Leave Club</label> : ''}</li>
+                        <li>{clubMemberCheck === 'active' || clubMemberCheck === 'moderator' ? < label htmlFor='leave-modal' onClick={() => setOpen(true)} className='bg-accent text-red-600 rounded-[20px] h-[30px] hover:bg-[#ee3c4d] hover:text-white justify-center'>Leave Club</label> : ''}</li>
                     </ul>
-                </div> : " "}
-            </div>
+                </div>
+            </div> : " "}
             {open && <div>
                 <input type="checkbox" id="leave-modal" className="modal-toggle" />
                 <div className="modal modal-bottom sm:modal-middle">

@@ -34,9 +34,9 @@ const DeleteModal = ({ media, setDeleting, deleting, setOpen }) => {
                         <div className="modal-box">
                             <h3 className="font-bold text-lg">Are you sure want to delete?</h3>
                             <div className="modal-action">
-                                {img && <button onClick={() => { handleDelete(media_id); setDeleting(false); }} className='primary-bg px-5 h-[32px]  rounded-lg text-white font-semibold'>Delete</button>}
-                                {video && <button onClick={() => { handleDelete(media_id); setDeleting(false); }} className='primary-bg px-5 h-[32px] rounded-lg text-white font-semibold'>Delete</button>}
-                                <label htmlFor="delete-modal" className="bg-neutral px-5 py-2 rounded-lg text-white font-semibold cursor-pointer">Cancel</label>
+                                {img && <button onClick={() => { handleDelete(media_id); setDeleting(false); }} className='mnf_btn px-5 h-[32px]  rounded-lg text-[#ee3c4d] font-semibold hover:text-white'>Delete</button>}
+                                {video && <button onClick={() => { handleDelete(media_id); setDeleting(false); }} className='mnf_btn px-5 h-[32px] rounded-lg text-[#ee3c4d] font-semibold hover:text-white'>Delete</button>}
+                                <label htmlFor="delete-modal" className="mnf_btn px-5 py-2 rounded-lg text-[#ee3c4d] hover:text-white font-semibold cursor-pointer">Cancel</label>
                             </div>
                         </div>
                     </div>
