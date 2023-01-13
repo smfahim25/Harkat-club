@@ -24,7 +24,7 @@ const Toggle = ({ media, setOpen }) => {
                 }
             </div>
             {
-                edit && <EditModal edit={edit} media={media} setEdit={setEdit} setOpen={setOpen}></EditModal>
+                edit && <EditModal edit={edit} media={media} setEdit={setEdit} setOpen={setOpen} ></EditModal>
             }
             {
                 deleting && <DeleteModal deleting={deleting} media={media} setDeleting={setDeleting} setOpen={setOpen}></DeleteModal>

@@ -112,7 +112,7 @@ const CreateEvent = ({ createEventForm, setCreateEventForm }) => {
             {createEventForm && <div>
                 <input type="checkbox" id="create-event" className="modal-toggle" />
                 <div className="modal">
-                    <div className="modal-box  w-11/12 max-w-5xl relative mt-20">
+                    <div className="modal-box  w-11/12 max-w-5xl relative mt-20 2xl:mt-0">
                         <label htmlFor="create-event" className="btn btn-sm btn-circle absolute right-2 top-2 hover:text-white">✕</label>
                         <section className="p-6 bg-slate-100 text-black">
                             <form onSubmit={handleSubmit(onSubmit)} className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">

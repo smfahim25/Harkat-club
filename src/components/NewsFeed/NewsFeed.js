@@ -25,16 +25,22 @@ const NewsFeed = () => {
                 data.push(element)
             });
         }
-        setPosts(data)
+        setPosts(data);
     }, [club_media])
-    console.log(club_media);
+    // console.log(club_media);
     return (
-        <div className={`${styles.keep_scrolling} h-[720px] px-10 mt-10`}>
-            {
-                isLoading ? <div className='flex justify-center items-center'><FeedLoader /></div> : club_media?.results?.map(media => <Feed key={media.media_id
-                } media={media}></Feed>)
-            }
-            {club_media?.next !== null ? <button onClick={loadClick} className='text-white primary-bg text-lg font-semibold flex justify-center'>Load more</button> : ''}
+        <div className={`${styles.keep_scrolling} h-[720px] px-10 mt-10 2xl:ml-10`}>
+            {isLoading ? <div className='flex justify-center items-center'><FeedLoader /></div> : <div>
+                {
+                    club_media?.results?.map(media => <Feed key={media.media_id
+                    } media={media}></Feed>)
+                }
+                {club_media?.next !== null &&
+                    <div className='flex justify-center'>
+                        <button onClick={loadClick} className='text-white primary-bg text-lg font-semibold p-2 rounded-xl'>Load more</button>
+                    </div>
+                }
+            </div>}
         </div>
     );
 };

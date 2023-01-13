@@ -22,7 +22,6 @@ const DeleteModal = ({ media, setDeleting, deleting, setOpen }) => {
             toast.info("Video is deleting now.", {
                 position: toast.POSITION.BOTTOM_CENTER
             });
-
         }
     }
     return (

@@ -3,7 +3,7 @@ import React from 'react';
 const PastActivity = () => {
     return (
         <div>
-            <div className="max-w-xl p-6 rounded-md shadow-md bg-slate-100 2xl:w-[800px]'">
+            <div className="p-6 rounded-md shadow-md bg-slate-100 w-[500px] 2xl:w-[800px]">
                 <img src="https://source.unsplash.com/random/300x300/?1" alt="" className="object-cover object-center w-full rounded-md h-72 bg-gray-500" />
                 <div className="mt-6 mb-2">
                     <span className="block text-xl font-medium tracking-widest uppercase text-black">Date and Venue</span>

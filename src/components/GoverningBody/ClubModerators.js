@@ -64,7 +64,7 @@ const ClubModerators = ({ moderator }) => {
                             <path d="M256,192a64,64,0,1,0,64,64A64.072,64.072,0,0,0,256,192Zm0,96a32,32,0,1,1,32-32A32.036,32.036,0,0,1,256,288Z"></path>
                         </svg>
                     </button>
-                    <div className='absolute top-10 lg:left-[360px] 2xl:left-[480px] z-[1]'>
+                    <div className='absolute top-10 lg:left-[380px] 2xl:left-[540px] z-[1]'>
                         {
                             open && <div className='bg-white shadow-2xl rounded-xl w-72 p-3'> <div className='p-1 text-lg cursor-pointer rounded toggle_btn hover:text-[#ee3c4d] font-semibold'>
                                 <label className='mt-2 flex items-center cursor-pointer' htmlFor="delete-modal" onClick={() => setDeleting(true)}><span className='mr-2'><TiUserDeleteOutline /></span> Remove from moderator</label>

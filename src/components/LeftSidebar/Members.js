@@ -13,7 +13,7 @@ const Members = () => {
     const activeMembers = members.all_members.filter(member => member.member_status === 'active');
     return (
         <div>
-            <div className='mt-10'>
+            <div className='mt-10 2xl:ml-7'>
                 {
                     isLoading ? <div className='flex flex-col justify-center items-center mt-48'><PicturesLoading /> </div> : <div>
                         {admin || clubMemberCheck === 'active' ? <div>

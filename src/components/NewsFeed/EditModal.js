@@ -81,7 +81,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
         <div>
             {edit && <div>
                 <input type="checkbox" id="edit-modal" className="modal-toggle" />
-                <div className="modal modal-bottom sm:modal-middle mt-20">
+                <div className="modal modal-bottom sm:modal-middle mt-20 2xl:mt-0">
                     <div className="modal-box relative">
                         <label htmlFor="edit-modal" className="btn btn-sm btn-circle absolute right-2 top-2 hover:text-white">✕</label>
                         <form onSubmit={handleEdit}>
@@ -89,7 +89,7 @@ const EditModal = ({ media, setEdit, edit, setOpen }) => {
                             <div className='flex flex-col justify-center items-center mt-5 mb-2'>
                                 <div
                                     ref={wrapperRef}
-                                    className="drop-file-input w-full h-72 border-dashed"
+                                    className="drop-file-input w-full h-76 border-dashed"
                                     onDragEnter={onDragEnter}
                                     onDragLeave={onDragLeave}
                                     onDrop={onDrop}

@@ -3,9 +3,9 @@ import style from '../CSS/Accomplishment.module.css';
 
 const Accomplishment = () => {
     return (
-        <div className={`${style.keep_scrolling} h-[740px] px-5 mt-10`}>
+        <div className={`${style.keep_scrolling} h-[740px] px-5 mt-10 2xl:ml-5`}>
             <div>
-                <h1 className='mb-3 pl-4 bg-accent p-2 text-center rounded-xl text-lg font-semibold'>Event Organized (2)</h1>
+                <h1 className='mb-3 pl-4 bg-accent p-2 text-center rounded-xl text-lg font-semibold w-[500px] 2xl:w-[750px]'>Event Organized (2)</h1>
                 <div className='grid grid-cols-2 gap-5'>
                     <div className="p-5 rounded-md shadow-md bg-slate-50">
                         <img src="https://source.unsplash.com/random/300x300/?1" alt="" className="object-cover object-center w-full rounded-md h-64" />

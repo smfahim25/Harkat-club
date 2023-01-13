@@ -41,7 +41,7 @@ const Activities = () => {
                 <h1 onClick={pastActivitiesClick} onDoubleClick={() => setPastActivities(false)} className={pastActivities ? 'w-48 p-2 cursor-pointer rounded-md text-center bg-[#ee3c4d] font-semibold text-white' : 'w-48 bg-accent p-2 cursor-pointer rounded-md text-center'}>Past Activities</h1>
             </div>
             {isLoading ? <div className='flex justify-center items-center mt-10'><FeedLoader /></div> : <div>
-                {proposedActivities && <div className='mt-5 flex flex-col justify-center items-center'>
+                {proposedActivities && <div className='mt-5 flex flex-col justify-center items-center 2xl:ml-7'>
                     {
                         club_events?.results?.slice(1).slice(-1).map(event => <ProposedActivity key={event?.HarkatClubEvents_id} event={event}></ProposedActivity>).reverse()
                     }
@@ -50,10 +50,10 @@ const Activities = () => {
                 </div>}
             </div >}
             {
-                futureActivities && <div className='mt-5 px-10 flex justify-center items-center'><FutureActivity /></div>
+                futureActivities && <div className='mt-5 px-10 flex justify-center items-center 2xl:ml-7'><FutureActivity /></div>
             }
             {
-                pastActivities && <div className='mt-5 px-10 flex justify-center items-center'><PastActivity /></div>
+                pastActivities && <div className='mt-5 px-10 flex justify-center items-center 2xl:ml-7'><PastActivity /></div>
             }
             {createEventForm && <CreateEvent createEventForm={createEventForm} setCreateEventForm={setCreateEventForm}></CreateEvent>}
         </div >
