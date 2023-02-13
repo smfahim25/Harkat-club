@@ -4,21 +4,21 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getHatkatData: builder.query({
             query: () => ({
-                url: `/api/v1/Clubs`,
+                url: `/harkat/api/v1/Clubs`,
                 method: "GET",
             }),
             providesTags: ["clubs"]
         }),
         getClubMember: builder.query({
             query: () => ({
-                url: `/club-user`,
+                url: `/harkat/club-user`,
                 method: "GET",
             }),
             providesTags: ["clubs"]
         }),
         getClubData: builder.query({
             query: (id) => ({
-                url: `/club-api/${id}`,
+                url: `/harkat/club-api/${id}`,
                 method: "GET",  
             }),
             providesTags: ["club"]
@@ -32,7 +32,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         deleteClubMedia: builder.mutation({
             query: (id) => ({
-                url: `/api/v1/Club-Media/${id}/`,
+                url: `/harkat/api/v1/Club-Media/${id}/`,
                 method: "DELETE",
             }),
             invalidatesTags: ["club_media"]
@@ -42,7 +42,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
                 const id = data.id;
                 const body = data.body;
                 return {
-                    url: `/api/v1/Club-Media/${id}/`,
+                    url: `/harkat/api/v1/Club-Media/${id}/`,
                     method: 'PUT',
                     body: body,
                 }
@@ -51,14 +51,14 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         getClubMedia: builder.query({
             query: ({ id, page_number }) => ({
-                url: `/club-media?club_id=${id}&page=${page_number}`,
+                url: `/harkat/club-media?club_id=${id}&page=${page_number}`,
                 method: "GET",
             }),
             providesTags: ["club_media"]
         }),
         uploadVideo: builder.mutation({
             query: (body) => ({
-                url: `/api/v1/Club-Media/`,
+                url: `/harkat/api/v1/Club-Media/`,
                 method: "POST",
                 body: body,
             }),
@@ -74,7 +74,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         createEvent: builder.mutation({
             query: (body) => ({
-                url: `/api/v1/Club-Events/`,
+                url: `/harkat/api/v1/Club-Events/`,
                 method: "POST",
                 body: body, 
             }),
@@ -82,7 +82,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         requestJoinform: builder.mutation({
             query: (body) => ({
-                url: `/api/v1/join-club-member/`,
+                url: `/harkat/api/v1/join-club-member/`,
                 method: "POST",
                 body: body,  
             }),
@@ -90,7 +90,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         memberUpdate: builder.mutation({
             query: (body) => ({
-                url: `/club-member-handler`,
+                url: `/harkat/club-member-handler`,
                 method: "PUT",
                 body: body,
             }),
@@ -98,7 +98,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         memberBlock: builder.mutation({
             query: (body) => ({
-                url: `/club-member-handler`,
+                url: `/harkat/club-member-handler`,
                 method: "PUT",
                 body: body,
             }),
@@ -106,7 +106,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         deleteRQ: builder.mutation({
             query: (id) => ({
-                url: `/api/v1/join-club-member/${id}`,
+                url: `/harkat/api/v1/join-club-member/${id}`,
                 method: "DELETE",  
             }),
             invalidatesTags: ["member-hanlder"]
