@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useUpdateClubMediaMutation } from '../../app/EndPoints/baseEndpoints';
+import { useUpdateClubMediaMutation } from '../../app/EndPoints/HarkatClub';
 import uploadImg from '../../assets/uploader.png';
 import CSRFToken from '../CSRF_Token/CSRFToken';
 

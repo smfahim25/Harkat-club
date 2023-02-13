@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetClubMemberQuery, useGetHatkatDataQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubMemberQuery, useGetHatkatDataQuery } from '../../app/EndPoints/HarkatClub';
 import { removeAdmin } from '../../app/Slices/AdminSlice';
 import { removeClubCurrentMember } from '../../app/Slices/ClubMemberSlice';
 import { removeMember } from '../../app/Slices/MembersSlice';

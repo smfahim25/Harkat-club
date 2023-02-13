@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
-import { useGetClubDataQuery, useRequestJoinformMutation } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubDataQuery, useRequestJoinformMutation } from '../../app/EndPoints/HarkatClub';
 import CSRFToken from '../CSRF_Token/CSRFToken';
 
 const RequestForm = ({ setRequestForm, requestForm }) => {

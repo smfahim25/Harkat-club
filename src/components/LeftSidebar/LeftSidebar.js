@@ -6,9 +6,9 @@ import { BsPeople } from 'react-icons/bs';
 import { TiMessages } from 'react-icons/ti';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { GiPokecog } from 'react-icons/gi';
-import { useGetClubDataQuery, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useGetClubDataQuery, useMemberUpdateMutation } from '../../app/EndPoints/HarkatClub';
 const LeftSidebar = () => {
     const { id } = useParams();
     const [open, setOpen] = useState(false);

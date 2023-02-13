@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiUserPlus, BiUserX } from 'react-icons/bi';
 import { toast } from 'react-toastify';
-import { useDeleteRQMutation, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
+import { useDeleteRQMutation, useMemberUpdateMutation } from '../../app/EndPoints/HarkatClub';
 const NewRequests = (props) => {
     const { skills, member_Club_id } = props.member;
     const [memberUpdate, resInfo] = useMemberUpdateMutation();

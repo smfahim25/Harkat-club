@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubDataQuery } from '../../app/EndPoints/HarkatClub';
 import PicturesLoading from '../isLoading/PicturesLoading';
 import AllMembers from '../Members/AllMembers';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { useGetClubMediaQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubMediaQuery } from '../../app/EndPoints/HarkatClub';
 import PicturesLoading from '../isLoading/PicturesLoading';
 import Video from '../Video/Video';
 

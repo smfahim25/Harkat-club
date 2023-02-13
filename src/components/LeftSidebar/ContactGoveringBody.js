@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubDataQuery } from '../../app/EndPoints/HarkatClub';
 import ClubAdmins from '../GoverningBody/ClubAdmins';
 import ClubModerators from '../GoverningBody/ClubModerators';
 

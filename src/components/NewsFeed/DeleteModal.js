@@ -1,6 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
-import { useDeleteClubMediaMutation } from '../../app/EndPoints/baseEndpoints';
+import { useDeleteClubMediaMutation } from '../../app/EndPoints/HarkatClub';
 
 const DeleteModal = ({ media, setDeleting, deleting, setOpen }) => {
     const { img, video, media_id } = media;

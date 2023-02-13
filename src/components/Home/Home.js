@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
 import style from '../CSS/Home.module.css';
 import MyclubLoading from '../isLoading/MyclubLoading';
 import { setUser } from '../../app/Slices/UserSlice';
@@ -9,6 +8,7 @@ import { setAdmin } from '../../app/Slices/AdminSlice';
 import RequestForm from './RequestForm';
 import { setClubCurrentMember } from '../../app/Slices/ClubMemberSlice';
 import CancelRequestModal from './CancelRequestModal';
+import { useGetClubDataQuery } from '../../app/EndPoints/HarkatClub';
 
 const Home = ({ id }) => {
     const [clubMember, setClubMember] = useState(null);

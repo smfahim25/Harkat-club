@@ -1,7 +1,7 @@
 import React from 'react';
 import { RiAdminLine } from 'react-icons/ri';
 import { useParams } from 'react-router';
-import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubDataQuery } from '../../app/EndPoints/HarkatClub';
 import PicturesLoading from '../isLoading/PicturesLoading';
 
 const ClubAdmins = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { useGetEventQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetEventQuery } from '../../app/EndPoints/HarkatClub';
 import FeedLoader from '../isLoading/FeedLoader';
 import CreateEvent from './CreateEvent';
 import FutureActivity from './FutureActivity';

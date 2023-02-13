@@ -3,7 +3,7 @@ import { MdOutlineAddModerator } from 'react-icons/md';
 import { TiUserDeleteOutline } from 'react-icons/ti';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
+import { useMemberUpdateMutation } from '../../app/EndPoints/HarkatClub';
 
 const ClubModerators = ({ moderator }) => {
     const { member_status, member_Club_id } = moderator;

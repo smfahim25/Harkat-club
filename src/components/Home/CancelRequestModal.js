@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useDeleteRQMutation } from '../../app/EndPoints/baseEndpoints';
+import { useDeleteRQMutation } from '../../app/EndPoints/HarkatClub';
 
 const CancelRequestModal = ({ cancelRequest, setCancelRequest }) => {
     const [deleteRQ, resInfo] = useDeleteRQMutation();

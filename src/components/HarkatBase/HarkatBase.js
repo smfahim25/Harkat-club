@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-import { useGetClubDataQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubDataQuery } from '../../app/EndPoints/HarkatClub';
 import Home from '../Home/Home';
 import MyclubLoading from '../isLoading/MyclubLoading';
 import LeftSidebar from '../LeftSidebar/LeftSidebar';

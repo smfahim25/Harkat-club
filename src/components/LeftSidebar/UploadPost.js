@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
-import { useUploadImageMutation, useUploadVideoMutation } from '../../app/EndPoints/baseEndpoints';
+import { useUploadImageMutation, useUploadVideoMutation } from '../../app/EndPoints/HarkatClub';
 import uploadImg from '../../assets/uploader.png';
 import CSRFToken from '../CSRF_Token/CSRFToken';
 import '../CSS/UploadPost.css';

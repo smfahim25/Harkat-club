@@ -3,7 +3,7 @@ import Feed from './Feed';
 import styles from "../CSS/NewsFeed.module.css"
 import { useParams } from 'react-router';
 import FeedLoader from '../isLoading/FeedLoader';
-import { useGetClubMediaQuery } from '../../app/EndPoints/baseEndpoints';
+import { useGetClubMediaQuery } from '../../app/EndPoints/HarkatClub';
 const NewsFeed = () => {
     const { id } = useParams();
     const [page_number, setPage_number] = useState(1);
@@ -26,7 +26,7 @@ const NewsFeed = () => {
             });
         }
         setPosts(data);
-    }, [club_media])
+    }, [club_media,posts])
     // console.log(club_media);
     return (
         <div className={`${styles.keep_scrolling} h-[720px] px-10 mt-10 2xl:ml-10`}>

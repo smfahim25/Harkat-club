@@ -1,9 +1,9 @@
 import React from 'react';
 import { toast } from 'react-toastify';
-import { useDeleteRQMutation, useMemberBlockMutation, useMemberUpdateMutation } from '../../app/EndPoints/baseEndpoints';
 import { MdOutlineAddModerator } from 'react-icons/md';
 import { BiBlock } from 'react-icons/bi';
 import { TiUserDeleteOutline } from 'react-icons/ti';
+import { useDeleteRQMutation, useMemberBlockMutation, useMemberUpdateMutation } from '../../app/EndPoints/HarkatClub';
 
 const MemberToggle = ({ open, member }) => {
     const { member_Club_id } = member;
