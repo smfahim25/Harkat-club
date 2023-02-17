@@ -25,7 +25,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         getEvent: builder.query({
             query: (id) => ({
-                url: `/club-events?club_id=${id}`,
+                url: `/harkat/club-events?club_id=${id}`,
                 method: "GET", 
             }),
             providesTags: ["club_images"]
@@ -66,7 +66,7 @@ export const harkatClubSlice = apiSlice.injectEndpoints({
         }),
         uploadImage: builder.mutation({
             query: (body) => ({
-                url: `/api/v1/Club-Media/`,
+                url: `/harkat/api/v1/Club-Media/`,
                 method: "POST",
                 body: body,
             }),
